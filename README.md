@@ -6,6 +6,7 @@ We have just started working on a mod for the Boeing 787-10. There is a lot of e
 - Descent Forecast
 ### MFD
 - Door Page
+- Gear Page
 
 We can't offer much more right now because we just started working on it, but we are working on many different things.
 
