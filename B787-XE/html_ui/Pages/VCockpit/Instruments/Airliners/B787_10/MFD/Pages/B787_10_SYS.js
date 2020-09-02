@@ -344,12 +344,14 @@ class B787_10_SYS_Page_DOOR extends B787_10_SYS_Page {
             this.doorBack.setAttribute("visibility", "hidden");
             this.doorBackClosed.setAttribute("visibility", "visible");
             this.fwdCargoDoor.setAttribute("visibility", "hidden");
+            this.frame = 0;
         }
+
     }
 
     updateChild(_deltaTime) {
 
-        if (_deltaTime < 7 || _deltaTime % 7 == 0)
+        if ((this.frame = this.frame % 10) == 0)
         {
 
             var leftFrontDoorStatus = SimVar.GetSimVarValue("INTERACTIVE POINT OPEN:0", "percent");
@@ -381,12 +383,25 @@ class B787_10_SYS_Page_DOOR extends B787_10_SYS_Page {
                 this.fwdCargoDoor.setAttribute("visibility", "hidden");
             }
         }
+        this.frame++;
 
     }
     getName() { return "DOOR"; }
 }
 class B787_10_SYS_Page_GEAR extends B787_10_SYS_Page {
+
+    init() {
+        if (this.pageRoot != null) {
+            this.gearDisplay = new Boeing.GearDisplay(this.pageRoot.querySelector("#gearDoor"));
+        }
+    }
+
     updateChild(_deltaTime) {
+
+        if (this.gearDisplay != null) {
+            this.gearDisplay.update(_deltaTime);
+        }
+
     }
     getName() { return "GEAR"; }
 }
