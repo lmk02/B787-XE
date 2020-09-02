@@ -14,7 +14,7 @@ We can't offer much more right now because we just started working on it, but we
 Just download the source code and copy the inner "B787-XE" folder into your community folder of MSFS 2020.
 
 ## Development
-[![Discord](https://img.shields.io/discord/207626574659321857.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/JCzmATr)
+[![Discord](https://img.shields.io/discord/207626574659321857.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/86uGxGE)
 
 Join our Discord to get involved or to get the latest information.
 
