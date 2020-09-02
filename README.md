@@ -14,7 +14,7 @@ Just download the latest release [here](https://github.com/lmk02/B787-XE/release
 We can't offer much more right now because we just started working on it, but we are working on many different things.
 
 ## Development
-[![Discord](https://img.shields.io/discord/207626574659321857.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/86uGxGE)
+[![Discord](https://img.shields.io/discord/207626574659321857.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/Tc8zXpk)
 
 Join our Discord to get involved or to get the latest information.
 
