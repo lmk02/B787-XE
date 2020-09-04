@@ -314,3 +314,34 @@ b787-10-sys-element #Pages #GEAR_Page #temp text.label {
   text-anchor: left;
   fill: var(--eicasWhite);
 }
+
+
+b787-10-sys-element #Pages #STAT_Page path {
+  stroke: var(--eicasBlue);
+  stroke-width: 6px;
+  fill: none;
+}
+
+b787-10-sys-element #Pages #STAT_Page rect {
+  stroke: black;
+  stroke-width: 6px;
+  fill: black;
+}
+
+b787-10-sys-element #Pages #STAT_Page text.label {
+  font-size: 35px;
+  text-anchor: left;
+  fill: var(--eicasBlue);
+}
+
+b787-10-sys-element #Pages #STAT_Page text.vals {
+  font-size: 40px;
+  text-anchor: left;
+  fill: var(--eicasWhite);
+}
+
+b787-10-sys-element #Pages #STAT_Page text.valLabel {
+  font-size: 35px;
+  text-anchor: left;
+  fill: var(--eicasWhite);
+}

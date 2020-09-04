@@ -226,7 +226,67 @@ class B787_10_SYS_Page {
     }
 }
 class B787_10_SYS_Page_STAT extends B787_10_SYS_Page {
+    init(){
+
+        this.apuInfo = new B787_10_APU_INFO();
+
+        this.n1L = 0;
+        this.n1R = 0;
+        
+        this.hydActive = false;
+
+        this.hydPress = 0;
+
+        this.frame = 0;
+
+        if (this.pageRoot != null) {
+            this.hydL = this.pageRoot.querySelector("#hydL");
+            this.hydC = this.pageRoot.querySelector("#hydC");
+            this.hydR = this.pageRoot.querySelector("#hydR");
+
+            this.allTextValueComponents.push(new Airliners.DynamicValueComponent(this.pageRoot.querySelector("#apuRPM"), this.apuInfo.getRPM.bind(this), 1));
+            this.allTextValueComponents.push(new Airliners.DynamicValueComponent(this.pageRoot.querySelector("#apuEGT"), this.apuInfo.getEGT.bind(this), 1));
+            this.allTextValueComponents.push(new Airliners.DynamicValueComponent(this.pageRoot.querySelector("#oilPress"), this.apuInfo.getOilPress.bind(this), 1));
+            this.allTextValueComponents.push(new Airliners.DynamicValueComponent(this.pageRoot.querySelector("#oilQty"), this.apuInfo.getOilQty.bind(this), 1));
+            this.allTextValueComponents.push(new Airliners.DynamicValueComponent(this.pageRoot.querySelector("#oilTemp"), this.apuInfo.getOilTemp.bind(this), 1));
+
+        }
+        
+    }
+
     updateChild(_deltaTime) {
+
+        if ((this.frame = this.frame % 10) == 0)
+        {
+            this.n1L =  SimVar.GetSimVarValue("ENG N1 RPM:1", "percent");
+            this.n1R =  SimVar.GetSimVarValue("ENG N1 RPM:2", "percent");
+            if ((this.n1L > 10 && this.n1L < 18) || (this.n1R > 10 && this.n1R < 18))
+            {
+                this.hydActive = true;
+            } else if (this.n1L < 10 && this.n1R < 10) {
+                this.hydActive = false;
+            } else if (this.n1L > 18 || this.n1R > 18) {
+                this.hydPress = 5100;
+                this.hydActive = true;
+            }
+            this.hydL.innerHTML = this.hydPress.toFixed(0);
+            this.hydC.innerHTML = this.hydPress.toFixed(0);
+            this.hydR.innerHTML = this.hydPress.toFixed(0);
+        }
+
+        if(this.hydActive && this.hydPress < 5100)
+        {
+            this.hydPress = this.hydPress+25;
+        }
+
+        if(!this.hydActive && this.hydPress > 0)
+        {
+            this.hydPress = this.hydPress-25;
+        }
+
+        this.frame++;
+        
+
     }
     getName() { return "STAT"; }
 }
@@ -424,6 +484,39 @@ class B787_10_SYS_Page_CB extends B787_10_SYS_Page {
     updateChild(_deltaTime) {
     }
     getName() { return "CB"; }
+}
+
+class B787_10_APU_INFO {
+    constructor(){
+        this.rpmPct = 0;
+    }
+
+    getRPM()
+    {
+        this.rpmPct = SimVar.GetSimVarValue("APU PCT RPM", "percent");
+        return ((1 - Math.exp(-this.rpmPct/100 * 4)) * 103.7);
+    }
+
+    getEGT()
+    {
+        this.rpmPct = SimVar.GetSimVarValue("APU PCT RPM", "percent");
+        return ((1 - Math.exp(-this.rpmPct/100 * 3)) * 302.4 + 30); 
+    }
+
+    getOilPress()
+    {
+        this.rpmPct = SimVar.GetSimVarValue("APU PCT RPM", "percent");
+        return ((1 - Math.exp(-this.rpmPct/100 * 3)) * 69.2 + 18);
+    }
+    getOilTemp()
+    {
+        this.rpmPct = SimVar.GetSimVarValue("APU PCT RPM", "percent");
+        return ((1 - Math.exp(-this.rpmPct/100 * 3)) * 13.5 + 32);
+    }
+    getOilQty()
+    {
+        return 13;
+    }
 }
 customElements.define("b787-10-sys-element", B787_10_SYS);
 //# sourceMappingURL=B787_10_SYS.js.map
