@@ -11,6 +11,7 @@ Just download the latest release [here](https://github.com/lmk02/B787-XE/release
 - Door Page
 - Gear Page
 - Status Page
+- Electrical Synoptic Display
 
 We can't offer much more right now because we just started working on it, but we are working on many different things.
 

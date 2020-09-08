@@ -291,7 +291,212 @@ class B787_10_SYS_Page_STAT extends B787_10_SYS_Page {
     getName() { return "STAT"; }
 }
 class B787_10_SYS_Page_ELEC extends B787_10_SYS_Page {
+
+    init() {
+
+        this.n1L = 0;
+        this.n1R = 0;
+
+        this.apuRpm = 0;
+
+        this.leftEngineStarted = false;
+        this.rightEngineStarted = false;
+        this.apuStarted = false;
+
+        this.frame = 0;
+        
+        if (this.pageRoot != null) {
+            this.extPwr3 = this.pageRoot.querySelector("#extPwr3");
+            this.extPwr2 = this.pageRoot.querySelector("#extPwr2");
+            this.extPwr1 = this.pageRoot.querySelector("#extPwr1");
+            this.apuL = this.pageRoot.querySelector("#apuL");
+            this.apuR = this.pageRoot.querySelector("#apuR");
+            this.eng1 = this.pageRoot.querySelector("#eng1");
+            this.eng2 = this.pageRoot.querySelector("#eng2");
+            this.eng3 = this.pageRoot.querySelector("#eng3");
+            this.eng4 = this.pageRoot.querySelector("#eng4");
+            this.bus = this.pageRoot.querySelector("#bus");
+
+            this.ext3pass = this.pageRoot.querySelector("#ext3pass");
+            this.ext2pass = this.pageRoot.querySelector("#ext2pass");
+            this.ext1pass = this.pageRoot.querySelector("#ext1pass");
+            this.apuLpass = this.pageRoot.querySelector("#apuLpass");
+            this.apuRpass = this.pageRoot.querySelector("#apuRpass");
+            this.eng1pass = this.pageRoot.querySelector("#eng1pass");
+            this.eng2pass = this.pageRoot.querySelector("#eng2pass");
+            this.eng3pass = this.pageRoot.querySelector("#eng3pass");
+            this.eng4pass = this.pageRoot.querySelector("#eng4pass");
+
+            this.allTextValueComponents.push(new Airliners.DynamicValueComponent(this.pageRoot.querySelector("#batVolts"), this.getBatVolts.bind(this), 1));
+            this.allTextValueComponents.push(new Airliners.DynamicValueComponent(this.pageRoot.querySelector("#batAmps"), this.getBatAmps.bind(this), 1));
+            this.allTextValueComponents.push(new Airliners.DynamicValueComponent(this.pageRoot.querySelector("#apuVolts"), this.getAPUVolts.bind(this), 1));
+            this.allTextValueComponents.push(new Airliners.DynamicValueComponent(this.pageRoot.querySelector("#apuAmps"), this.getAPUAmps.bind(this), 1));
+        }
+    }
+
+    getAPUVolts(){
+        return SimVar.GetSimVarValue("APU VOLTS", "volt");
+    }
+
+    getAPUAmps(){
+        var apuVolts = SimVar.GetSimVarValue("APU VOLTS", "volt");
+        return (apuVolts > 1 ? 14 : 0);
+    }
+
+    getBatVolts(){
+        return SimVar.GetSimVarValue("ELECTRICAL BATTERY VOLTAGE", "volt");
+    }
+
+    getBatAmps(){
+        return SimVar.GetSimVarValue("ELECTRICAL BATTERY LOAD", "ampere");
+    }
+
     updateChild(_deltaTime) {
+
+        if ((this.frame = this.frame % 10) == 0)
+        {
+            var tempn1L = SimVar.GetSimVarValue("ENG N1 RPM:1", "percent");
+            var tempn1R = SimVar.GetSimVarValue("ENG N1 RPM:2", "percent");
+
+            if(tempn1L < 18)
+            {
+                if (tempn1L - 0.01 > this.n1L)
+                {
+                    this.eng1.setAttribute("class", "starting");
+                    this.eng2.setAttribute("class", "starting");
+                } else if ((tempn1L < this.n1L - 0.01) || tempn1L < 0.1) {
+                    this.eng1.setAttribute("class", "off");
+                    this.eng2.setAttribute("class", "off");
+                }
+                this.leftEngineStarted = false;
+            } else {
+                this.leftEngineStarted = true;
+                this.eng1.setAttribute("class", "on");
+                this.eng2.setAttribute("class", "on");
+            }
+
+            if(tempn1R < 18)
+            {
+                if (tempn1R - 0.01 > this.n1R)
+                {
+                    this.eng3.setAttribute("class", "starting");
+                    this.eng4.setAttribute("class", "starting");
+                } else if ((tempn1R < this.n1R - 0.01) || tempn1R < 0.1) {
+                    this.eng3.setAttribute("class", "off");
+                    this.eng4.setAttribute("class", "off");
+                }
+                this.rightEngineStarted = false;
+            } else {
+                this.rightEngineStarted = true;
+                this.eng3.setAttribute("class", "on");
+                this.eng4.setAttribute("class", "on");
+            }
+
+            this.n1L = tempn1L;
+            this.n1R = tempn1R;
+
+            var tempApuRpm = SimVar.GetSimVarValue("APU PCT RPM", "percent");
+            
+            if (tempApuRpm < 98)
+            {
+                if (tempApuRpm - 0.01 > this.apuRpm )
+                {
+                    this.apuL.setAttribute("class", "starting");
+                    this.apuR.setAttribute("class", "starting");
+                } else {
+                    this.apuL.setAttribute("class", "off");
+                    this.apuR.setAttribute("class", "off");
+                }
+                this.apuStarted = false;
+            } else {
+                this.apuStarted = true;
+                this.apuL.setAttribute("class", "on");
+                this.apuR.setAttribute("class", "on");
+            }
+
+            this.apuRpm = tempApuRpm;
+
+            var extPwrL = SimVar.GetSimVarValue("EXTERNAL POWER ON:1", "bool");
+            var extPwrR = SimVar.GetSimVarValue("EXTERNAL POWER ON:2", "bool");
+            var extPwrAft = SimVar.GetSimVarValue("EXTERNAL POWER ON:3", "bool");
+            var extPwrLAv = SimVar.GetSimVarValue("EXTERNAL POWER AVAILABLE:1", "bool")
+            var extPwrRAv = SimVar.GetSimVarValue("EXTERNAL POWER AVAILABLE:2", "bool")
+            var extPwrAftAv = SimVar.GetSimVarValue("EXTERNAL POWER AVAILABLE:3", "bool");
+
+            var engAlt1 = SimVar.GetSimVarValue("GENERAL ENG MASTER ALTERNATOR:1", "bool");
+            var engAlt2 = SimVar.GetSimVarValue("GENERAL ENG MASTER ALTERNATOR:2", "bool");
+            var engAlt3 = SimVar.GetSimVarValue("GENERAL ENG MASTER ALTERNATOR:3", "bool");
+            var engAlt4 = SimVar.GetSimVarValue("GENERAL ENG MASTER ALTERNATOR:4", "bool");
+
+            var apuGen1 = SimVar.GetSimVarValue("APU GENERATOR SWITCH:1", "bool");
+            var apuGen2 = SimVar.GetSimVarValue("APU GENERATOR SWITCH:2", "bool");
+
+
+            this.extPwr1.setAttribute("class", extPwrLAv ? "on" : "off");
+            this.extPwr2.setAttribute("class", extPwrRAv ? "on" : "off");
+            this.extPwr3.setAttribute("class", extPwrAftAv ? "on" : "off");            
+
+            var busActive = false;
+
+            if (extPwrL && extPwrLAv) {
+                this.ext1pass.setAttribute("visibility", "visible");
+                busActive = true;
+            } else {
+                this.ext1pass.setAttribute("visibility", "hidden");
+            }
+            if (extPwrR && extPwrRAv) {
+                this.ext2pass.setAttribute("visibility", "visible");
+                busActive = true;
+            } else {
+                this.ext2pass.setAttribute("visibility", "hidden");
+            }
+            if (extPwrAft && extPwrAftAv) {
+                this.ext3pass.setAttribute("visibility", "visible");
+                busActive = true;
+            } else {
+                this.ext3pass.setAttribute("visibility", "hidden");
+            }
+            if (this.leftEngineStarted && engAlt1) {
+                this.eng1pass.setAttribute("visibility", "visible");
+                busActive = true;
+            } else {
+                this.eng1pass.setAttribute("visibility", "hidden");
+            }
+            if (this.leftEngineStarted && engAlt2) {
+                this.eng2pass.setAttribute("visibility", "visible");
+                busActive = true;
+            } else {
+                this.eng2pass.setAttribute("visibility", "hidden");
+            }
+            if (this.rightEngineStarted && engAlt3) {
+                this.eng3pass.setAttribute("visibility", "visible");
+                busActive = true;
+            } else {
+                this.eng3pass.setAttribute("visibility", "hidden");
+            }
+            if (this.rightEngineStarted && engAlt4) {
+                this.eng4pass.setAttribute("visibility", "visible");
+                busActive = true;
+            } else {
+                this.eng4pass.setAttribute("visibility", "hidden");
+            }
+            if (this.apuStarted && apuGen1) {
+                this.apuLpass.setAttribute("visibility", "visible");
+                busActive = true;
+            } else {
+                this.apuLpass.setAttribute("visibility", "hidden");
+            }
+            if (this.apuStarted && apuGen2) {
+                this.apuRpass.setAttribute("visibility", "visible");
+                busActive = true;
+            } else {
+                this.apuRpass.setAttribute("visibility", "hidden");
+            }
+
+            this.bus.setAttribute("class", busActive ? "on" : "off");
+        }
+        this.frame++;
+
     }
     getName() { return "ELEC"; }
 }

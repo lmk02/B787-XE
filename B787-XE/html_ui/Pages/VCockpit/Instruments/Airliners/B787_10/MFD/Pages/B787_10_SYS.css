@@ -345,3 +345,121 @@ b787-10-sys-element #Pages #STAT_Page text.valLabel {
   text-anchor: left;
   fill: var(--eicasWhite);
 }
+
+b787-10-sys-element #Pages #ELEC_Page path {
+  stroke: var(--eicasBlue);
+  stroke-width: 4px;
+}
+
+b787-10-sys-element #Pages #ELEC_Page rect {
+  stroke: var(--eicasWhite);
+  stroke-width: 4px;
+}
+
+b787-10-sys-element #Pages #ELEC_Page .on rect {
+  stroke: var(--eicasGreen);
+  stroke-width: 6px;
+}
+
+b787-10-sys-element #Pages #ELEC_Page .off rect {
+  stroke: var(--eicasWhite);
+  stroke-width: 4px;
+}
+
+b787-10-sys-element #Pages #ELEC_Page .starting path {
+  stroke: var(--eicasGreen);
+  fill: var(--eicasGreen);
+  stroke-width: 4px;
+}
+
+b787-10-sys-element #Pages #ELEC_Page .starting circle {
+  stroke: var(--eicasGreen);
+  fill: none;
+  stroke-width: 4px;
+}
+
+b787-10-sys-element #Pages #ELEC_Page .on path,
+b787-10-sys-element #Pages #ELEC_Page .off path,
+b787-10-sys-element #Pages #ELEC_Page .on circle,
+b787-10-sys-element #Pages #ELEC_Page .off circle {
+  stroke: none;
+  fill: none;
+}
+
+b787-10-sys-element #Pages #ELEC_Page .starting .startup rect {
+  stroke: var(--eicasGreen);
+  fill: var(--eicasGreen);
+  stroke-width: 4px;
+}
+
+b787-10-sys-element #Pages #ELEC_Page .starting .startup text {
+  fill: var(--eicasGreen);
+  font-size: 30px;
+}
+
+b787-10-sys-element #Pages #ELEC_Page .on .startup rect,
+b787-10-sys-element #Pages #ELEC_Page .off .startup rect,
+b787-10-sys-element #Pages #ELEC_Page .on .startup text,
+b787-10-sys-element #Pages #ELEC_Page .off .startup text {
+  stroke: none;
+  fill: none;
+}
+
+b787-10-sys-element #Pages #ELEC_Page rect.black,
+b787-10-sys-element #Pages #ELEC_Page .on rect.black,
+b787-10-sys-element #Pages #ELEC_Page .off rect.black,
+b787-10-sys-element #Pages #ELEC_Page .starting rect.black,
+b787-10-sys-element #Pages #ELEC_Page .starting .startup rect.black {
+  stroke: var(--eicasBlack);
+  fill: var(--eicasBlack);
+}
+
+b787-10-sys-element #Pages #ELEC_Page text {
+  font-size: 30px;
+  text-anchor: left;
+  fill: var(--eicasBlue);
+}
+
+b787-10-sys-element #Pages #ELEC_Page text.vals {
+  fill: var(--eicasWhite);
+}
+
+b787-10-sys-element #Pages #ELEC_Page #bus path {
+  stroke: var(--eicasWhite);
+  stroke-width: 4px;
+}
+
+b787-10-sys-element #Pages #ELEC_Page #bus text {
+  font-size: 28px;
+  text-anchor: left;
+  fill: var(--eicasWhite);
+}
+
+b787-10-sys-element #Pages #ELEC_Page #bus.on path {
+  stroke: var(--eicasGreen);
+}
+
+b787-10-sys-element #Pages #ELEC_Page #bus.off path.pass,
+b787-10-sys-element #Pages #ELEC_Page #bus.off rect.pass {
+  stroke: none;
+  fill: none;
+}
+
+b787-10-sys-element #Pages #ELEC_Page #bus.on text {
+  fill: var(--eicasGreen);
+}
+
+b787-10-sys-element #Pages #ELEC_Page #bus.off path {
+  stroke: var(--eicasOrange);
+}
+
+b787-10-sys-element #Pages #ELEC_Page #bus.off text {
+  fill: var(--eicasOrange);
+}
+
+b787-10-sys-element #Pages #ELEC_Page rect.pass,
+b787-10-sys-element #Pages #ELEC_Page .on path.pass {
+  stroke: var(--eicasGreen);
+  stroke-width: 6px;
+  fill: var(--eicasGreen);
+}
