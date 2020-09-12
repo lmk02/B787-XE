@@ -39,7 +39,7 @@ class B787_10_FMC_RoutePage {
                 }
             });
         };
-        let flightNoCell = "--------";
+        let flightNoCell = "□□□□□□□□";
         let flightNoValue = SimVar.GetSimVarValue("ATC FLIGHT NUMBER", "string");
         if (flightNoValue) {
             flightNoCell = flightNoValue;
@@ -85,7 +85,7 @@ class B787_10_FMC_RoutePage {
                 B787_10_FMC_PerfInitPage.ShowPage1(fmc);
             };
         }
-        let runwayCell = "";
+        let runwayCell = "------";
         let runway = fmc.flightPlanManager.getDepartureRunway();
         if (runway) {
             runwayCell = Avionics.Utils.formatRunway(runway.designation);
