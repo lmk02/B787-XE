@@ -4,7 +4,7 @@ import time
 import os
 import json
 
-project_directories = ["html_ui"]
+project_directories = ["html_ui","SimObjects"]
 
 content_entries = list()
 total_package_size = 0
