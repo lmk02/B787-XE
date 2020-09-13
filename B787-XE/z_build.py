@@ -1,10 +1,11 @@
-# Stolen from A32NX team (https://github.com/flybywiresim/a32nx)
+# Stolen from A32NX team (https://github.com/flybywiresim/a32nx) and modified by TheOriginalBabu 
 import time
-
 import os
 import json
 
-project_directories = ["html_ui","SimObjects"]
+###
+
+project_directories = ["html_ui","SimObjects"] # Modify this to include folders that should be in layout.json and manifest.json
 
 content_entries = list()
 total_package_size = 0
@@ -36,9 +37,9 @@ manifest_entries["total_package_size"] = str(total_package_size).zfill(20)
 manifest_file = open("manifest.json", "w")
 json.dump(manifest_entries, manifest_file, indent=4)
 
-# ---
+### Visual feedback
 
 print()
 print("Beep, boop, boop, JSONS are done.")
-time.sleep(5)
+time.sleep(3)
 exit()
