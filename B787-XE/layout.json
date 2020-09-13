@@ -1,11 +1,6 @@
 {
   "content": [
     {
-      "path": "MSFSLayoutGenerator.exe",
-      "size": 363520,
-      "date": 132444730730690809
-    },
-    {
       "path": "html_ui/Pages/VCockpit/Instruments/Airliners/B787_10/FMC/B787_10_FMC.css",
       "size": 4244,
       "date": 132440820110000000
