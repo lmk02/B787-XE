@@ -91,10 +91,16 @@ class B787_10_FMC_TakeOffRefPage {
             }
         };
         let flapsCell = "---";
-        let flapSpeed = fmc.getFlapTakeOffSpeed();
-        if (isFinite(flapSpeed)) {
-            flapsCell = flapSpeed.toFixed(0) + "KT[color]green";
+        if (isFinite(fmc.flapTakeOffDegree)) {
+            flapsCell = fmc.flapTakeOffDegree.toFixed(0) + "°[color]green";
         }
+        fmc.onLeftInput[0] = () => {
+            let value = fmc.inOut;
+            fmc.clearUserInput();
+            if (fmc.setFlapTakeOffDegree(value)) {
+                B787_10_FMC_TakeOffRefPage.ShowPage1(fmc);
+            }
+        };
         let runwayCell = "---";
         let selectedRunway = fmc.flightPlanManager.getDepartureRunway();
         if (selectedRunway) {
