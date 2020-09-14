@@ -1,6 +1,5 @@
 ﻿:root {
-  --bodyHeightScale: 1;
-}
+  --bodyHeightScale: 1; }
 
 @keyframes TemporaryShow {
   0%,
@@ -139,33 +138,33 @@ b787-10-hud-element #MainFrame #FMAContainer {
 }
 
 b787-10-hud-element #Altimeter {
-  filter: sepia(100%) hue-rotate(55deg) saturate(1000%);
+  filter: sepia(100%) hue-rotate(55deg) saturate(2000%);
 }
 
 b787-10-hud-element #VSpeed {
-  filter: sepia(100%) hue-rotate(55deg) saturate(1000%);
+  filter: sepia(100%) hue-rotate(55deg) saturate(2000%);
 }
 
 b787-10-hud-element #Airspeed {
-  filter: sepia(100%) hue-rotate(55deg) saturate(1000%);
+  filter: sepia(100%) hue-rotate(55deg) saturate(2000%);
 }
 
 b787-10-hud-element #Horizon {
-  filter: sepia(100%) hue-rotate(55deg) saturate(1000%);
+  filter: sepia(100%) hue-rotate(55deg) saturate(2000%);
 }
 
 b787-10-hud-element #Column1 {
-  filter: sepia(100%) hue-rotate(55deg) saturate(1000%);
+  filter: sepia(100%) hue-rotate(55deg) saturate(2000%);
 }
 
 b787-10-hud-element #Column2 {
-  filter: sepia(100%) hue-rotate(55deg) saturate(1000%);
+  filter: sepia(100%) hue-rotate(55deg) saturate(2000%);
 }
 
 b787-10-hud-element #Column3 {
-  filter: sepia(100%) hue-rotate(55deg) saturate(1000%);
+  filter: sepia(100%) hue-rotate(55deg) saturate(2000%);
 }
 
 b787-10-hud-element #ILS {
-  filter: sepia(100%) hue-rotate(55deg) saturate(1000%);
+  filter: sepia(100%) hue-rotate(55deg) saturate(2000%);
 }
