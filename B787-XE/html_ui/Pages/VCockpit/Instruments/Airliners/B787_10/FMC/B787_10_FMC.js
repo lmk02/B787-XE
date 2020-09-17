@@ -287,6 +287,39 @@ class B787_10_FMC extends Boeing_FMC {
             return 18;
         return 19;
     }
+    takeOffFlapsIndex(){
+        switch(this.flapTakeOffDegree){
+            case 0:
+                return 0;
+                break;
+            case 1:
+                return  1;
+                break;
+            case 5:
+                return  2;
+                break;
+            case 10:
+                return  3;
+                break;
+            case 15:
+                return  4;
+                break;
+            case 17:
+                return  5;
+                break;
+            case 18:
+                return  6;
+                break;
+            case 20:
+                return  7;
+                break;
+            case 25:
+                return  8;
+                break;
+           case 30:
+                return  9; 
+        }
+    }
     _computeV1Speed() {
         let runwayCoef = 1.0;
         {
@@ -303,7 +336,7 @@ class B787_10_FMC extends Boeing_FMC {
         let dWeightCoeff = (this.getWeight(true) - 350) / (560 - 350);
         dWeightCoeff = Utils.Clamp(dWeightCoeff, 0, 1);
         dWeightCoeff = 0.82 + (1.06 - 0.82) * dWeightCoeff;
-        let flapsHandleIndex = SimVar.GetSimVarValue("FLAPS HANDLE INDEX", "Number");
+        let flapsHandleIndex = this.takeOffFlapsIndex();
         let temp = SimVar.GetSimVarValue("AMBIENT TEMPERATURE", "celsius");
         let index = this._getIndexFromTemp(temp);
         console.log("Index From Temp = " + index);
@@ -332,7 +365,7 @@ class B787_10_FMC extends Boeing_FMC {
         let dWeightCoeff = (this.getWeight(true) - 350) / (560 - 350);
         dWeightCoeff = Utils.Clamp(dWeightCoeff, 0, 1);
         dWeightCoeff = 0.85 + (1.075 - 0.85) * dWeightCoeff;
-        let flapsHandleIndex = SimVar.GetSimVarValue("FLAPS HANDLE INDEX", "Number");
+        let flapsHandleIndex = this.takeOffFlapsIndex();
         let temp = SimVar.GetSimVarValue("AMBIENT TEMPERATURE", "celsius");
         let index = this._getIndexFromTemp(temp);
         console.log("Index From Temp = " + index);
@@ -361,7 +394,7 @@ class B787_10_FMC extends Boeing_FMC {
         let dWeightCoeff = (this.getWeight(true) - 350) / (560 - 350);
         dWeightCoeff = Utils.Clamp(dWeightCoeff, 0, 1);
         dWeightCoeff = 0.88 + (1.08 - 0.88) * dWeightCoeff;
-        let flapsHandleIndex = SimVar.GetSimVarValue("FLAPS HANDLE INDEX", "Number");
+        let flapsHandleIndex = this.takeOffFlapsIndex();
         let temp = SimVar.GetSimVarValue("AMBIENT TEMPERATURE", "celsius");
         let index = this._getIndexFromTemp(temp);
         console.log("Index From Temp = " + index);
