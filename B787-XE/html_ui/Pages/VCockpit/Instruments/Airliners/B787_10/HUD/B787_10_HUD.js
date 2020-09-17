@@ -134,13 +134,18 @@ class B787_10_HUD_Attitude extends NavSystemElement {
         this.svg = this.gps.getChildById("Horizon");
         this.svg.aircraft = Aircraft.AS01B;
         this.svg.gps = this.gps;
-        this.svg.querySelector('#Masks').remove();
     }
     onEnter() {
     }
     onUpdate(_deltaTime) {
         var xyz = Simplane.getOrientationAxis();
         if (xyz) {
+            let h = Simplane.getAltitudeAboveGround() / 3281;
+            let horizonDist = Math.sqrt(h * (12742 + h));
+            let coef = (7 * Avionics.Utils.DEG2RAD * horizonDist) / 100;
+            let horizon = -(0.75 + coef);
+            horizon += xyz.pitch * (8 + coef);
+            this.svg.setAttribute("horizon", (horizon / Math.PI * 180).toString());
             this.svg.setAttribute("pitch", (xyz.pitch / Math.PI * 180).toString());
             this.svg.setAttribute("bank", (xyz.bank / Math.PI * 180).toString());
         }
