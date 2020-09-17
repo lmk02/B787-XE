@@ -19,14 +19,14 @@ class B787_10_FMC_NavRadioPage {
                 if (isFinite(numValue) && numValue >= 108 && numValue <= 117.95 && RadioNav.isHz50Compliant(numValue)) {
                     fmc.vor1Frequency = numValue;
                     if (fmc.isRadioNavActive()) {
-                        requestAnimationFrame(() => {
+                        fmc.requestCall(() => {
                             B787_10_FMC_NavRadioPage.ShowPage(fmc);
                         });
                     }
                     else {
                         fmc.radioNav.setVORStandbyFrequency(1, numValue).then(() => {
                             fmc.radioNav.swapVORFrequencies(1);
-                            requestAnimationFrame(() => {
+                            fmc.requestCall(() => {
                                 B787_10_FMC_NavRadioPage.ShowPage(fmc);
                             });
                         });
@@ -37,7 +37,7 @@ class B787_10_FMC_NavRadioPage {
                     B787_10_FMC_NavRadioPage.ShowPage(fmc);
                 }
                 else {
-                    fmc.showErrorMessage("INVALID ENTRY");
+                    fmc.showErrorMessage(fmc.defaultInputErrorMessage);
                 }
             };
             vor1CourseCell = "-----";
@@ -51,13 +51,13 @@ class B787_10_FMC_NavRadioPage {
                 if (isFinite(numValue) && numValue >= 0 && numValue < 360) {
                     SimVar.SetSimVarValue("K:VOR1_SET", "number", numValue).then(() => {
                         fmc.vor1Course = numValue;
-                        requestAnimationFrame(() => {
+                        fmc.requestCall(() => {
                             B787_10_FMC_NavRadioPage.ShowPage(fmc);
                         });
                     });
                 }
                 else {
-                    fmc.showErrorMessage("INVALID ENTRY");
+                    fmc.showErrorMessage(fmc.defaultInputErrorMessage);
                 }
             };
         }
@@ -75,14 +75,14 @@ class B787_10_FMC_NavRadioPage {
                 if (isFinite(numValue) && numValue >= 108 && numValue <= 117.95 && RadioNav.isHz50Compliant(numValue)) {
                     fmc.vor2Frequency = numValue;
                     if (fmc.isRadioNavActive()) {
-                        requestAnimationFrame(() => {
+                        fmc.requestCall(() => {
                             B787_10_FMC_NavRadioPage.ShowPage(fmc);
                         });
                     }
                     else {
                         fmc.radioNav.setVORStandbyFrequency(2, numValue).then(() => {
                             fmc.radioNav.swapVORFrequencies(2);
-                            requestAnimationFrame(() => {
+                            fmc.requestCall(() => {
                                 B787_10_FMC_NavRadioPage.ShowPage(fmc);
                             });
                         });
@@ -93,7 +93,7 @@ class B787_10_FMC_NavRadioPage {
                     B787_10_FMC_NavRadioPage.ShowPage(fmc);
                 }
                 else {
-                    fmc.showErrorMessage("INVALID ENTRY");
+                    fmc.showErrorMessage(fmc.defaultInputErrorMessage);
                 }
             };
             vor2CourseCell = "-----";
@@ -107,13 +107,13 @@ class B787_10_FMC_NavRadioPage {
                 if (isFinite(numValue) && numValue >= 0 && numValue < 360) {
                     SimVar.SetSimVarValue("K:VOR2_SET", "number", numValue).then(() => {
                         fmc.vor2Course = numValue;
-                        requestAnimationFrame(() => {
+                        fmc.requestCall(() => {
                             B787_10_FMC_NavRadioPage.ShowPage(fmc);
                         });
                     });
                 }
                 else {
-                    fmc.showErrorMessage("INVALID ENTRY");
+                    fmc.showErrorMessage(fmc.defaultInputErrorMessage);
                 }
             };
         }
@@ -133,13 +133,13 @@ class B787_10_FMC_NavRadioPage {
                 if (isFinite(numValue) && numValue >= 100 && numValue <= 1699.9) {
                     SimVar.SetSimVarValue("K:ADF_COMPLETE_SET", "Frequency ADF BCD32", Avionics.Utils.make_adf_bcd32(numValue * 1000)).then(() => {
                         fmc.adf1Frequency = numValue;
-                        requestAnimationFrame(() => {
+                        fmc.requestCall(() => {
                             B787_10_FMC_NavRadioPage.ShowPage(fmc);
                         });
                     });
                 }
                 else {
-                    fmc.showErrorMessage("INVALID ENTRY");
+                    fmc.showErrorMessage(fmc.defaultInputErrorMessage);
                 }
             };
             adf2FrequencyCell = "-----";
@@ -153,13 +153,13 @@ class B787_10_FMC_NavRadioPage {
                 if (isFinite(numValue) && numValue >= 100 && numValue <= 1699.9) {
                     SimVar.SetSimVarValue("K:ADF2_COMPLETE_SET", "Frequency ADF BCD32", Avionics.Utils.make_adf_bcd32(numValue * 1000)).then(() => {
                         fmc.adf2Frequency = numValue;
-                        requestAnimationFrame(() => {
+                        fmc.requestCall(() => {
                             B787_10_FMC_NavRadioPage.ShowPage(fmc);
                         });
                     });
                 }
                 else {
-                    fmc.showErrorMessage("INVALID ENTRY");
+                    fmc.showErrorMessage(fmc.defaultInputErrorMessage);
                 }
             };
             ilsFrequencyCell = "[]/ ";

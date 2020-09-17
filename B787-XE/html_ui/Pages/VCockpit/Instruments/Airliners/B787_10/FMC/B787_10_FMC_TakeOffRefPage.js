@@ -91,13 +91,17 @@ class B787_10_FMC_TakeOffRefPage {
             }
         };
         let flapsCell = "---";
-        if (isFinite(fmc.flapTakeOffDegree)) {
-            flapsCell = fmc.flapTakeOffDegree.toFixed(0) + "°[color]green";
+        let flapsAngle = fmc.getTakeOffFlap();
+        if (isFinite(flapsAngle) && flapsAngle >= 0) {
+            flapsCell = flapsAngle.toFixed(0) + "°";
+        }
+        else {
+            flapsCell = "□□°";
         }
         fmc.onLeftInput[0] = () => {
             let value = fmc.inOut;
             fmc.clearUserInput();
-            if (fmc.setFlapTakeOffDegree(value)) {
+            if (fmc.setTakeOffFlap(value)) {
                 B787_10_FMC_TakeOffRefPage.ShowPage1(fmc);
             }
         };

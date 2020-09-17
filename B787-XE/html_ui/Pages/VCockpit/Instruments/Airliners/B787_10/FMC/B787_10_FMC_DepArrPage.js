@@ -74,6 +74,7 @@ class B787_10_FMC_DepArrPage {
             rows[0] = ["", Avionics.Utils.formatRunway(selectedRunway.designation), "", "<SEL>"];
             fmc.onRightInput[0] = () => {
                 fmc.setRunwayIndex(-1, (success) => {
+                    fmc.activateRoute();
                     B787_10_FMC_DepArrPage.ShowDeparturePage(fmc);
                 });
             };
@@ -106,11 +107,13 @@ class B787_10_FMC_DepArrPage {
                         fmc.onRightInput[rowIndex] = () => {
                             if (fmc.flightPlanManager.getDepartureProcIndex() === -1) {
                                 fmc.setOriginRunwayIndex(index, () => {
+                                    fmc.activateRoute();
                                     B787_10_FMC_DepArrPage.ShowDeparturePage(fmc, undefined);
                                 });
                             }
                             else {
                                 fmc.setRunwayIndex(index, () => {
+                                    fmc.activateRoute();
                                     B787_10_FMC_DepArrPage.ShowDeparturePage(fmc, undefined);
                                 });
                             }
@@ -126,6 +129,7 @@ class B787_10_FMC_DepArrPage {
             rows[0][2] = "<SEL>";
             fmc.onLeftInput[0] = () => {
                 fmc.setDepartureIndex(-1, () => {
+                    fmc.activateRoute();
                     B787_10_FMC_DepArrPage.ShowDeparturePage(fmc);
                 });
             };
@@ -155,6 +159,7 @@ class B787_10_FMC_DepArrPage {
                         rows[2 * rowIndex][0] = departure.name;
                         fmc.onLeftInput[rowIndex] = () => {
                             fmc.setDepartureIndex(ii, () => {
+                                fmc.activateRoute();
                                 B787_10_FMC_DepArrPage.ShowDeparturePage(fmc);
                             });
                         };
@@ -224,6 +229,7 @@ class B787_10_FMC_DepArrPage {
             rows[0] = ["", Avionics.Utils.formatRunway(selectedApproach.name), "", "<SEL>"];
             fmc.onRightInput[0] = () => {
                 fmc.setApproachIndex(-1, () => {
+                    fmc.activateRoute();
                     B787_10_FMC_DepArrPage.ShowArrivalPage(fmc);
                 });
             };
@@ -234,6 +240,7 @@ class B787_10_FMC_DepArrPage {
                 rows[2] = ["", "<SEL> " + selectedTransition.waypoints[0].infos.icao.substr(5)];
                 fmc.onRightInput[1] = () => {
                     fmc.setApproachTransitionIndex(-1, () => {
+                        fmc.activateRoute();
                         B787_10_FMC_DepArrPage.ShowArrivalPage(fmc, currentPage);
                     });
                 };
@@ -247,6 +254,7 @@ class B787_10_FMC_DepArrPage {
                         rows[2 * (i + 1)][1] = name;
                         fmc.onRightInput[i + 1] = () => {
                             fmc.setApproachTransitionIndex(index, () => {
+                                fmc.activateRoute();
                                 B787_10_FMC_DepArrPage.ShowArrivalPage(fmc, currentPage);
                             });
                         };
@@ -283,6 +291,7 @@ class B787_10_FMC_DepArrPage {
                         rows[2 * rowIndex] = ["", Avionics.Utils.formatRunway(approach.name)];
                         fmc.onRightInput[rowIndex] = () => {
                             fmc.setApproachIndex(ii, () => {
+                                fmc.activateRoute();
                                 B787_10_FMC_DepArrPage.ShowArrivalPage(fmc);
                             });
                         };
@@ -297,6 +306,7 @@ class B787_10_FMC_DepArrPage {
             rows[0][2] = "<SEL>";
             fmc.onLeftInput[0] = () => {
                 fmc.setArrivalProcIndex(-1, () => {
+                    fmc.activateRoute();
                     B787_10_FMC_DepArrPage.ShowArrivalPage(fmc);
                 });
             };
@@ -330,6 +340,7 @@ class B787_10_FMC_DepArrPage {
                         rows[2 * rowIndex][0] = arrival.name;
                         fmc.onLeftInput[rowIndex] = () => {
                             fmc.setArrivalProcIndex(ii, () => {
+                                fmc.activateRoute();
                                 B787_10_FMC_DepArrPage.ShowArrivalPage(fmc);
                             });
                         };

@@ -202,7 +202,13 @@ b787-10-eicas-element {
     b787-10-eicas-element #InfoPanel div {
       width: 100%;
       height: 12%;
-      font-size: 28px;
+      font-size: 24px;
       text-align: left;
+      color: red; }
+    b787-10-eicas-element #InfoPanel .InfoIndication {
+      color: white; }
+    b787-10-eicas-element #InfoPanel .InfoCaution {
+      color: orange; }
+    b787-10-eicas-element #InfoPanel .InfoWarning {
       color: red; }
 

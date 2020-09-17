@@ -265,6 +265,7 @@ b787-10-sys-element #Pages #GEAR_Page #gearDoor rect {
 b787-10-sys-element #Pages #GEAR_Page #gearDoor path {
   stroke: var(--eicasWhite);
   stroke-width: 4px;
+  visibility: hidden;
 }
 
 b787-10-sys-element #Pages #GEAR_Page #gearDoor.up path,
