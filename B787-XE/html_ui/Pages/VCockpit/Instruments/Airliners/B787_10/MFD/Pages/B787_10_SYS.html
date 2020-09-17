@@ -1,878 +1,213 @@
 ﻿<link rel="stylesheet" href="./B787_10_SYS.css" />
 
 <script type="text/html" id="B787_10_SYS_Template">
-  <svg viewBox="0 0 1200 1800">
-    <g id="PageButtonSmallTemplate">
-      <path class="topLeftBorder" d="M0 0 L200 0 l-10 10 L10 95 l-10 10" />
-      <path
-        class="bottomRightBorder"
-        d="M200 105 L200 0 l-10 10 L10 95 l-10 10"
-      />
-      <rect class="border" x="0px" width="200px" y="0px" height="105px" />
-      <rect class="inner" x="10px" width="180px" y="10px" height="85px" />
-      <text x="100px" y="64px"></text>
-    </g>
-
-    <g id="PageButtonLargeTemplate">
-      <path class="topLeftBorder" d="M0 0 L240 0 l-10 10 L10 95 l-10 10" />
-      <path
-        class="bottomRightBorder"
-        d="M240 105 L240 0 l-10 10 L10 95 l-10 10"
-      />
-      <rect class="border" x="0px" width="240px" y="0px" height="105px" />
-      <rect class="inner" x="10px" width="220px" y="10px" height="85px" />
-      <text x="120px" y="64px"></text>
-    </g>
-
-    <g id="PageButtons">
-      <g id="STAT_PageButton" transform="translate(0, 0)"></g>
-      <g id="ELEC_PageButton" transform="translate(200, 0)"></g>
-      <g id="HYD_PageButton" transform="translate(400, 0)"></g>
-      <g id="FUEL_PageButton" transform="translate(600, 0)"></g>
-      <g id="AIR_PageButton" transform="translate(800, 0)"></g>
-      <g id="DOOR_PageButton" transform="translate(1000, 0)"></g>
-
-      <g id="GEAR_PageButton" transform="translate(0, 105)"></g>
-      <g id="FCTL_PageButton" transform="translate(240, 105)"></g>
-      <g id="EFIS_DSP_PageButton" transform="translate(480, 105)"></g>
-      <g id="MAINT_PageButton" transform="translate(720, 105)"></g>
-      <g id="CB_PageButton" transform="translate(960, 105)"></g>
-    </g>
-
-    <g id="Pages" transform="translate(0, 210)">
-      <g id="STAT_Page">
-        <path
-          d="M1156,74C1156,71 1155,69 1153,67C1151,65 1149,64 1146,64L53,64C50,64 47,65 46,67C44,69 43,71 43,74L43,342C43,345 44,348 46,349C47,351 50,352 53,352L1146,352C1149,352 1151,351 1153,349C1155,348 1156,345 1156,342L1156,74Z"
-        />
-        <path
-          d="M1156,832C1156,828 1152,825 1146,825L53,825C47,825 43,828 43,832L43,1505C43,1509 47,1513 53,1513L1146,1513C1152,1513 1156,1509 1156,1505L1156,832Z"
-        />
-        <path
-          d="M1156,416C1156,413 1155,411 1153,409C1151,407 1149,406 1146,406L53,406C50,406 47,407 46,409C44,411 43,413 43,416L43,576C43,578 44,581 46,583C47,584 50,586 53,586L1146,586C1149,586 1151,584 1153,583C1155,581 1156,578 1156,576L1156,416Z"
-        />
-        <path
-          d="M418,649C418,646 417,644 415,642C413,640 411,639 408,639L53,639C50,639 47,640 46,642C44,644 43,646 43,649L43,761C43,764 44,766 46,768C47,770 50,771 53,771L408,771C411,771 413,770 415,768C417,766 418,764 418,761L418,649Z"
-        />
-        <path
-          d="M1156,649C1156,643 1152,639 1146,639L472,639C467,639 462,643 462,649L462,761C462,767 467,771 472,771L1146,771C1152,771 1156,767 1156,761L1156,649Z"
-        />
-        <rect x="146" y="626" width="171" height="26" />
-        <rect x="653" y="626" width="311" height="26" />
-        <rect x="414" y="812" width="367" height="26" />
-        <rect x="561" y="395" width="79" height="26" />
-        <rect x="497" y="51" width="206" height="26" />
-        <text class="label" x="520px" y="75px">HYDRULIC</text>
-        <text class="label" x="570px" y="417px">APU</text>
-        <text class="label" x="170px" y="652px">OXYGEN</text>
-        <text class="label" x="664px" y="650px">LIQUID COOLING</text>
-        <text class="label" x="443px" y="837px">STATUS MESSAGES</text>
-        <text class="label" x="166px" y="214px">QTY</text>
-        <text class="label" x="165px" y="284px">PRESS</text>
-        <text class="label" x="79px" y="524px">OIL PRESS</text>
-        <text class="label" x="65px" y="740px">CREW PRESS</text>
-        <text class="label" x="497px" y="739px">QTY</text>
-        <text class="vals" x="305px" y="740px">1850</text>
-        <text id="oilPress" class="vals" x="295px" y="524px">21</text>
-        <text class="valLabel" x="405px" y="524px">PSI</text>
-        <text class="label" x="500px" y="524px">OIL TEMP</text>
-        <text id="oilTemp" class="vals" x="694px" y="524px">235 C</text>
-        <text class="valLabel" x="804px" y="524px">C</text>
-        <text class="label" x="865px" y="524px">OIL QTY</text>
-        <text id="oilQty" class="vals" x="1033px" y="525px">12.50</text>
-        <text class="label" x="414px" y="152px">L</text>
-        <text class="label" x="680px" y="152px">C</text>
-        <text class="label" x="947px" y="152px">R</text>
-        <g id="hydraulic">
-          <text id="hydL" class="vals" x="392px" y="283px">4860</text>
-          <text id="hydC" class="vals" x="658px" y="283px">4990</text>
-          <text id="hydR" class="vals" x="925px" y="281px">5000</text>
-          <text class="vals" x="392px" y="210px">1.00</text>
-          <text class="vals" x="660px" y="210px">1.01</text>
-          <text class="vals" x="928px" y="210px">0.98</text>
-        </g>
-        <text class="label" x="359px" y="463px">RPM</text>
-        <text class="label" x="740px" y="463px">EGT</text>
-        <text id="apuEGT" class="vals" x="894px" y="463px">-9c</text>
-        <text class="valLabel" x="1028px" y="463px">C</text>
-        <text id="apuRPM" class="vals" x="505px" y="462px">5.9</text>
-        <text class="label" x="628px" y="695px">L</text>
-        <text class="label" x="947px" y="695px">R</text>
-        <text class="vals" x="620px" y="739px">0.98</text>
-        <text class="vals" x="938px" y="739px">0.99</text>
-
-        <!--<text x="67.576px" y="989.906px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:35.213px;fill:white;"></text>
-        <text x="65.31px" y="1033.35px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:35.213px;fill:white;"></text>
-        <text x="65.516px" y="902.129px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:35.213px;fill:white;"></text>
-        <text x="65.327px" y="945.588px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:35.213px;fill:white;"></text>-->
-      </g>
-
-      <g id="ELEC_Page">
-        <rect x="927" y="325" width="3" height="83" />
-        <rect x="927" y="492" width="3" height="92" />
-        <g id="extPwr3">
-          <rect x="894" y="245" width="70" height="80" />
-
-          <g id="ext3pass">
-            <rect class="pass" x="927" y="245" width="3" height="150" />
-            <path class="pass" d="M928,411L910,396L946,396L928,411Z" />
-          </g>
+    <svg viewBox="0 0 1200 1800">
+        <g id="PageButtonSmallTemplate">
+            <path class="topLeftBorder" d="M0 0 L200 0 l-10 10 L10 95 l-10 10" />
+            <path class="bottomRightBorder" d="M200 105 L200 0 l-10 10 L10 95 l-10 10" />
+            <rect class="border" x="0px" width="200px" y="0px" height="105px" />
+            <rect class="inner" x="10px" width="180px" y="10px" height="85px" />
+            <text x="100px" y="64px"></text>
         </g>
 
-        <rect x="315" y="325" width="3" height="259" />
-        <g id="extPwr2">
-          <rect x="280" y="244" width="70" height="81" />
-
-          <g id="ext2pass">
-            <rect class="pass" x="315" y="245" width="3" height="327" />
-            <path class="pass" d="M315,584L295,569L334,569L315,584Z" />
-          </g>
+        <g id="PageButtonLargeTemplate">
+            <path class="topLeftBorder" d="M0 0 L240 0 l-10 10 L10 95 l-10 10" />
+            <path class="bottomRightBorder" d="M240 105 L240 0 l-10 10 L10 95 l-10 10" />
+            <rect class="border" x="0px" width="240px" y="0px" height="105px" />
+            <rect class="inner" x="10px" width="220px" y="10px" height="85px" />
+            <text x="120px" y="64px"></text>
         </g>
 
-        <rect x="220" y="325" width="3" height="259" />
-        <g id="extPwr1">
-          <rect x="185" y="244" width="70" height="81" />
+        <g id="PageButtons">
+            <g id="STAT_PageButton" transform="translate(0, 0)"></g>
+            <g id="ELEC_PageButton" transform="translate(200, 0)"></g>
+            <g id="HYD_PageButton" transform="translate(400, 0)"></g>
+            <g id="FUEL_PageButton" transform="translate(600, 0)"></g>
+            <g id="AIR_PageButton" transform="translate(800, 0)"></g>
+            <g id="DOOR_PageButton" transform="translate(1000, 0)"></g>
 
-          <g id="ext1pass">
-            <rect class="pass" x="220" y="245" width="3" height="327" />
-            <path class="pass" d="M220,584L200,569L239,569L220,584Z" />
-          </g>
+            <g id="GEAR_PageButton" transform="translate(0, 105)"></g>
+            <g id="FCTL_PageButton" transform="translate(240, 105)"></g>
+            <g id="EFIS_DSP_PageButton" transform="translate(480, 105)"></g>
+            <g id="MAINT_PageButton" transform="translate(720, 105)"></g>
+            <g id="CB_PageButton" transform="translate(960, 105)"></g>
         </g>
 
-        <rect x="549" y="213" width="3" height="372" />
-        <rect x="549" y="213" width="3" height="372" />
-        <g id="apuL">
-          <rect x="515" y="128" width="72" height="83" />
+        <g id="Pages" transform="translate(0, 210)">
+            <g id="STAT_Page">
 
-          <circle cx="548" cy="170" r="27" />
-          <rect class="black" x="548" y="174" width="32" height="25" />
-          <path d="M575,173L570,169L580,169L575,173Z" />
+            </g>
 
-          <g class="startup">
-            <rect x="725" y="448" width="67" height="3" />
-            <rect x="722" y="383" width="3" height="65" />
-            <path d="M723,368L742,383L705,383L723,368Z" />
-            <text x="664px" y="360px">APU START</text>
-          </g>
+            <g id="ELEC_Page">
 
-          <g id="apuLpass">
-            <rect class="pass" x="549" y="129" width="3" height="451" />
-            <path class="pass" d="M551,584L531,569L570,569L551,584Z" />
-          </g>
+            </g>
+
+            <g id="HYD_Page">
+
+            </g>
+
+            <g id="FUEL_Page">
+                <g id="TotalFuelDisplay">
+                    <rect x="450px" y="145px" width="300px" height="80px" rx="25px" ry="25px" />
+                    <text class="label" x="465px" y="180px">TOTAL</text>
+                    <text class="label" x="465px" y="212px">FUEL</text>
+                    <text id="TotalFuelValue" class="quantity" x="735px" y="200px">0.0</text>
+                    <text id="TotalFuelUnits" class="units" x="600px" y="285px">KGS X 1000</text>
+                </g>
+
+                <g id="FuelTempDisplay">
+                    <text class="label" x="25px" y="1400px">MIN FUEL TEMP</text>
+                    <text class="label" x="25px" y="1450px">FUEL TEMP</text>
+                    <text id="MinFuelTemp" class="quantity" x="400px" y="1400px">-</text>
+                    <text id="CurrentFuelTemp" class="quantity" x="400px" y="1450px">-</text>
+                </g>
+
+                <g id="Engine1" class="engineInfo" transform="translate(340, 115)">
+                    <rect x="-50px" y="-68px" width="100px" height="50px" rx="15px" ry="30px" />
+                    <path d="M20,70 l-40,0 l-7,-20 l54,0 z" />
+                    <path d="M-50,-43 l100,0 c3,42 -3,93 -5,93 l-90,0 M-50,-43 c-3,42 3,93 5,93" />
+                    <line x1="0px" y1="-40px" x2="0px" y2="50px" />
+                    <circle id="Engine1FuelState" r="28" />
+                </g>
+
+                <g id="Engine2" class="engineInfo" transform="translate(860, 115)">
+                    <rect x="-50px" y="-68px" width="100px" height="50px" rx="15px" ry="30px" />
+                    <path d="M20,70 l-40,0 l-7,-20 l54,0 z" />
+                    <path d="M-50,-43 l100,0 c3,42 -3,93 -5,93 l-90,0 M-50,-43 c-3,42 3,93 5,93" />
+                    <line x1="0px" y1="-40px" x2="0px" y2="50px" />
+                    <circle id="Engine2FuelState" r="28" />
+                </g>
+
+                <g id="Tank1Info" class="tankInfo">
+                    <text class="label" x="600px" y="640px">CENTER</text>
+                    <rect class="background" x="410px" y="665px" width="380px" height="235px" rx="25px" ry="25px" />
+                    <text class="label" x="528px" y="705px">L</text>
+                    <text class="label" x="673px" y="705px">R</text>
+                    <rect class="quantity" x="518px" y="815px" width="164px" height="68px" rx="25px" ry="25px" />
+                    <text id="Tank1Quantity" class="quantity" x="664px" y="863px">0.0</text>
+                </g>
+
+                <g id="Tank2Info" class="tankInfo">
+                    <text class="label" x="140px" y="330px">L MAIN</text>
+                    <rect class="background" x="30px" y="350px" width="325px" height="305px" rx="25px" ry="25px" />
+                    <text class="label" x="98px" y="390px">FWD</text>
+                    <text class="label" x="98px" y="640px">AFT</text>
+                    <rect class="quantity" x="160px" y="468px" width="125px" height="68px" rx="25px" ry="25px" />
+                    <text id="Tank2Quantity" class="quantity" x="268px" y="516px">0.0</text>
+                </g>
+
+                <g id="Tank3Info" class="tankInfo">
+                    <text class="label" x="1060px" y="330px">R MAIN</text>
+                    <rect class="background" x="845px" y="350px" width="325px" height="305px" rx="25px" ry="25px" />
+                    <text class="label" x="1112px" y="390px">FWD</text>
+                    <text class="label" x="1112px" y="640px">AFT</text>
+                    <rect class="quantity" x="915px" y="468px" width="125px" height="68px" rx="25px" ry="25px" />
+                    <text id="Tank3Quantity" class="quantity" x="1023px" y="516px">0.0</text>
+                </g>
+
+                <text class="label" x="600px" y="430px">CROSSFEED</text>
+                <path class="fuelFrame" d="M340,150 L340,755 L480,755 M145,440 L340,440 M145,565 L340,565 M860,150 L860,755 L720,755 M860,440 L1055,440 M860,565 L1055,565 M340,480 L860,480" />
+
+                <g id="FuelPumps">
+                    <rect id="FuelPump1" x="480px" y="720px" width="95px" height="70px" />
+                    <rect id="FuelPump2" x="625px" y="720px" width="95px" height="70px" />
+                    <rect id="FuelPump3" x="50px" y="530px" width="95px" height="70px" />
+                    <rect id="FuelPump4" x="50px" y="405px" width="95px" height="70px" />
+                    <rect id="FuelPump5" x="1055px" y="530px" width="95px" height="70px" />
+                    <rect id="FuelPump6" x="1055px" y="405px" width="95px" height="70px" />
+                </g>
+
+                <g id="FuelValveTemplate">
+                    <circle r="28" />
+                    <line x1="-5" x2="-5" y1="-26" y2="26" />
+                    <line x1="5" x2="5" y1="-26" y2="26" />
+                </g>
+
+                <g id="FuelValves">
+                    <g id="FuelValve1" transform="translate(340, 230) rotate(90)"></g>
+                    <g id="FuelValve2" transform="translate(860, 230) rotate(90)"></g>
+                    <g id="FuelValve3" transform="translate(600, 480) rotate(0)"></g>
+                    <!--<g id="FuelValve4" transform="translate(455, 850) rotate(90)"></g>-->
+                    <!--<g id="FuelValve5" transform="translate(745, 850) rotate(90)"></g>-->
+                    <g id="FuelValve6" transform="translate(860, 850) rotate(90)"></g>
+                    <g id="FuelValve7" transform="translate(340, 850) rotate(90)"></g>
+                    <!--<g id="FuelValve8" transform="translate(170, 1135) rotate(120)"></g>-->
+                    <!--<g id="FuelValve9" transform="translate(1030, 1135) rotate(60)"></g>-->
+                </g>
+
+                <g id="FuelLines">
+                    <line id="FuelLine1" x1="476px" x2="579px" y1="755px" y2="755px" />
+                    <polyline id="FuelLine2" points="340,565 340,755 480,755" />
+                    <line id="FuelLine3" x1="46px" x2="145px" y1="565px" y2="565px" />
+                    <line id="FuelLine4" x1="145px" x2="340px" y1="565px" y2="565px" />
+                    <line id="FuelLine5" x1="340px" x2="340px" y1="480px" y2="573px" />
+                    <line id="FuelLine6" x1="340px" x2="340px" y1="440px" y2="480px" />
+                    <line id="FuelLine7" x1="46px" x2="145px" y1="440px" y2="440px" />
+                    <line id="FuelLine8" x1="145px" x2="348px" y1="440px" y2="440px" />
+                    <line id="FuelLine9" x1="340px" x2="340px" y1="305px" y2="448px" />
+                    <line id="FuelLine10" x1="340px" x2="340px" y1="260px" y2="305px" />
+                    <line id="FuelLine11" x1="340px" x2="340px" y1="74px" y2="260px" />
+                    <line id="FuelLine12" x1="621px" x2="724px" y1="755px" y2="755px" />
+                    <polyline id="FuelLine13" points="860,565 860,755 720,755" />
+                    <line id="FuelLine14" x1="1055px" x2="1154px" y1="565px" y2="565px" />
+                    <line id="FuelLine15" x1="860px" x2="1055px" y1="565px" y2="565px" />
+                    <line id="FuelLine16" x1="860px" x2="860px" y1="480px" y2="573px" />
+                    <line id="FuelLine17" x1="860px" x2="860px" y1="440px" y2="480px" />
+                    <line id="FuelLine18" x1="1055px" x2="1154px" y1="440px" y2="440px" />
+                    <line id="FuelLine19" x1="852px" x2="1055px" y1="440px" y2="440px" />
+                    <line id="FuelLine20" x1="860px" x2="860px" y1="260px" y2="448px" />
+                    <line id="FuelLine21" x1="860px" x2="860px" y1="74px" y2="260px" />
+                    <g id="FuelLine22">
+                        <polyline points="348,280 145,280 145,180" />
+                        <rect x="100px" y="130px" width="90px" height="50px" rx="25px" ry="25px" />
+                        <text class="label" x="145px" y="165px">APU</text>
+                    </g>
+                    <line id="FuelLine23" x1="332px" x2="625px" y1="480px" y2="480px" />
+                    <line id="FuelLine24" x1="575px" x2="868px" y1="480px" y2="480px" />
+                    <line id="FuelLine32" x1="340px" x2="340px" y1="557px" y2="880px" />
+                    <line id="FuelLine33" x1="860px" x2="860px" y1="557px" y2="880px" />
+                    <g id="FuelLine34">
+                        <polyline points="860,878 860,1160, 192,1160 192,700" />
+                        <path d="M192,700 l-15,0 l15,-30 l15,30 z" />
+                        <text class="label" x="600px" y="1200px">BALANCE</text>
+                    </g>
+                    <g id="FuelLine35">
+                        <polyline points="340,878 340,1160, 1008,1160 1008,700" />
+                        <path d="M1008,700 l-15,0 l15,-30 l15,30 z" />
+                        <text class="label" x="600px" y="1200px">BALANCE</text>
+                    </g>
+                </g>
+            </g>
+
+            <g id="AIR_Page">
+
+            </g>
+
+            <g id="DOOR_Page">
+
+            </g>
+
+            <g id="GEAR_Page">
+
+            </g>
+
+            <g id="FCTL_Page">
+
+            </g>
+
+            <g id="EFIS_DSP_Page">
+
+            </g>
+
+            <g id="MAINT_Page">
+
+            </g>
+
+            <g id="CB_Page">
+
+            </g>
         </g>
-
-        <rect x="646" y="213" width="3" height="372" />
-        <rect x="646" y="213" width="3" height="372" />
-        <g id="apuR">
-          <rect x="610" y="129" width="72" height="83" />
-
-          <circle cx="643" cy="170" r="27" />
-          <rect class="black" x="643" y="174" width="32" height="25" />
-          <path d="M670,173L665,169L675,169L670,173Z" />
-
-          <g id="apuRpass">
-            <rect class="pass" x="646" y="129" width="3" height="451" />
-            <path class="pass" d="M646,584L626,569L665,569L646,584Z" />
-          </g>
-        </g>
-
-        <path
-          d="M1035,607c-0,-11 -8,-20 -20,-20c-116,-0 -709,-0 -826,-0c-11,-0 -20,8 -20,20c0,37 0,116 0,154c0,11 8,20 20,20c116,0 709,0 826,0c11,0 20,-8 20,-20c-0,-37 -0,-116 -0,-154Z"
-        />
-        <rect x="214" y="786" width="3" height="95" />
-        <g id="eng1">
-          <rect x="181" y="885" width="70" height="81" />
-          <rect x="173" y="990" width="86" height="85" />
-          <g class="startup">
-            <circle cx="214" cy="925" r="27" />
-            <rect class="black" x="214" y="929" width="28" height="25" />
-            <path d="M241,928L236,924L246,924L241,928Z" />
-
-            <rect x="725" y="448" width="67" height="3" />
-            <rect x="722" y="448" width="3" height="65" />
-            <path d="M723,515L742,502L705,502L723,515Z" />
-            <text x="664px" y="543px">L START</text>
-          </g>
-          <g id="eng1pass">
-            <rect class="pass" x="214" y="786" width="3" height="180" />
-            <path class="pass" d="M216,784L234,799L198,799L216,784Z" />
-          </g>
-        </g>
-        <rect x="324" y="786" width="3" height="95" />
-        <g id="eng2">
-          <rect x="291" y="885" width="70" height="81" />
-          <rect x="285" y="990" width="86" height="85" />
-          <g class="startup">
-            <circle cx="325" cy="925" r="27" />
-            <rect class="black" x="325" y="929" width="28" height="25" />
-            <path d="M352,928L347,924L357,924L352,928Z" />
-          </g>
-          <g id="eng2pass">
-            <rect class="pass" x="324" y="786" width="3" height="180" />
-            <path class="pass" d="M326,784L344,799L307,799L326,784Z" />
-          </g>
-        </g>
-        <rect x="875" y="786" width="3" height="95" />
-        <g id="eng3">
-          <rect x="842" y="885" width="70" height="81" />
-          <rect x="834" y="990" width="86" height="85" />
-          <g class="startup">
-            <circle cx="874" cy="925" r="27" />
-            <rect class="black" x="874" y="929" width="28" height="25" />
-            <path d="M901,928L896,924L906,924L901,928Z" />
-
-            <rect x="1067" y="448" width="67" height="3" />
-            <rect x="1134" y="448" width="3" height="65" />
-            <path d="M1135,515L1117,502L1154,502L1135,515Z" />
-            <text x="1075px" y="543px">R START</text>
-          </g>
-          <g id="eng3pass">
-            <rect class="pass" x="875" y="786" width="3" height="180" />
-            <path class="pass" d="M877,784L895,799L859,799L877,784Z" />
-          </g>
-        </g>
-        <rect x="985" y="786" width="3" height="95" />
-        <g id="eng4">
-          <rect x="952" y="885" width="70" height="81" />
-          <rect x="946" y="990" width="86" height="85" />
-          <g class="startup">
-            <circle cx="985" cy="925" r="27" />
-            <rect class="black" x="985" y="929" width="28" height="25" />
-            <path d="M1012,928L1007,924L1017,924L1012,928Z" />
-          </g>
-          <g id="eng4pass">
-            <rect class="pass" x="985" y="786" width="3" height="180" />
-            <path
-              class="pass"
-              d="M987,784.24L1005.12,799.24L968.877,799.24L987,784.24Z"
-            />
-          </g>
-        </g>
-        <path
-          d="M1065,431c0,-5 -2,-10 -5,-14c-3,-3 -8,-5 -14,-5c-50,0 -182,0 -233,0c-5,0 -10,2 -14,5c-3,3 -5,8 -5,14c0,11 0,27 0,39c0,5 2,10 5,14c3,3 8,5 14,5c50,-0 182,-0 233,-0c5,-0 10,-2 14,-5c3,-3 5,-8 5,-14c0,-11 0,-27 0,-39Z"
-        />
-        <path
-          d="M764,1197c-0,-5 -2,-10 -5,-14c-3,-3 -8,-5 -14,-5c-58,0 -229,0 -288,0c-5,0 -10,2 -14,5c-3,3 -5,8 -5,14c0,55 0,213 0,269c0,5 2,10 5,14c3,3 8,5 14,5c58,-0 229,-0 288,-0c5,-0 10,-2 14,-5c3,-3 5,-8 5,-14c-0,-55 -0,-213 -0,-269Z"
-        />
-        <text x="192px" y="1321px">MAIN BAT</text>
-        <text x="117px" y="1375px">VOLTS</text>
-        <text x="117px" y="1412px">AMPS</text>
-        <text x="905px" y="1321px">APU BAT</text>
-        <text x="827px" y="1374px">VOLTS</text>
-        <text x="827px" y="1411px">AMPS</text>
-        <text x="842px" y="1109px">R1-GEN-R2</text>
-        <text x="890px" y="1142px">DRIVE</text>
-        <g class="off" id="bus">
-          <rect class="pass" x="927" y="500" width="3" height="85" />
-          <path class="pass" d="M928,490L946,505L910,505L928,490Z" />
-          <path
-            d="M414,684c0,-7 -3,-15 -8,-20c-5,-5 -13,-8 -20,-8l-99,-0c-7,-0 -15,3 -20,8c-5,5 -8,13 -8,20l-0,0c-0,7 3,15 8,20c5,5 13,8 20,8l99,-0c7,-0 15,-3 20,-8c5,-5 8,-13 8,-20l0,-0Z"
-          />
-          <path
-            d="M592,684c-0,-7 -3,-15 -8,-20c-5,-5 -13,-8 -20,-8l-99,-0c-7,-0 -15,3 -20,8c-5,5 -8,13 -8,20l-0,0c-0,7 3,15 8,20c5,5 13,8 20,8l99,-0c7,-0 15,-3 20,-8c5,-5 8,-13 8,-20l-0,-0Z"
-          />
-          <path
-            d="M770,684c-0,-7 -3,-15 -8,-20c-5,-5 -13,-8 -20,-8l-99,-0c-7,-0 -15,3 -20,8c-5,5 -8,13 -8,20l-0,0c-0,7 3,15 8,20c5,5 13,8 20,8l99,-0c7,-0 15,-3 20,-8c5,-5 8,-13 8,-20l-0,-0Z"
-          />
-          <path
-            d="M948,684c-0,-7 -3,-15 -8,-20c-5,-5 -13,-8 -20,-8l-99,-0c-7,-0 -15,3 -20,8c-5,5 -8,13 -8,20l0,0c0,7 3,15 8,20c5,5 13,8 20,8l99,-0c7,-0 15,-3 20,-8c5,-5 8,-13 8,-20l-0,-0Z"
-          />
-          <text class="off" x="276px" y="694px">L1 MAIN</text>
-          <text class="off" x="454px" y="694px">L2 MAIN</text>
-          <text class="off" x="632px" y="694px">R1 MAIN</text>
-          <text class="off" x="810px" y="694px">R2 MAIN</text>
-        </g>
-        <rect class="black" x="512" y="1161" width="178" height="31" />
-        <text x="516px" y="1187px">LOAD SHED</text>
-        <text class="vals" x="455px" y="1221px">MISC HEATERS</text>
-        <text x="825px" y="445px">LARGE MOTOR</text>
-        <text x="844px" y="476px">POWER SYS</text>
-        <text x="835px" y="180px">AFT EXT PWR</text>
-        <text x="168px" y="180px">FWD EXT PWR</text>
-        <text x="212px" y="234px">L</text>
-        <text x="306px" y="234px">R</text>
-        <text x="530px" y="635px">AC BUSES</text>
-        <text x="902px" y="844px">GEN</text>
-        <text x="895px" y="873px">CTRL</text>
-        <text x="829px" y="873px">L1</text>
-        <text x="1004px" y="874px">R1</text>
-        <text x="180px" y="1109px">R1-GEN-R2</text>
-        <text x="229px" y="1142px">DRIVE</text>
-        <text x="241px" y="844px">GEN</text>
-        <text x="234px" y="873px">CTRL</text>
-        <text x="167px" y="873px">L1</text>
-        <text x="343px" y="874px">R1</text>
-        <text x="538px" y="79px">APU GEN</text>
-        <text x="542px" y="121px">L</text>
-        <text x="635px" y="120px">R</text>
-        <text id="batVolts" class="vals" x="250px" y="1375px">26</text>
-        <text id="batAmps" class="vals" x="250px" y="1412px">13</text>
-        <text id="apuVolts" class="vals" x="960px" y="1375px">28</text>
-        <text id="apuAmps" class="vals" x="960px" y="1412px">0</text>
-      </g>
-
-      <g id="HYD_Page"></g>
-
-      <g id="FUEL_Page">
-        <g id="TotalFuelDisplay">
-          <rect
-            x="450px"
-            y="145px"
-            width="300px"
-            height="80px"
-            rx="25px"
-            ry="25px"
-          />
-          <text class="label" x="465px" y="180px">TOTAL</text>
-          <text class="label" x="465px" y="212px">FUEL</text>
-          <text id="TotalFuelValue" class="quantity" x="735px" y="200px">
-            0.0
-          </text>
-          <text id="TotalFuelUnits" class="units" x="600px" y="285px">
-            KGS X 1000
-          </text>
-        </g>
-
-        <g id="FuelTempDisplay">
-          <text class="label" x="25px" y="1400px">MIN FUEL TEMP</text>
-          <text class="label" x="25px" y="1450px">FUEL TEMP</text>
-          <text id="MinFuelTemp" class="quantity" x="400px" y="1400px">-</text>
-          <text id="CurrentFuelTemp" class="quantity" x="400px" y="1450px">
-            -
-          </text>
-        </g>
-
-        <g id="Engine1" class="engineInfo" transform="translate(340, 115)">
-          <rect
-            x="-50px"
-            y="-68px"
-            width="100px"
-            height="50px"
-            rx="15px"
-            ry="30px"
-          />
-          <path d="M20,70 l-40,0 l-7,-20 l54,0 z" />
-          <path
-            d="M-50,-43 l100,0 c3,42 -3,93 -5,93 l-90,0 M-50,-43 c-3,42 3,93 5,93"
-          />
-          <line x1="0px" y1="-40px" x2="0px" y2="50px" />
-          <circle id="Engine1FuelState" r="28" />
-        </g>
-
-        <g id="Engine2" class="engineInfo" transform="translate(860, 115)">
-          <rect
-            x="-50px"
-            y="-68px"
-            width="100px"
-            height="50px"
-            rx="15px"
-            ry="30px"
-          />
-          <path d="M20,70 l-40,0 l-7,-20 l54,0 z" />
-          <path
-            d="M-50,-43 l100,0 c3,42 -3,93 -5,93 l-90,0 M-50,-43 c-3,42 3,93 5,93"
-          />
-          <line x1="0px" y1="-40px" x2="0px" y2="50px" />
-          <circle id="Engine2FuelState" r="28" />
-        </g>
-
-        <g id="Tank1Info" class="tankInfo">
-          <text class="label" x="600px" y="640px">CENTER</text>
-          <rect
-            class="background"
-            x="410px"
-            y="665px"
-            width="380px"
-            height="235px"
-            rx="25px"
-            ry="25px"
-          />
-          <text class="label" x="528px" y="705px">L</text>
-          <text class="label" x="673px" y="705px">R</text>
-          <rect
-            class="quantity"
-            x="518px"
-            y="815px"
-            width="164px"
-            height="68px"
-            rx="25px"
-            ry="25px"
-          />
-          <text id="Tank1Quantity" class="quantity" x="664px" y="863px">
-            0.0
-          </text>
-        </g>
-
-        <g id="Tank2Info" class="tankInfo">
-          <text class="label" x="140px" y="330px">L MAIN</text>
-          <rect
-            class="background"
-            x="30px"
-            y="350px"
-            width="325px"
-            height="305px"
-            rx="25px"
-            ry="25px"
-          />
-          <text class="label" x="98px" y="390px">FWD</text>
-          <text class="label" x="98px" y="640px">AFT</text>
-          <rect
-            class="quantity"
-            x="160px"
-            y="468px"
-            width="125px"
-            height="68px"
-            rx="25px"
-            ry="25px"
-          />
-          <text id="Tank2Quantity" class="quantity" x="268px" y="516px">
-            0.0
-          </text>
-        </g>
-
-        <g id="Tank3Info" class="tankInfo">
-          <text class="label" x="1060px" y="330px">R MAIN</text>
-          <rect
-            class="background"
-            x="845px"
-            y="350px"
-            width="325px"
-            height="305px"
-            rx="25px"
-            ry="25px"
-          />
-          <text class="label" x="1112px" y="390px">FWD</text>
-          <text class="label" x="1112px" y="640px">AFT</text>
-          <rect
-            class="quantity"
-            x="915px"
-            y="468px"
-            width="125px"
-            height="68px"
-            rx="25px"
-            ry="25px"
-          />
-          <text id="Tank3Quantity" class="quantity" x="1023px" y="516px">
-            0.0
-          </text>
-        </g>
-
-        <text class="label" x="600px" y="430px">CROSSFEED</text>
-        <path
-          class="fuelFrame"
-          d="M340,150 L340,755 L480,755 M145,440 L340,440 M145,565 L340,565 M860,150 L860,755 L720,755 M860,440 L1055,440 M860,565 L1055,565 M340,480 L860,480"
-        />
-
-        <g id="FuelPumps">
-          <rect id="FuelPump1" x="480px" y="720px" width="95px" height="70px" />
-          <rect id="FuelPump2" x="625px" y="720px" width="95px" height="70px" />
-          <rect id="FuelPump3" x="50px" y="530px" width="95px" height="70px" />
-          <rect id="FuelPump4" x="50px" y="405px" width="95px" height="70px" />
-          <rect
-            id="FuelPump5"
-            x="1055px"
-            y="530px"
-            width="95px"
-            height="70px"
-          />
-          <rect
-            id="FuelPump6"
-            x="1055px"
-            y="405px"
-            width="95px"
-            height="70px"
-          />
-        </g>
-
-        <g id="FuelValveTemplate">
-          <circle r="28" />
-          <line x1="-5" x2="-5" y1="-26" y2="26" />
-          <line x1="5" x2="5" y1="-26" y2="26" />
-        </g>
-
-        <g id="FuelValves">
-          <g id="FuelValve1" transform="translate(340, 230) rotate(90)"></g>
-          <g id="FuelValve2" transform="translate(860, 230) rotate(90)"></g>
-          <g id="FuelValve3" transform="translate(600, 480) rotate(0)"></g>
-          <!--<g id="FuelValve4" transform="translate(455, 850) rotate(90)"></g>-->
-          <!--<g id="FuelValve5" transform="translate(745, 850) rotate(90)"></g>-->
-          <g id="FuelValve6" transform="translate(860, 850) rotate(90)"></g>
-          <g id="FuelValve7" transform="translate(340, 850) rotate(90)"></g>
-          <!--<g id="FuelValve8" transform="translate(170, 1135) rotate(120)"></g>-->
-          <!--<g id="FuelValve9" transform="translate(1030, 1135) rotate(60)"></g>-->
-        </g>
-
-        <g id="FuelLines">
-          <line id="FuelLine1" x1="476px" x2="579px" y1="755px" y2="755px" />
-          <polyline id="FuelLine2" points="340,565 340,755 480,755" />
-          <line id="FuelLine3" x1="46px" x2="145px" y1="565px" y2="565px" />
-          <line id="FuelLine4" x1="145px" x2="340px" y1="565px" y2="565px" />
-          <line id="FuelLine5" x1="340px" x2="340px" y1="480px" y2="573px" />
-          <line id="FuelLine6" x1="340px" x2="340px" y1="440px" y2="480px" />
-          <line id="FuelLine7" x1="46px" x2="145px" y1="440px" y2="440px" />
-          <line id="FuelLine8" x1="145px" x2="348px" y1="440px" y2="440px" />
-          <line id="FuelLine9" x1="340px" x2="340px" y1="305px" y2="448px" />
-          <line id="FuelLine10" x1="340px" x2="340px" y1="260px" y2="305px" />
-          <line id="FuelLine11" x1="340px" x2="340px" y1="74px" y2="260px" />
-          <line id="FuelLine12" x1="621px" x2="724px" y1="755px" y2="755px" />
-          <polyline id="FuelLine13" points="860,565 860,755 720,755" />
-          <line id="FuelLine14" x1="1055px" x2="1154px" y1="565px" y2="565px" />
-          <line id="FuelLine15" x1="860px" x2="1055px" y1="565px" y2="565px" />
-          <line id="FuelLine16" x1="860px" x2="860px" y1="480px" y2="573px" />
-          <line id="FuelLine17" x1="860px" x2="860px" y1="440px" y2="480px" />
-          <line id="FuelLine18" x1="1055px" x2="1154px" y1="440px" y2="440px" />
-          <line id="FuelLine19" x1="852px" x2="1055px" y1="440px" y2="440px" />
-          <line id="FuelLine20" x1="860px" x2="860px" y1="260px" y2="448px" />
-          <line id="FuelLine21" x1="860px" x2="860px" y1="74px" y2="260px" />
-          <g id="FuelLine22">
-            <polyline points="348,280 145,280 145,180" />
-            <rect
-              x="100px"
-              y="130px"
-              width="90px"
-              height="50px"
-              rx="25px"
-              ry="25px"
-            />
-            <text class="label" x="145px" y="165px">APU</text>
-          </g>
-          <line id="FuelLine23" x1="332px" x2="625px" y1="480px" y2="480px" />
-          <line id="FuelLine24" x1="575px" x2="868px" y1="480px" y2="480px" />
-          <line id="FuelLine32" x1="340px" x2="340px" y1="557px" y2="880px" />
-          <line id="FuelLine33" x1="860px" x2="860px" y1="557px" y2="880px" />
-          <g id="FuelLine34">
-            <polyline points="860,878 860,1160, 192,1160 192,700" />
-            <path d="M192,700 l-15,0 l15,-30 l15,30 z" />
-            <text class="label" x="600px" y="1200px">BALANCE</text>
-          </g>
-          <g id="FuelLine35">
-            <polyline points="340,878 340,1160, 1008,1160 1008,700" />
-            <path d="M1008,700 l-15,0 l15,-30 l15,30 z" />
-            <text class="label" x="600px" y="1200px">BALANCE</text>
-          </g>
-        </g>
-      </g>
-
-      <g id="AIR_Page"></g>
-
-      <g id="DOOR_Page">
-        <g id="fuselage">
-          <path
-            d="M290.63 778.25L302.11 778.25L318.75 764.19L318.75 672.78L300 651.69L215.63 651.69L196.88 672.78L196.88 764.19L213.61 778.25L225 778.25L290.63 778.25Z"
-            id="b1e8wkgIDw"
-          ></path>
-          <path
-            d="M979.69 778.25L991.17 778.25L1007.81 764.19L1007.81 672.78L989.06 651.69L904.69 651.69L885.94 672.78L885.94 764.19L902.67 778.25L914.06 778.25L979.69 778.25Z"
-            id="b1pdJzdFqH"
-          ></path>
-          <path
-            d="M929.09 1622L699 1465.31C709.66 1407.75 713.85 1369.75 711.54 1351.3C709.23 1332.85 708.94 963.71 710.66 243.88C694 105.52 656.79 36.38 599.04 36.45C541.29 36.52 504.83 105.67 489.66 243.88C490.61 962.76 490.72 1332.23 490 1352.3C489.28 1372.36 493.61 1409.93 503 1465.01L270.91 1622L929.09 1622Z"
-            id="bbH8AKAJs"
-          ></path>
-          <path
-            d="M285.94 778.25L287.3 802.86L253.96 802.86L229.69 778.25L285.94 778.25Z"
-            id="cgCFAVZO"
-          ></path>
-          <path
-            d="M488.53 970.13L256.73 970.13L0 1040.44L0 937.5L489.51 646.69L488.53 970.13Z"
-            id="bVR6bjTKe"
-          ></path>
-          <path
-            d="M920.16 778.25L918.75 802.86L953.22 802.86L978.33 778.25L920.16 778.25Z"
-            id="b3rZnxhi8U"
-          ></path>
-          <path
-            d="M711.23 972.13L943.14 972.13L1200 1042.44L1200 939.5L710.25 648.69L711.23 972.13Z"
-            id="bbohQfa1"
-          ></path>
-        </g>
-        <text class="head" x="101px" y="192px">LAV VACANT</text>
-        <text class="label" x="101px" y="410px">ENTRY 1L</text>
-        <line x1="255px" x2="450px" y1="410px" y2="410px" />
-        <rect
-          class="closed"
-          id="entry1lClosed"
-          x="510px"
-          y="395px"
-          width="37.5px"
-          height="30px"
-        />
-        <text class="closed" x="520px" y="420px">M</text>
-
-        <text class="label" x="101px" y="580px">ENTRY 2L</text>
-        <line x1="255px" x2="450px" y1="580px" y2="580px" />
-        <rect
-          class="closed"
-          id="entry2lClosed"
-          x="510px"
-          y="565px"
-          width="37.5px"
-          height="30px"
-        />
-        <text class="closed" x="520px" y="590px">M</text>
-
-        <text class="label" x="75px" y="736px">REFUEL</text>
-        <line x1="130px" x2="130px" y1="740px" y2="850px" />
-        <text class="label" x="101px" y="1092px">ENTRY 3L</text>
-        <line x1="255px" x2="450px" y1="1092px" y2="1092px" />
-        <rect
-          class="closed"
-          id="entry3lClosed"
-          x="510px"
-          y="1077px"
-          width="37.5px"
-          height="30px"
-        />
-        <text class="closed" x="520px" y="1102px">M</text>
-
-        <text class="label" x="101px" y="1224px">BULK CARGO</text>
-        <line x1="290px" x2="450px" y1="1224px" y2="1224px" />
-        <text class="label" x="101px" y="1304px">ENTRY 4L</text>
-        <line x1="255px" x2="450px" y1="1304px" y2="1304px" />
-        <rect
-          class="closed"
-          id="entry4lClosed"
-          x="510px"
-          y="1289px"
-          width="37.5px"
-          height="30px"
-        />
-        <text class="closed" x="520px" y="1314px">M</text>
-
-        <text class="label" x="998px" y="1304px">ENTRY 4R</text>
-        <line x1="750px" x2="998px" y1="1304px" y2="1304px" />
-        <rect
-          class="closed"
-          id="entry4rClosed"
-          x="652.5"
-          y="1289px"
-          width="37.5px"
-          height="30px"
-        />
-        <text class="closed" x="662.5px" y="1314px">M</text>
-
-        <text class="label" x="975px" y="1163px">AFT CARGO</text>
-        <line x1="750px" x2="975px" y1="1163px" y2="1163px" />
-        <text class="label" x="998px" y="1092px">ENTRY 3R</text>
-        <line x1="750px" x2="998px" y1="1092px" y2="1092px" />
-        <rect
-          class="closed"
-          id="entry3rClosed"
-          x="652.5"
-          y="1077px"
-          width="37.5px"
-          height="30px"
-        />
-        <text class="closed" x="662.5px" y="1102px">M</text>
-
-        <text class="label" x="998px" y="580px">ENTRY 2R</text>
-        <line x1="750px" x2="998px" y1="580px" y2="580px" />
-        <rect
-          class="closed"
-          id="entry2rClosed"
-          x="652.5"
-          y="565px"
-          width="37.5px"
-          height="30px"
-        />
-        <text class="closed" x="662.5px" y="590px">M</text>
-
-        <text class="label" x="964px" y="497px">FWD CARGO</text>
-        <line x1="750px" x2="964px" y1="497px" y2="497px" />
-        <text class="label" x="998px" y="410px">ENTRY 1R</text>
-        <line x1="750px" x2="998px" y1="410px" y2="410px" />
-        <rect
-          class="closed"
-          id="entry1rClosed"
-          x="652.5"
-          y="395px"
-          width="37.5px"
-          height="30px"
-        />
-        <text class="closed" x="662.5px" y="420px">M</text>
-
-        <text class="label" x="1006px" y="258px">FD OVHD</text>
-        <line x1="750px" x2="1006px" y1="258px" y2="258px" />
-        <text class="label" x="942px" y="192px">FWD ACCESS</text>
-        <line x1="700px" x2="942px" y1="192px" y2="192px" />
-
-        <rect
-          id="entry1lOpen"
-          x="510px"
-          y="395px"
-          rx="10"
-          ry="10"
-          width="75px"
-          height="30px"
-        />
-        <rect
-          id="entry4rOpen"
-          x="615px"
-          y="1289px"
-          rx="10"
-          ry="10"
-          width="75px"
-          height="30px"
-        />
-        <rect
-          id="fwdCargoOpen"
-          x="615px"
-          y="482px"
-          width="75px"
-          height="30px"
-        />
-      </g>
-
-      <g id="GEAR_Page">
-        <rect class="brake" x="860" y="837" width="26" height="57" />
-        <rect class="brake" x="1071" y="837" width="26" height="57" />
-        <rect class="brake" x="1071" y="1036" width="26" height="57" />
-        <rect class="brake" x="860" y="1036" width="26" height="57" />
-        <rect class="brake" x="97" y="837" width="26" height="57" />
-        <rect class="brake" x="309" y="837" width="26" height="57" />
-        <rect class="brake" x="309" y="1036" width="26" height="57" />
-        <rect class="brake" x="97" y="1036" width="26" height="57" />
-        <rect x="573" y="275" width="40" height="3" />
-        <rect x="196" y="864" width="40" height="3" />
-        <rect x="196" y="1061" width="40" height="3" />
-        <rect x="958" y="864" width="40" height="3" />
-        <rect x="958" y="1061" width="40" height="3" />
-        <path
-          d="M699,237c0,-23 -19,-42 -42,-42c-0,-0 -0,-0 -0,-0c-23,-0 -42,19 -42,42c0,25 0,58 0,84c0,23 19,42 42,42c0,0 0,0 0,0c23,0 42,-19 42,-42c0,-25 0,-58 0,-84Z"
-        />
-        <path
-          d="M573,237c-0,-23 -19,-42 -42,-42c-0,-0 -0,-0 -0,-0c-23,-0 -42,19 -42,42c-0,25 -0,58 -0,84c-0,23 19,42 42,42c0,0 0,0 0,0c23,0 42,-19 42,-42c-0,-25 -0,-58 -0,-84Z"
-        />
-        <path d="M218,1064l0,-196l-3,0l-0,196l3,-0Z" />
-        <path
-          d="M322,826c-0,-23 -19,-42 -42,-42c-0,0 -0,0 -0,0c-23,0 -42,19 -42,42c-0,25 -0,58 -0,84c-0,23 19,42 42,42c0,0 0,0 0,0c23,0 42,-19 42,-42c-0,-25 -0,-58 -0,-84Z"
-        />
-        <path
-          d="M196,826c0,-23 -19,-42 -42,-42c-0,0 -0,0 -0,0c-23,0 -42,19 -42,42c0,25 0,58 0,84c0,23 19,42 42,42c0,0 0,0 0,0c23,0 42,-19 42,-42c0,-25 0,-58 0,-84Z"
-        />
-        <path
-          d="M322,1022c-0,-23 -19,-42 -42,-42c-0,-0 -0,-0 -0,-0c-23,-0 -42,19 -42,42c-0,25 -0,58 -0,84c-0,23 19,42 42,42c0,0 0,0 0,0c23,0 42,-19 42,-42c-0,-25 -0,-58 -0,-84Z"
-        />
-        <path
-          d="M196,1022c0,-23 -19,-42 -42,-42c-0,-0 -0,-0 -0,-0c-23,-0 -42,19 -42,42c0,25 0,58 0,84c0,23 19,42 42,42c0,0 0,0 0,0c23,0 42,-19 42,-42c0,-25 0,-58 0,-84Z"
-        />
-        <path d="M980,1064l-0,-196l-3,0l0,196l3,-0Z" />
-        <path
-          d="M1084,826c0,-23 -19,-42 -42,-42c-0,0 -0,0 -0,0c-23,0 -42,19 -42,42c0,25 0,58 0,84c0,23 19,42 42,42c0,0 0,0 0,0c23,0 42,-19 42,-42c0,-25 0,-58 0,-84Z"
-        />
-        <path
-          d="M958,826c0,-23 -19,-42 -42,-42c-0,0 -0,0 -0,0c-23,0 -42,19 -42,42c-0,25 -0,58 -0,84c-0,23 19,42 42,42c0,0 0,0 0,0c23,0 42,-19 42,-42c0,-25 0,-58 0,-84Z"
-        />
-        <path
-          d="M1084,1022c0,-23 -19,-42 -42,-42c-0,-0 -0,-0 -0,-0c-23,-0 -42,19 -42,42c0,25 0,58 0,84c0,23 19,42 42,42c0,0 0,0 0,0c23,0 42,-19 42,-42c0,-25 0,-58 0,-84Z"
-        />
-        <path
-          d="M958,1022c0,-23 -19,-42 -42,-42c-0,-0 -0,-0 -0,-0c-23,-0 -42,19 -42,42c-0,25 -0,58 -0,84c-0,23 19,42 42,42c0,0 0,0 0,0c23,0 42,-19 42,-42c0,-25 0,-58 0,-84Z"
-        />
-        <g id="gearDoor">
-          <rect x="487px" y="431px" width="211px" height="86px" />
-          <rect x="110px" y="1226px" width="211px" height="86px" />
-          <rect x="873px" y="1226px" width="211px" height="86px" />
-          <g id="transit">
-            <path d="m699,483l-34,34l-0,-0l34,-34l0,0z" />
-            <path d="m700,505l-13,13l-0,-0l13,-13l0,0z" />
-            <path d="m582,431l-86,86l-0,-0l86,-86l0,0z" />
-            <path d="m601,431l-86,86l-0,-0l86,-86l0,0z" />
-            <path d="m620,431l-86,86l-0,-0l86,-86l0,0z" />
-            <path d="m638,431l-86,86l-0,-0l86,-86l0,0z" />
-            <path d="m656,431l-86,86l-0,-0l86,-86l0,0z" />
-            <path d="m674,431l-86,86l-0,-0l86,-86l0,0z" />
-            <path d="m693,431l-86,86l-0,-0l86,-86l0,0z" />
-            <path d="m699,444l-73,73l-0,-0l73,-73l0,0z" />
-            <path d="m699,464l-54,54l-0,-0l54,-54l0,0z" />
-            <path d="m506,431l-18,18l0,0l18,-18l-0,-0z" />
-            <path d="m525,431l-37,37l-0,-0l37,-37l0,0z" />
-            <path d="m543,431l-54,54l-0,-0l54,-54l0,0z" />
-            <path d="m562,431l-74,74l-0,-0l74,-74l0,0z" />
-            <path d="M321,1278l-34,34l-0,-0l34,-34l0,0Z" />
-            <path d="M322,1299l-13,13l-0,-0l13,-13l0,0Z" />
-            <path d="M204,1226l-86,86l-0,-0l86,-86l0,0Z" />
-            <path d="M223,1226l-86,86l-0,-0l86,-86l0,0Z" />
-            <path d="M242,1226l-86,86l-0,-0l86,-86l0,0Z" />
-            <path d="M260,1226l-86,86l-0,-0l86,-86l0,0Z" />
-            <path d="M278,1226l-86,86l-0,-0l86,-86l0,0Z" />
-            <path d="M297,1226l-86,86l-0,-0l86,-86l0,0Z" />
-            <path d="M315,1226l-86,86l-0,-0l86,-86l0,0Z" />
-            <path d="M321,1239l-73,73l-0,-0l73,-73l0,0Z" />
-            <path d="M321,1258l-54,54l-0,-0l54,-54l0,0Z" />
-            <path d="M128,1226l-18,18l0,0l18,-18l-0,-0Z" />
-            <path d="M147,1226l-37,37l-0,-0l37,-37l0,0Z" />
-            <path d="M165,1226l-54,54l-0,-0l54,-54l0,0Z" />
-            <path d="M184,1226l-74,74l-0,-0l74,-74l0,0Z" />
-            <path d="M1084,1278l-34,34l-0,-0l34,-34l0,0Z" />
-            <path d="M1084,1299l-13,13l-0,-0l13,-13l0,0Z" />
-            <path d="M966,1226l-86,86l-0,-0l86,-86l0,0Z" />
-            <path d="M986,1226l-86,86l-0,-0l86,-86l0,0Z" />
-            <path d="M1005,1226l-86,86l-0,-0l86,-86l0,0Z" />
-            <path d="M1023,1226l-86,86l-0,-0l86,-86l0,0Z" />
-            <path d="M1041,1226l-86,86l-0,-0l86,-86l0,0Z" />
-            <path d="M1059,1226l-86,86l-0,-0l86,-86l0,0Z" />
-            <path d="M1078,1226l-86,86l-0,-0l86,-86l0,0Z" />
-            <path d="M1084,1239l-73,73l-0,-0l73,-73l0,0Z" />
-            <path d="M1084,1258l-54,54l-0,-0l54,-54l0,0Z" />
-            <path d="M890,1226l-18,18l0,0l18,-18l-0,-0Z" />
-            <path d="M910,1226l-37,37l-0,-0l37,-37l0,0Z" />
-            <path d="M927,1226l-54,54l-0,-0l54,-54l0,0Z" />
-            <path d="M947,1226l-74,74l-0,-0l74,-74l0,0Z" />
-          </g>
-          <text class="label" x="512px" y="488px">CLOSED</text>
-          <text class="label" x="135px" y="1283px">CLOSED</text>
-          <text class="label" x="898px" y="1283px">CLOSED</text>
-        </g>
-        <text class="label" x="344px" y="492px">DOOR</text>
-        <text class="label" x="557px" y="1286px">DOOR</text>
-
-        <text class="label" x="138px" y="763px">1</text>
-        <text class="label" x="264px" y="763px">2</text>
-        <text class="label" x="901px" y="763px">3</text>
-        <text class="label" x="1027px" y="763px">4</text>
-        <text class="label" x="138px" y="1207px">5</text>
-        <text class="label" x="264px" y="1207px">6</text>
-        <text class="label" x="901px" y="1207px">7</text>
-        <text class="label" x="1027px" y="1207px">8</text>
-        <text class="label" x="515px" y="422px">9</text>
-        <text class="label" x="626px" y="422px">10</text>
-
-        <g id="pressure">
-          <text class="label" x="502px" y="291px">160</text>
-          <text class="label" x="628px" y="291px">160</text>
-          <text class="label" x="125px" y="880px">160</text>
-          <text class="label" x="251px" y="880px">160</text>
-          <text class="label" x="887px" y="880px">160</text>
-          <text class="label" x="1013px" y="880px">160</text>
-          <text class="label" x="125px" y="1076px">160</text>
-          <text class="label" x="251px" y="1076px">160</text>
-          <text class="label" x="887px" y="1076px">160</text>
-          <text class="label" x="1013px" y="1076px">160</text>
-        </g>
-        <g id="temp">
-          <text class="label" x="36px" y="894px">0.0</text>
-          <text class="label" x="340px" y="894px">0.0</text>
-          <text class="label" x="36px" y="1093px">0.0</text>
-          <text class="label" x="340px" y="1093px">0.0</text>
-          <text class="label" x="799px" y="894px">0.0</text>
-          <text class="label" x="1103px" y="894px">0.0</text>
-          <text class="label" x="799px" y="1093px">0.0</text>
-          <text class="label" x="1103px" y="1093px">0.0</text>
-        </g>
-      </g>
-
-      <g id="FCTL_Page"></g>
-
-      <g id="EFIS_DSP_Page"></g>
-
-      <g id="MAINT_Page"></g>
-
-      <g id="CB_Page"></g>
-    </g>
-  </svg>
+    </svg>
 </script>
 
-<script
-  type="text/html"
-  import-script="/Pages/VCockpit/Instruments/Airliners/B787_10/MFD/Pages/B787_10_SYS.js"
-></script>
+<script type="text/html" import-script="/Pages/VCockpit/Instruments/Airliners/B787_10/MFD/Pages/B787_10_SYS.js"></script>

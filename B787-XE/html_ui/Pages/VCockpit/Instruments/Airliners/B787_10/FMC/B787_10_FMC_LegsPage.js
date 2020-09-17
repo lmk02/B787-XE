@@ -141,7 +141,12 @@ class B787_10_FMC_LegsPage {
                             let altitudeConstraint = "-----";
                             if (waypoint.legAltitudeDescription !== 0) {
                                 if (waypoint.legAltitudeDescription === 1) {
-                                    altitudeConstraint = "FL" + (waypoint.legAltitude1 / 100).toFixed(0);
+                                    if (waypoint.legAltitude1 >= 15000) {
+                                        altitudeConstraint = "FL" + (waypoint.legAltitude1 / 100).toFixed(0);
+                                    }
+                                    else {
+                                        altitudeConstraint = waypoint.legAltitude1.toFixed(0);
+                                    }
                                 }
                                 if (waypoint.legAltitudeDescription === 2) {
                                     altitudeConstraint = waypoint.legAltitude1.toFixed(0) + "A";

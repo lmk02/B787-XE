@@ -59,6 +59,9 @@ class B787_10_EICAS extends B787_10_CommonMFD.MFDTemplateElement {
         this.secondaryEngine = new Array();
         this.secondaryEngine.push(this.querySelector("#SecondaryEngineTop"));
         this.secondaryEngine.push(this.querySelector("#SecondaryEngineBottom"));
+        for (let i = 0; i < this.secondaryEngine.length; i++) {
+            this.secondaryEngine[i].setAttribute("visibility", (this.secondaryEngineVisible) ? "visible" : "hidden");
+        }
         this.infoPanel = new Boeing.InfoPanel(this, "InfoPanel");
         this.infoPanel.init();
         this.infoPanelsManager = new Boeing.InfoPanelsManager();
@@ -98,13 +101,6 @@ class B787_10_EICAS extends B787_10_CommonMFD.MFDTemplateElement {
                 }
             }
         }
-        let allEngines = SimVar.GetSimVarValue("L:XMLVAR_SECONDARY_ENGINES", "bool");
-        if (allEngines != this.secondaryEngineVisible) {
-            this.secondaryEngineVisible = allEngines;
-            for (let i = 0; i < this.secondaryEngine.length; i++) {
-                this.secondaryEngine[i].setAttribute("visibility", (this.secondaryEngineVisible) ? "visible" : "hidden");
-            }
-        }
         if (this.infoPanel) {
             this.infoPanel.update(_deltaTime);
         }
@@ -118,8 +114,10 @@ class B787_10_EICAS extends B787_10_CommonMFD.MFDTemplateElement {
     onEvent(_event) {
         switch (_event) {
             case "ENG":
-                let allEngines = SimVar.GetSimVarValue("L:XMLVAR_SECONDARY_ENGINES", "bool");
-                SimVar.SetSimVarValue("L:XMLVAR_SECONDARY_ENGINES", "bool", !allEngines);
+                this.secondaryEngineVisible = !this.secondaryEngineVisible;
+                for (let i = 0; i < this.secondaryEngine.length; i++) {
+                    this.secondaryEngine[i].setAttribute("visibility", (this.secondaryEngineVisible) ? "visible" : "hidden");
+                }
                 break;
         }
     }

@@ -1,0 +1,142 @@
+﻿:root {
+  --bodyHeightScale: 1; }
+
+@keyframes TemporaryShow {
+  0%, 100% {
+    visibility: visible; } }
+
+@keyframes TemporaryHide {
+  0%, 100% {
+    visibility: hidden; } }
+
+#highlight {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 10; }
+
+#Electricity {
+  width: 100%;
+  height: 100%; }
+  #Electricity[state=off] {
+    display: none; }
+
+@font-face {
+  font-family: "Roboto";
+  src: url("/Fonts/RobotoMono-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: "Roboto-Light";
+  src: url("/Fonts/RobotoMono-Light.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: "Roboto-Bold";
+  src: url("/Fonts/RobotoMono-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+b787-10-com-element {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: black; }
+  b787-10-com-element #Content {
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+    position: absolute; }
+    b787-10-com-element #Content svg {
+      width: 100%;
+      height: 100%; }
+    b787-10-com-element #Content text, b787-10-com-element #Content tspan {
+      font-family: Roboto-Light;
+      font-size: 30px;
+      fill: white;
+      letter-spacing: 1px;
+      alignment-baseline: central; }
+    b787-10-com-element #Content .Title {
+      text-anchor: middle;
+      transform: translate(250px, 25px); }
+    b787-10-com-element #Content .Info {
+      font-size: 18px;
+      text-anchor: end;
+      transform: translate(488px, 25px); }
+    b787-10-com-element #Content .Input {
+      font-size: 30px;
+      text-anchor: start;
+      transform: translate(12px, 350px); }
+    b787-10-com-element #Content .L1_Title {
+      font-size: 20px;
+      text-anchor: start;
+      transform: translate(33px, 55px); }
+    b787-10-com-element #Content .L2_Title {
+      font-size: 20px;
+      text-anchor: start;
+      transform: translate(33px, 135px); }
+    b787-10-com-element #Content .L3_Title {
+      font-size: 20px;
+      text-anchor: start;
+      transform: translate(33px, 210px); }
+    b787-10-com-element #Content .L4_Title {
+      font-size: 20px;
+      text-anchor: start;
+      transform: translate(33px, 280px); }
+    b787-10-com-element #Content .L1 {
+      text-anchor: start;
+      transform: translate(12px, 85px); }
+    b787-10-com-element #Content .L2 {
+      text-anchor: start;
+      transform: translate(12px, 165px); }
+    b787-10-com-element #Content .L3 {
+      text-anchor: start;
+      transform: translate(12px, 240px); }
+    b787-10-com-element #Content .L4 {
+      text-anchor: start;
+      transform: translate(12px, 310px); }
+    b787-10-com-element #Content .R1_Title {
+      font-size: 20px;
+      text-anchor: end;
+      transform: translate(467px, 55px); }
+    b787-10-com-element #Content .R2_Title {
+      font-size: 20px;
+      text-anchor: end;
+      transform: translate(467px, 135px); }
+    b787-10-com-element #Content .R3_Title {
+      font-size: 20px;
+      text-anchor: end;
+      transform: translate(467px, 210px); }
+    b787-10-com-element #Content .R4_Title {
+      font-size: 20px;
+      text-anchor: end;
+      transform: translate(467px, 280px); }
+    b787-10-com-element #Content .R1 {
+      text-anchor: end;
+      transform: translate(488px, 85px); }
+    b787-10-com-element #Content .R2 {
+      text-anchor: end;
+      transform: translate(488px, 165px); }
+    b787-10-com-element #Content .R3 {
+      text-anchor: end;
+      transform: translate(488px, 240px); }
+    b787-10-com-element #Content .R4 {
+      text-anchor: end;
+      transform: translate(488px, 310px); }
+    b787-10-com-element #Content .C1 {
+      text-anchor: middle;
+      transform: translate(250px, 85px); }
+    b787-10-com-element #Content .C2 {
+      text-anchor: middle;
+      transform: translate(250px, 165px); }
+    b787-10-com-element #Content .C3 {
+      text-anchor: middle;
+      transform: translate(250px, 240px); }
+    b787-10-com-element #Content .C4 {
+      text-anchor: middle;
+      transform: translate(250px, 310px); }
+

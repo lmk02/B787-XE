@@ -33,8 +33,8 @@ class B787_10_FMC_PerfInitPage {
             fuelCell = fmc.getBlockFuel(true).toFixed(1) + " lb";
         }
         let zfwCell = "□□□.□";
-        if (fmc.zeroFuelWeight) {
-            zfwCell = fmc.zeroFuelWeight.toFixed(1);
+        if (fmc.getZeroFuelWeight(true)) {
+            zfwCell = fmc.getZeroFuelWeight(true).toFixed(1);
         }
         fmc.onLeftInput[2] = () => {
             let value = fmc.inOut;
@@ -59,7 +59,7 @@ class B787_10_FMC_PerfInitPage {
         };
         let crzCGCell = "20.0%";
         if (fmc.zeroFuelWeightMassCenter) {
-            zfwCell = fmc.zeroFuelWeightMassCenter.toFixed(1) + "%";
+            crzCGCell = fmc.zeroFuelWeightMassCenter.toFixed(1) + "%";
         }
         fmc.onRightInput[3] = () => {
             let value = fmc.inOut;

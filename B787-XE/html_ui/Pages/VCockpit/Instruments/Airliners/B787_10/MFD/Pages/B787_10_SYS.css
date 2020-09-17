@@ -6,10 +6,8 @@
   --eicasBlue: #009696;
   --eicasGreen: green;
   --eicasOrange: #db7200;
-  --eicasYellow: #fff900;
   --eicasRed: red;
-  --eicasMagenta: magenta;
-}
+  --eicasMagenta: magenta; }
 
 b787-10-sys-element {
   position: absolute;
@@ -17,449 +15,130 @@ b787-10-sys-element {
   top: 0%;
   width: 100%;
   height: 100%;
-  background-color: black;
-}
-b787-10-sys-element svg {
-  width: 100%;
-  height: 100%;
-}
-b787-10-sys-element #PageButtons text {
-  fill: var(--eicasWhite);
-  font-family: Roboto-Light;
-  font-size: 36px;
-  text-anchor: middle;
-}
-b787-10-sys-element #PageButtons .border {
-  fill: none;
-  stroke: black;
-  stroke-width: 4px;
-}
-b787-10-sys-element #PageButtons .inner {
-  fill: #646464;
-  stroke: none;
-}
-b787-10-sys-element #PageButtons .topLeftBorder,
-b787-10-sys-element #PageButtons .bottomRightBorder {
-  stroke: none;
-}
-b787-10-sys-element #PageButtons .page-button-active .inner {
-  fill: #003200;
-}
-b787-10-sys-element #PageButtons .page-button-active .topLeftBorder {
-  fill: #1e1e1e;
-}
-b787-10-sys-element #PageButtons .page-button-active .bottomRightBorder {
-  fill: #646464;
-}
-b787-10-sys-element #PageButtons .page-button-inactive .inner {
-  fill: #414141;
-}
-b787-10-sys-element #PageButtons .page-button-inactive .topLeftBorder {
-  fill: #646464;
-}
-b787-10-sys-element #PageButtons .page-button-inactive .bottomRightBorder {
-  fill: #1e1e1e;
-}
-b787-10-sys-element #PageButtons .page-button-highlight .topLeftBorder,
-b787-10-sys-element #PageButtons .page-button-highlight .bottomRightBorder {
-  fill: magenta;
-}
-b787-10-sys-element #Pages #FUEL_Page text.label {
-  font-size: 30px;
-  text-anchor: middle;
-  fill: var(--eicasBlue);
-}
-b787-10-sys-element #Pages #FUEL_Page text.quantity {
-  font-size: 38px;
-  text-anchor: end;
-  fill: var(--eicasWhite);
-}
-b787-10-sys-element #Pages #FUEL_Page #TotalFuelDisplay rect {
-  fill: none;
-  stroke: var(--eicasBlue);
-  stroke-width: 4px;
-}
-b787-10-sys-element #Pages #FUEL_Page #TotalFuelDisplay text.label {
-  text-anchor: start;
-}
-b787-10-sys-element #Pages #FUEL_Page #TotalFuelDisplay text.quantity {
-  font-size: 45px;
-}
-b787-10-sys-element #Pages #FUEL_Page #TotalFuelDisplay text.units {
-  font-size: 30px;
-  text-anchor: middle;
-  fill: var(--eicasWhite);
-}
-b787-10-sys-element #Pages #FUEL_Page #FuelTempDisplay .label {
-  text-anchor: start;
-}
-b787-10-sys-element #Pages #FUEL_Page .engineInfo rect,
-b787-10-sys-element #Pages #FUEL_Page .engineInfo path {
-  fill: var(--eicasDarkGrey);
-  stroke: var(--eicasBlue);
-  stroke-width: 4px;
-}
-b787-10-sys-element #Pages #FUEL_Page .engineInfo line {
-  fill: none;
-  stroke-width: 6px;
-  stroke: var(--eicasWhite);
-}
-b787-10-sys-element #Pages #FUEL_Page .engineInfo circle {
-  fill: var(--eicasBlack);
-  stroke-width: 4px;
-}
-b787-10-sys-element #Pages #FUEL_Page .engineInfo .fuelengine-active {
-  stroke: var(--eicasGreen);
-}
-b787-10-sys-element #Pages #FUEL_Page .engineInfo .fuelengine-inactive {
-  stroke: var(--eicasWhite);
-}
-b787-10-sys-element #Pages #FUEL_Page .tankInfo rect.background {
-  fill: var(--eicasDarkGrey);
-  stroke: var(--eicasBlue);
-  stroke-width: 4px;
-}
-b787-10-sys-element #Pages #FUEL_Page .tankInfo rect.quantity {
-  fill: var(--eicasBlack);
-  stroke: none;
-}
-b787-10-sys-element #Pages #FUEL_Page .fuelFrame {
-  fill: none;
-  stroke-width: 4px;
-  stroke: var(--eicasWhite);
-}
-b787-10-sys-element #Pages #FUEL_Page #FuelPumps {
-  fill: none;
-  stroke-width: 8px;
-}
-b787-10-sys-element #Pages #FUEL_Page #FuelPumps .fuelpump-switched-active {
-  stroke: var(--eicasGreen);
-}
-b787-10-sys-element #Pages #FUEL_Page #FuelPumps .fuelpump-notswitched-active {
-  stroke: var(--eicasOrange);
-}
-b787-10-sys-element #Pages #FUEL_Page #FuelPumps .fuelpump-switched-inactive {
-  stroke: var(--eicasOrange);
-}
-b787-10-sys-element
-  #Pages
-  #FUEL_Page
-  #FuelPumps
-  .fuelpump-notswitched-inactive {
-  stroke: var(--eicasWhite);
-}
-b787-10-sys-element #Pages #FUEL_Page #FuelValves {
-  fill: var(--eicasBlack);
-  stroke-width: 4px;
-}
-b787-10-sys-element #Pages #FUEL_Page #FuelValves .fuelvalve-open {
-  stroke: var(--eicasGreen);
-}
-b787-10-sys-element #Pages #FUEL_Page #FuelValves .fuelvalve-closing {
-  stroke: var(--eicasOrange);
-}
-b787-10-sys-element #Pages #FUEL_Page #FuelValves .fuelvalve-closed {
-  stroke: none;
-}
-b787-10-sys-element #Pages #FUEL_Page #FuelValves #FuelValve1.fuelvalve-closed,
-b787-10-sys-element #Pages #FUEL_Page #FuelValves #FuelValve2.fuelvalve-closed,
-b787-10-sys-element #Pages #FUEL_Page #FuelValves #FuelValve3.fuelvalve-closed {
-  stroke: var(--eicasWhite);
-}
-b787-10-sys-element #Pages #FUEL_Page #FuelLines {
-  fill: none;
-}
-b787-10-sys-element #Pages #FUEL_Page #FuelLines line {
-  stroke-width: 16px;
-}
-b787-10-sys-element #Pages #FUEL_Page #FuelLines polyline {
-  stroke-width: 14px;
-}
-b787-10-sys-element #Pages #FUEL_Page #FuelLines rect {
-  stroke-width: 4px;
-}
-b787-10-sys-element #Pages #FUEL_Page #FuelLines .fuelline-active {
-  stroke: var(--eicasGreen);
-}
-b787-10-sys-element #Pages #FUEL_Page #FuelLines .fuelline-active text {
-  stroke: none;
-}
-b787-10-sys-element #Pages #FUEL_Page #FuelLines .fuelline-active rect {
-  stroke: var(--eicasBlue);
-}
-b787-10-sys-element #Pages #FUEL_Page #FuelLines .fuelline-active path {
-  fill: var(--eicasGreen);
-  stroke: none;
-}
-b787-10-sys-element #Pages #FUEL_Page #FuelLines .fuelline-inactive {
-  stroke: none;
-  fill: none;
-}
-b787-10-sys-element #Pages #FUEL_Page #FuelLines .fuelline-inactive text,
-b787-10-sys-element #Pages #FUEL_Page #FuelLines .fuelline-inactive rect {
-  stroke: none;
-  fill: none;
-}
-b787-10-sys-element #Pages #DOOR_Page #fuselage rect,
-b787-10-sys-element #Pages #DOOR_Page #fuselage path {
-  fill: var(--eicasDarkGrey);
-  stroke: var(--eicasBlue);
-  stroke-width: 4px;
-}
-b787-10-sys-element #Pages #DOOR_Page line {
-  stroke-width: 4px;
-  stroke: var(--eicasBlue);
-  fill: none;
-}
-b787-10-sys-element #Pages #DOOR_Page text.head {
-  font-size: 30px;
-  text-anchor: center;
-  fill: var(--eicasGreen);
-}
-b787-10-sys-element #Pages #DOOR_Page text.label {
-  font-size: 30px;
-  text-anchor: left;
-  fill: var(--eicasBlue);
-}
+  background-color: black; }
+  b787-10-sys-element svg {
+    width: 100%;
+    height: 100%; }
+  b787-10-sys-element #PageButtons text {
+    fill: var(--eicasWhite);
+    font-family: Roboto-Light;
+    font-size: 36px;
+    text-anchor: middle; }
+  b787-10-sys-element #PageButtons .border {
+    fill: none;
+    stroke: black;
+    stroke-width: 4px; }
+  b787-10-sys-element #PageButtons .inner {
+    fill: #646464;
+    stroke: none; }
+  b787-10-sys-element #PageButtons .topLeftBorder, b787-10-sys-element #PageButtons .bottomRightBorder {
+    stroke: none; }
+  b787-10-sys-element #PageButtons .page-button-active .inner {
+    fill: #003200; }
+  b787-10-sys-element #PageButtons .page-button-active .topLeftBorder {
+    fill: #1e1e1e; }
+  b787-10-sys-element #PageButtons .page-button-active .bottomRightBorder {
+    fill: #646464; }
+  b787-10-sys-element #PageButtons .page-button-inactive .inner {
+    fill: #414141; }
+  b787-10-sys-element #PageButtons .page-button-inactive .topLeftBorder {
+    fill: #646464; }
+  b787-10-sys-element #PageButtons .page-button-inactive .bottomRightBorder {
+    fill: #1e1e1e; }
+  b787-10-sys-element #PageButtons .page-button-highlight .topLeftBorder,
+  b787-10-sys-element #PageButtons .page-button-highlight .bottomRightBorder {
+    fill: magenta; }
+  b787-10-sys-element #Pages #FUEL_Page text.label {
+    font-size: 30px;
+    text-anchor: middle;
+    fill: var(--eicasBlue); }
+  b787-10-sys-element #Pages #FUEL_Page text.quantity {
+    font-size: 38px;
+    text-anchor: end;
+    fill: var(--eicasWhite); }
+  b787-10-sys-element #Pages #FUEL_Page #TotalFuelDisplay rect {
+    fill: none;
+    stroke: var(--eicasBlue);
+    stroke-width: 4px; }
+  b787-10-sys-element #Pages #FUEL_Page #TotalFuelDisplay text.label {
+    text-anchor: start; }
+  b787-10-sys-element #Pages #FUEL_Page #TotalFuelDisplay text.quantity {
+    font-size: 45px; }
+  b787-10-sys-element #Pages #FUEL_Page #TotalFuelDisplay text.units {
+    font-size: 30px;
+    text-anchor: middle;
+    fill: var(--eicasWhite); }
+  b787-10-sys-element #Pages #FUEL_Page #FuelTempDisplay .label {
+    text-anchor: start; }
+  b787-10-sys-element #Pages #FUEL_Page .engineInfo rect, b787-10-sys-element #Pages #FUEL_Page .engineInfo path {
+    fill: var(--eicasDarkGrey);
+    stroke: var(--eicasBlue);
+    stroke-width: 4px; }
+  b787-10-sys-element #Pages #FUEL_Page .engineInfo line {
+    fill: none;
+    stroke-width: 6px;
+    stroke: var(--eicasWhite); }
+  b787-10-sys-element #Pages #FUEL_Page .engineInfo circle {
+    fill: var(--eicasBlack);
+    stroke-width: 4px; }
+  b787-10-sys-element #Pages #FUEL_Page .engineInfo .fuelengine-active {
+    stroke: var(--eicasGreen); }
+  b787-10-sys-element #Pages #FUEL_Page .engineInfo .fuelengine-inactive {
+    stroke: var(--eicasWhite); }
+  b787-10-sys-element #Pages #FUEL_Page .tankInfo rect.background {
+    fill: var(--eicasDarkGrey);
+    stroke: var(--eicasBlue);
+    stroke-width: 4px; }
+  b787-10-sys-element #Pages #FUEL_Page .tankInfo rect.quantity {
+    fill: var(--eicasBlack);
+    stroke: none; }
+  b787-10-sys-element #Pages #FUEL_Page .fuelFrame {
+    fill: none;
+    stroke-width: 4px;
+    stroke: var(--eicasWhite); }
+  b787-10-sys-element #Pages #FUEL_Page #FuelPumps {
+    fill: none;
+    stroke-width: 8px; }
+    b787-10-sys-element #Pages #FUEL_Page #FuelPumps .fuelpump-switched-active {
+      stroke: var(--eicasGreen); }
+    b787-10-sys-element #Pages #FUEL_Page #FuelPumps .fuelpump-notswitched-active {
+      stroke: var(--eicasOrange); }
+    b787-10-sys-element #Pages #FUEL_Page #FuelPumps .fuelpump-switched-inactive {
+      stroke: var(--eicasOrange); }
+    b787-10-sys-element #Pages #FUEL_Page #FuelPumps .fuelpump-notswitched-inactive {
+      stroke: var(--eicasWhite); }
+  b787-10-sys-element #Pages #FUEL_Page #FuelValves {
+    fill: var(--eicasBlack);
+    stroke-width: 4px; }
+    b787-10-sys-element #Pages #FUEL_Page #FuelValves .fuelvalve-open {
+      stroke: var(--eicasGreen); }
+    b787-10-sys-element #Pages #FUEL_Page #FuelValves .fuelvalve-closing {
+      stroke: var(--eicasOrange); }
+    b787-10-sys-element #Pages #FUEL_Page #FuelValves .fuelvalve-closed {
+      stroke: none; }
+    b787-10-sys-element #Pages #FUEL_Page #FuelValves #FuelValve1.fuelvalve-closed, b787-10-sys-element #Pages #FUEL_Page #FuelValves #FuelValve2.fuelvalve-closed, b787-10-sys-element #Pages #FUEL_Page #FuelValves #FuelValve3.fuelvalve-closed {
+      stroke: var(--eicasWhite); }
+  b787-10-sys-element #Pages #FUEL_Page #FuelLines {
+    fill: none; }
+    b787-10-sys-element #Pages #FUEL_Page #FuelLines line {
+      stroke-width: 16px; }
+    b787-10-sys-element #Pages #FUEL_Page #FuelLines polyline {
+      stroke-width: 14px; }
+    b787-10-sys-element #Pages #FUEL_Page #FuelLines rect {
+      stroke-width: 4px; }
+    b787-10-sys-element #Pages #FUEL_Page #FuelLines .fuelline-active {
+      stroke: var(--eicasGreen); }
+      b787-10-sys-element #Pages #FUEL_Page #FuelLines .fuelline-active text {
+        stroke: none; }
+      b787-10-sys-element #Pages #FUEL_Page #FuelLines .fuelline-active rect {
+        stroke: var(--eicasBlue); }
+      b787-10-sys-element #Pages #FUEL_Page #FuelLines .fuelline-active path {
+        fill: var(--eicasGreen);
+        stroke: none; }
+    b787-10-sys-element #Pages #FUEL_Page #FuelLines .fuelline-inactive {
+      stroke: none;
+      fill: none; }
+      b787-10-sys-element #Pages #FUEL_Page #FuelLines .fuelline-inactive text, b787-10-sys-element #Pages #FUEL_Page #FuelLines .fuelline-inactive rect {
+        stroke: none;
+        fill: none; }
 
-b787-10-sys-element #Pages #DOOR_Page text.closed {
-  font-size: 30px;
-  text-anchor: left;
-  fill: var(--eicasLightGrey);
-}
-
-b787-10-sys-element #Pages #DOOR_Page text.armed {
-  font-size: 30px;
-  text-anchor: left;
-  fill: var(--eicasGreen);
-}
-
-b787-10-sys-element #Pages #DOOR_Page rect {
-  stroke-width: 3px;
-  stroke: var(--eicasYellow);
-  fill: var(--eicasBlack);
-}
-
-b787-10-sys-element #Pages #DOOR_Page rect.closed {
-  stroke-width: 3px;
-  stroke: var(--eicasBlack);
-  fill: var(--eicasBlack);
-}
-
-b787-10-sys-element #Pages #GEAR_Page rect,
-b787-10-sys-element #Pages #GEAR_Page path {
-  stroke: var(--eicasBlue);
-  stroke-width: 4px;
-}
-
-b787-10-sys-element #Pages #GEAR_Page rect.brake {
-  stroke: var(--eicasWhite);
-  stroke-width: 4px;
-}
-
-b787-10-sys-element #Pages #GEAR_Page #gearDoor rect {
-  stroke: var(--eicasWhite);
-  stroke-width: 4px;
-}
-
-b787-10-sys-element #Pages #GEAR_Page #gearDoor path {
-  stroke: var(--eicasWhite);
-  stroke-width: 4px;
-}
-
-b787-10-sys-element #Pages #GEAR_Page #gearDoor.up path,
-b787-10-sys-element #Pages #GEAR_Page #gearDoor.down path {
-  visibility: hidden;
-}
-
-b787-10-sys-element #Pages #GEAR_Page #gearDoor.transit path {
-  visibility: visible;
-}
-
-b787-10-sys-element #Pages #GEAR_Page #gearDoor text.label {
-  font-size: 46px;
-  text-anchor: left;
-  fill: var(--eicasWhite);
-}
-
-b787-10-sys-element #Pages #GEAR_Page #gearDoor.up text.label {
-  fill: var(--eicasWhite);
-}
-
-b787-10-sys-element #Pages #GEAR_Page #gearDoor.down text.label {
-  fill: none;
-}
-
-b787-10-sys-element #Pages #GEAR_Page #gearDoor.transit text.label {
-  fill: none;
-}
-
-b787-10-sys-element #Pages #GEAR_Page text.label {
-  font-size: 46px;
-  text-anchor: left;
-  fill: var(--eicasBlue);
-}
-
-b787-10-sys-element #Pages #GEAR_Page text.white {
-  fill: var(--eicasWhite);
-}
-
-b787-10-sys-element #Pages #GEAR_Page #pressure text.label {
-  font-size: 30px;
-  text-anchor: left;
-  fill: var(--eicasWhite);
-}
-b787-10-sys-element #Pages #GEAR_Page #temp text.label {
-  font-size: 30px;
-  text-anchor: left;
-  fill: var(--eicasWhite);
-}
-
-
-b787-10-sys-element #Pages #STAT_Page path {
-  stroke: var(--eicasBlue);
-  stroke-width: 6px;
-  fill: none;
-}
-
-b787-10-sys-element #Pages #STAT_Page rect {
-  stroke: black;
-  stroke-width: 6px;
-  fill: black;
-}
-
-b787-10-sys-element #Pages #STAT_Page text.label {
-  font-size: 35px;
-  text-anchor: left;
-  fill: var(--eicasBlue);
-}
-
-b787-10-sys-element #Pages #STAT_Page text.vals {
-  font-size: 40px;
-  text-anchor: left;
-  fill: var(--eicasWhite);
-}
-
-b787-10-sys-element #Pages #STAT_Page text.valLabel {
-  font-size: 35px;
-  text-anchor: left;
-  fill: var(--eicasWhite);
-}
-
-b787-10-sys-element #Pages #ELEC_Page path {
-  stroke: var(--eicasBlue);
-  stroke-width: 4px;
-}
-
-b787-10-sys-element #Pages #ELEC_Page rect {
-  stroke: var(--eicasWhite);
-  stroke-width: 4px;
-}
-
-b787-10-sys-element #Pages #ELEC_Page .on rect {
-  stroke: var(--eicasGreen);
-  stroke-width: 6px;
-}
-
-b787-10-sys-element #Pages #ELEC_Page .off rect {
-  stroke: var(--eicasWhite);
-  stroke-width: 4px;
-}
-
-b787-10-sys-element #Pages #ELEC_Page .starting path {
-  stroke: var(--eicasGreen);
-  fill: var(--eicasGreen);
-  stroke-width: 4px;
-}
-
-b787-10-sys-element #Pages #ELEC_Page .starting circle {
-  stroke: var(--eicasGreen);
-  fill: none;
-  stroke-width: 4px;
-}
-
-b787-10-sys-element #Pages #ELEC_Page .on path,
-b787-10-sys-element #Pages #ELEC_Page .off path,
-b787-10-sys-element #Pages #ELEC_Page .on circle,
-b787-10-sys-element #Pages #ELEC_Page .off circle {
-  stroke: none;
-  fill: none;
-}
-
-b787-10-sys-element #Pages #ELEC_Page .starting .startup rect {
-  stroke: var(--eicasGreen);
-  fill: var(--eicasGreen);
-  stroke-width: 4px;
-}
-
-b787-10-sys-element #Pages #ELEC_Page .starting .startup text {
-  fill: var(--eicasGreen);
-  font-size: 30px;
-}
-
-b787-10-sys-element #Pages #ELEC_Page .on .startup rect,
-b787-10-sys-element #Pages #ELEC_Page .off .startup rect,
-b787-10-sys-element #Pages #ELEC_Page .on .startup text,
-b787-10-sys-element #Pages #ELEC_Page .off .startup text {
-  stroke: none;
-  fill: none;
-}
-
-b787-10-sys-element #Pages #ELEC_Page rect.black,
-b787-10-sys-element #Pages #ELEC_Page .on rect.black,
-b787-10-sys-element #Pages #ELEC_Page .off rect.black,
-b787-10-sys-element #Pages #ELEC_Page .starting rect.black,
-b787-10-sys-element #Pages #ELEC_Page .starting .startup rect.black {
-  stroke: var(--eicasBlack);
-  fill: var(--eicasBlack);
-}
-
-b787-10-sys-element #Pages #ELEC_Page text {
-  font-size: 30px;
-  text-anchor: left;
-  fill: var(--eicasBlue);
-}
-
-b787-10-sys-element #Pages #ELEC_Page text.vals {
-  fill: var(--eicasWhite);
-}
-
-b787-10-sys-element #Pages #ELEC_Page #bus path {
-  stroke: var(--eicasWhite);
-  stroke-width: 4px;
-}
-
-b787-10-sys-element #Pages #ELEC_Page #bus text {
-  font-size: 28px;
-  text-anchor: left;
-  fill: var(--eicasWhite);
-}
-
-b787-10-sys-element #Pages #ELEC_Page #bus.on path {
-  stroke: var(--eicasGreen);
-}
-
-b787-10-sys-element #Pages #ELEC_Page #bus.off path.pass,
-b787-10-sys-element #Pages #ELEC_Page #bus.off rect.pass {
-  stroke: none;
-  fill: none;
-}
-
-b787-10-sys-element #Pages #ELEC_Page #bus.on text {
-  fill: var(--eicasGreen);
-}
-
-b787-10-sys-element #Pages #ELEC_Page #bus.off path {
-  stroke: var(--eicasOrange);
-}
-
-b787-10-sys-element #Pages #ELEC_Page #bus.off text {
-  fill: var(--eicasOrange);
-}
-
-b787-10-sys-element #Pages #ELEC_Page rect.pass,
-b787-10-sys-element #Pages #ELEC_Page .on path.pass {
-  stroke: var(--eicasGreen);
-  stroke-width: 6px;
-  fill: var(--eicasGreen);
-}

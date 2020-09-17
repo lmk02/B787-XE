@@ -102,9 +102,6 @@ class B787_10_FMC_VNAVPage {
             [],
             ["<OFFPATH DES"]
         ]);
-        fmc.onRightInput[4] = () => { 
-            console.log("clicked forecast");
-            B787_10_FMC_DescentForecastPage.ShowPage(fmc); };
         fmc.onPrevPage = () => { B787_10_FMC_VNAVPage.ShowPage2(fmc); };
         fmc.updateSideButtonActiveStatus();
     }

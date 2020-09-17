@@ -52,6 +52,8 @@ class B787_10_ND extends B787_10_CommonMFD.MFDTemplateElement {
         this.setAttribute("halfsize", (isFullscreen) ? "false" : "true");
         if (this.compass)
             this.compass.setFullscreen(isFullscreen);
+        if (this.map)
+            this.map.setFullscreen(isFullscreen);
     }
     updateChild(_deltaTime) {
         if (this.info != null) {
@@ -535,11 +537,13 @@ class B787_10_ND_NavigationMenu extends Airliners.PopupMenu_Handler {
         this.dictionary.set(B787_10_ND_PopupMenu_Key.NAV_VOR_L, (vorL) ? "ON" : "OFF");
         let vorR = SimVar.GetSimVarValue("L:XMLVAR_NAV_AID_SWITCH_L2_State", "number");
         this.dictionary.set(B787_10_ND_PopupMenu_Key.NAV_VOR_R, (vorR) ? "ON" : "OFF");
+        this.dictionary.changed = false;
     }
 }
 class B787_10_ND_Compass extends NavSystemElement {
     constructor(_gps) {
         super();
+        this.arcRangeVisible = false;
         this.setGPS(_gps);
     }
     init(root) {
@@ -563,16 +567,19 @@ class B787_10_ND_Compass extends NavSystemElement {
         this.ndCompass.mapRange = _range;
     }
     showArcRange(_val) {
+        this.arcRangeVisible = _val;
         this.ndCompass.showArcRange(_val);
     }
     setFullscreen(_val) {
         this.ndCompass.setFullscreen(_val);
+        this.ndCompass.showArcRange(this.arcRangeVisible);
     }
 }
 class B787_10_ND_Map extends MapInstrumentElement {
     constructor(_parent) {
         super();
         this.zoomRanges = [0.25, 0.5, 1, 2, 5, 10, 20, 40, 80, 160, 320, 640];
+        this._fullscreen = false;
         this._parent = _parent;
         this.setGPS(this._parent.gps);
     }
@@ -616,7 +623,7 @@ class B787_10_ND_Map extends MapInstrumentElement {
                     this.instrument.centerOnActiveWaypoint(false);
                     this.instrument.setPlaneScale(2.0);
                     this.instrument.setPlaneIcon(1);
-                    this.instrument.zoomRanges = this.getAdaptiveRanges(2);
+                    this.instrument.zoomRanges = this.getAdaptiveRanges(2.12);
                     this._parent.setAttribute("mapstyle", "rose");
                     break;
                 }
@@ -627,7 +634,7 @@ class B787_10_ND_Map extends MapInstrumentElement {
                     this.instrument.centerOnActiveWaypoint(false);
                     this.instrument.setPlaneScale(2.5);
                     this.instrument.setPlaneIcon(1);
-                    this.instrument.zoomRanges = this.getAdaptiveRanges(1);
+                    this.instrument.zoomRanges = (this._fullscreen) ? this.getAdaptiveRanges(2.4) : this.getAdaptiveRanges(1.42);
                     this._parent.setAttribute("mapstyle", "arc");
                     break;
                 }
@@ -638,10 +645,18 @@ class B787_10_ND_Map extends MapInstrumentElement {
                     this.instrument.centerOnActiveWaypoint(true);
                     this.instrument.setPlaneScale(2.0);
                     this.instrument.setPlaneIcon(3);
-                    this.instrument.zoomRanges = this.getAdaptiveRanges(2);
+                    this.instrument.zoomRanges = this.getAdaptiveRanges(2.3);
                     this._parent.setAttribute("mapstyle", "plan");
                     break;
                 }
+        }
+    }
+    setFullscreen(_val) {
+        this._fullscreen = _val;
+        switch (this.mode) {
+            case Jet_NDCompass_Display.ARC:
+                this.instrument.zoomRanges = (this._fullscreen) ? this.getAdaptiveRanges(2.4) : this.getAdaptiveRanges(1.42);
+                break;
         }
     }
     showWeather() {

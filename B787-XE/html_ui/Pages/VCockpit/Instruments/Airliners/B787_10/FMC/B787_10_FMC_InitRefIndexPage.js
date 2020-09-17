@@ -8,7 +8,7 @@ class B787_10_FMC_InitRefIndexPage {
             [""],
             ["<POS"],
             [""],
-            ["<PERF[color]yellow", "<SETTINGS[color]yellow"],
+            ["<PERF[color]yellow"],
             [""],
             ["<THRUST LIM"],
             [""],
@@ -21,6 +21,8 @@ class B787_10_FMC_InitRefIndexPage {
         fmc.onLeftInput[2] = () => { B787_10_FMC_PerfInitPage.ShowPage1(fmc); };
         fmc.onLeftInput[3] = () => { B787_10_FMC_ThrustLimPage.ShowPage1(fmc); };
         fmc.onLeftInput[4] = () => { B787_10_FMC_TakeOffRefPage.ShowPage1(fmc); };
+        fmc.onLeftInput[5] = () => { B787_10_FMC_ApproachPage.ShowPage1(fmc); };
+        fmc.onRightInput[5] = () => { B787_10_FMC_MaintPage.ShowPage1(fmc); };
         fmc.updateSideButtonActiveStatus();
     }
 }

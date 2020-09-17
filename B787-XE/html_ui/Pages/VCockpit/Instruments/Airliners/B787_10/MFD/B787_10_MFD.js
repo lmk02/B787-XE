@@ -74,7 +74,7 @@ class MFDPage extends NavSystemPage {
             this.hasEicas = (SimVar.GetSimVarValue("L:XMLVAR_EICAS_INDEX", "number") == (this.index - 1)) ? true : false;
             this.mfdRight = SimVar.GetSimVarValue("L:XMLVAR_MFD_SIDE_" + this.index, "bool");
             if (this.index == 1) {
-                this.setPage(MFDPageType.SYS);
+                this.setPage(MFDPageType.ND);
             }
             else if (this.index == 2) {
                 this.setPage(MFDPageType.ND);
