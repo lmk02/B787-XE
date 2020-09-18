@@ -1,7 +1,7 @@
 class B787_10_FMC extends Boeing_FMC {
     constructor() {
         super(...arguments);
-		this.descentForecast = new DescentForecast();
+        this.descentForecast = new DescentForecast();
         this._registered = false;
         this._leftKeyElements = [];
         this._rightKeyElements = [];
@@ -24,7 +24,7 @@ class B787_10_FMC extends Boeing_FMC {
             [83.9, 86.4, 88.9, 90.3, 92.4, 94.0, 97.3, 99.0, 98.9, 98.9],
             [83.0, 85.5, 88.0, 89.4, 91.5, 93.1, 96.3, 98.0, 97.9, 97.9],
             [82.2, 84.7, 87.1, 88.5, 90.6, 92.1, 95.3, 97.0, 96.9, 96.8],
-            [81.3, 83.8, 86.2, 87.5, 89.6, 91.2, 94.3, 96.0, 95.9, 95.8]
+            [81.3, 83.8, 86.2, 87.5, 89.6, 91.2, 94.3, 96.0, 95.9, 95.8],
         ];
         this._climbN1TempRow = [60, 50, 40, 30, 20, 15, 10, 5, 0, -5, -10, -15, -20, -25, -30, -35, -40];
         this._takeOffN1Table = [
@@ -46,7 +46,7 @@ class B787_10_FMC extends Boeing_FMC {
             [88.8, 90.3, 91.8, 92.3, 92.8, 93.4, 94.1, 94.8, 95.5, 96.3, 96.5, 96.7, 97],
             [87.0, 815, 89.9, 90.4, 91, 91.6, 92.3, 93, 93.7, 94.4, 94.7, 94.9, 95.2],
             [85.2, 86.7, 88.1, 88.6, 89.1, 89.8, 90.5, 91.2, 91.9, 92.6, 92.8, 93.1, 93.4],
-            [83.4, 84.8, 861, 86.7, 87.3, 87.9, 88.6, 89.3, 90, 90.7, 91, 91.2, 91.5]
+            [83.4, 84.8, 861, 86.7, 87.3, 87.9, 88.6, 89.3, 90, 90.7, 91, 91.2, 91.5],
         ];
         this._takeOffN1TempRow = [70, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10, 5, 0, -10, -20, -30, -40, -50];
         this._thrustTakeOffMode = 1;
@@ -66,9 +66,15 @@ class B787_10_FMC extends Boeing_FMC {
         this._hasReachedTopOfDescent = false;
         this._apCooldown = 500;
     }
-    get templateID() { return "B787_10_FMC"; }
-    get instrumentAlias() { return "AS01B_FMC"; }
-    get isInteractive() { return true; }
+    get templateID() {
+        return "B787_10_FMC";
+    }
+    get instrumentAlias() {
+        return "AS01B_FMC";
+    }
+    get isInteractive() {
+        return true;
+    }
     connectedCallback() {
         super.connectedCallback();
         RegisterViewListener("JS_LISTENER_KEYEVENT", () => {
@@ -85,11 +91,21 @@ class B787_10_FMC extends Boeing_FMC {
         if (this.urlConfig.index == 1) {
             let oat = SimVar.GetSimVarValue("AMBIENT TEMPERATURE", "celsius");
             this._thrustTakeOffTemp = Math.ceil(oat / 10) * 10;
-            this.onInit = () => { B787_10_FMC_InitRefIndexPage.ShowPage1(this); };
-            this.onLegs = () => { B787_10_FMC_LegsPage.ShowPage1(this); };
-            this.onRte = () => { B787_10_FMC_RoutePage.ShowPage1(this); };
-            this.onRad = () => { B787_10_FMC_NavRadioPage.ShowPage(this); };
-            this.onVNAV = () => { B787_10_FMC_VNAVPage.ShowPage1(this); };
+            this.onInit = () => {
+                B787_10_FMC_InitRefIndexPage.ShowPage1(this);
+            };
+            this.onLegs = () => {
+                B787_10_FMC_LegsPage.ShowPage1(this);
+            };
+            this.onRte = () => {
+                B787_10_FMC_RoutePage.ShowPage1(this);
+            };
+            this.onRad = () => {
+                B787_10_FMC_NavRadioPage.ShowPage(this);
+            };
+            this.onVNAV = () => {
+                B787_10_FMC_VNAVPage.ShowPage1(this);
+            };
             this._pointer = this.getChildById("fms-pointer");
             this._pointer.style.zIndex = "5";
             this._pointer.style.position = "fixed";
@@ -218,10 +234,10 @@ class B787_10_FMC extends Boeing_FMC {
             let m = SimVar.GetGlobalVarValue("LOCAL MONTH OF YEAR", "number");
             let d = SimVar.GetGlobalVarValue("LOCAL DAY OF MONTH", "number");
             let dateText = d.toFixed(0) + " " + B787_10_FMC._MonthOfYear[m - 1] + " " + y.toFixed(0);
-            this._timeDivs.forEach(d => {
+            this._timeDivs.forEach((d) => {
                 d.innerText = timeText;
             });
-            this._dateDivs.forEach(d => {
+            this._dateDivs.forEach((d) => {
                 d.innerText = dateText;
             });
         }
@@ -249,45 +265,50 @@ class B787_10_FMC extends Boeing_FMC {
         return false;
     }
     _getIndexFromTemp(temp) {
-        if (temp < -10)
-            return 0;
-        if (temp < 0)
-            return 1;
-        if (temp < 10)
-            return 2;
-        if (temp < 20)
-            return 3;
-        if (temp < 30)
-            return 4;
-        if (temp < 40)
-            return 5;
-        if (temp < 43)
-            return 6;
-        if (temp < 45)
-            return 7;
-        if (temp < 47)
-            return 8;
-        if (temp < 49)
-            return 9;
-        if (temp < 51)
-            return 10;
-        if (temp < 53)
-            return 11;
-        if (temp < 55)
-            return 12;
-        if (temp < 57)
-            return 13;
-        if (temp < 59)
-            return 14;
-        if (temp < 61)
-            return 15;
-        if (temp < 63)
-            return 16;
-        if (temp < 65)
-            return 17;
-        if (temp < 66)
-            return 18;
+        if (temp < -10) return 0;
+        if (temp < 0) return 1;
+        if (temp < 10) return 2;
+        if (temp < 20) return 3;
+        if (temp < 30) return 4;
+        if (temp < 40) return 5;
+        if (temp < 43) return 6;
+        if (temp < 45) return 7;
+        if (temp < 47) return 8;
+        if (temp < 49) return 9;
+        if (temp < 51) return 10;
+        if (temp < 53) return 11;
+        if (temp < 55) return 12;
+        if (temp < 57) return 13;
+        if (temp < 59) return 14;
+        if (temp < 61) return 15;
+        if (temp < 63) return 16;
+        if (temp < 65) return 17;
+        if (temp < 66) return 18;
         return 19;
+    }
+    takeOffFlapsIndex() {
+        switch (this.getTakeOffFlap()) {
+            case 0:
+                return 0;
+            case 1:
+                return 1;
+            case 5:
+                return 2;
+            case 10:
+                return 3;
+            case 15:
+                return 4;
+            case 17:
+                return 5;
+            case 18:
+                return 6;
+            case 20:
+                return 7;
+            case 25:
+                return 8;
+            case 30:
+                return 9;
+        }
     }
     _computeV1Speed() {
         let runwayCoef = 1.0;
@@ -305,7 +326,7 @@ class B787_10_FMC extends Boeing_FMC {
         let dWeightCoeff = (this.getWeight(true) - 350) / (560 - 350);
         dWeightCoeff = Utils.Clamp(dWeightCoeff, 0, 1);
         dWeightCoeff = 0.82 + (1.06 - 0.82) * dWeightCoeff;
-        let flapsHandleIndex = Simplane.getFlapsHandleIndex();
+        let flapsHandleIndex = this.takeOffFlapsIndex();
         let temp = SimVar.GetSimVarValue("AMBIENT TEMPERATURE", "celsius");
         let index = this._getIndexFromTemp(temp);
         console.log("Index From Temp = " + index);
@@ -334,7 +355,7 @@ class B787_10_FMC extends Boeing_FMC {
         let dWeightCoeff = (this.getWeight(true) - 350) / (560 - 350);
         dWeightCoeff = Utils.Clamp(dWeightCoeff, 0, 1);
         dWeightCoeff = 0.85 + (1.075 - 0.85) * dWeightCoeff;
-        let flapsHandleIndex = Simplane.getFlapsHandleIndex();
+        let flapsHandleIndex = this.takeOffFlapsIndex();
         let temp = SimVar.GetSimVarValue("AMBIENT TEMPERATURE", "celsius");
         let index = this._getIndexFromTemp(temp);
         console.log("Index From Temp = " + index);
@@ -363,7 +384,7 @@ class B787_10_FMC extends Boeing_FMC {
         let dWeightCoeff = (this.getWeight(true) - 350) / (560 - 350);
         dWeightCoeff = Utils.Clamp(dWeightCoeff, 0, 1);
         dWeightCoeff = 0.88 + (1.08 - 0.88) * dWeightCoeff;
-        let flapsHandleIndex = Simplane.getFlapsHandleIndex();
+        let flapsHandleIndex = this.takeOffFlapsIndex();
         let temp = SimVar.GetSimVarValue("AMBIENT TEMPERATURE", "celsius");
         let index = this._getIndexFromTemp(temp);
         console.log("Index From Temp = " + index);
@@ -423,24 +444,19 @@ class B787_10_FMC extends Boeing_FMC {
         if (flapsHandleIndex >= 9) {
             min = 119;
             max = 171;
-        }
-        else if (flapsHandleIndex >= 8) {
+        } else if (flapsHandleIndex >= 8) {
             min = 119;
             max = 174;
-        }
-        else if (flapsHandleIndex >= 7) {
+        } else if (flapsHandleIndex >= 7) {
             min = 138;
             max = 182;
-        }
-        else if (flapsHandleIndex >= 4) {
+        } else if (flapsHandleIndex >= 4) {
             min = 138;
             max = 182;
-        }
-        else if (flapsHandleIndex >= 2) {
+        } else if (flapsHandleIndex >= 2) {
             min = 158;
             max = 210;
-        }
-        else if (flapsHandleIndex >= 1) {
+        } else if (flapsHandleIndex >= 1) {
             min = 173;
             max = 231;
         }
@@ -472,8 +488,7 @@ class B787_10_FMC extends Boeing_FMC {
         if (flapsHandleIndex === 4) {
             let dWeight = (this.getWeight(true) - 200) / (528 - 200);
             return 110 + 52 * dWeight;
-        }
-        else {
+        } else {
             let dWeight = (this.getWeight(true) - 200) / (528 - 200);
             return 115 + 53 * dWeight;
         }
@@ -610,14 +625,12 @@ class B787_10_FMC extends Boeing_FMC {
                 if (!this._isVNAVArmed && !this._isVNAVActive) {
                     this.activateSPD();
                     this.activateVSpeed();
-                }
-                else {
+                } else {
                     this.activateVNAV();
                 }
                 if (!this._isLNAVArmed && !this._isLNAVActive) {
                     this.activateHeadingHold();
-                }
-                else {
+                } else {
                     this.activateLNAV();
                 }
             }
@@ -737,20 +750,20 @@ class B787_10_FMC extends Boeing_FMC {
                         SimVar.SetSimVarValue("L:AIRLINER_FMS_SHOW_TOP_DSCNT", "number", 1);
                         SimVar.SetSimVarValue("L:AIRLINER_FMS_LAT_TOP_DSCNT", "number", topOfDescentLat);
                         SimVar.SetSimVarValue("L:AIRLINER_FMS_LONG_TOP_DSCNT", "number", topOfDescentLong);
-                    }
-                    else {
+                    } else {
                         SimVar.SetSimVarValue("L:AIRLINER_FMS_SHOW_TOP_DSCNT", "number", 0);
                     }
                     let selectedAltitude = Simplane.getAutoPilotSelectedAltitudeLockValue("feet");
-                    if (!this.flightPlanManager.getIsDirectTo() &&
+                    if (
+                        !this.flightPlanManager.getIsDirectTo() &&
                         isFinite(nextWaypoint.legAltitude1) &&
                         nextWaypoint.legAltitude1 < 20000 &&
-                        nextWaypoint.legAltitude1 > selectedAltitude) {
+                        nextWaypoint.legAltitude1 > selectedAltitude
+                    ) {
                         Coherent.call("AP_ALT_VAR_SET_ENGLISH", 2, nextWaypoint.legAltitude1, this._forceNextAltitudeUpdate);
                         this._forceNextAltitudeUpdate = false;
                         SimVar.SetSimVarValue("L:AP_CURRENT_TARGET_ALTITUDE_IS_CONSTRAINT", "number", 1);
-                    }
-                    else {
+                    } else {
                         let altitude = Simplane.getAutoPilotSelectedAltitudeLockValue("feet");
                         if (isFinite(altitude)) {
                             Coherent.call("AP_ALT_VAR_SET_ENGLISH", 2, this.cruiseFlightLevel * 100, this._forceNextAltitudeUpdate);
@@ -758,8 +771,7 @@ class B787_10_FMC extends Boeing_FMC {
                             SimVar.SetSimVarValue("L:AP_CURRENT_TARGET_ALTITUDE_IS_CONSTRAINT", "number", 0);
                         }
                     }
-                }
-                else {
+                } else {
                     let altitude = Simplane.getAutoPilotSelectedAltitudeLockValue("feet");
                     if (isFinite(altitude)) {
                         Coherent.call("AP_ALT_VAR_SET_ENGLISH", 2, this.cruiseFlightLevel * 100, this._forceNextAltitudeUpdate);
@@ -796,7 +808,7 @@ class B787_10_FMC extends Boeing_FMC {
                     let absPathAngle = 180 - Math.abs(pathAngle);
                     let airspeed = Simplane.getIndicatedSpeed();
                     if (airspeed < 400) {
-                        let turnRadius = airspeed * 360 / (1091 * 0.36 / airspeed) / 3600 / 2 / Math.PI;
+                        let turnRadius = (airspeed * 360) / ((1091 * 0.36) / airspeed) / 3600 / 2 / Math.PI;
                         let activateDistance = Math.pow(90 / absPathAngle, 1.6) * turnRadius * 1.2;
                         let distanceToActive = Avionics.Utils.computeGreatCircleDistance(planeCoordinates, activeWaypoint.infos.coordinates);
                         if (distanceToActive < activateDistance) {
@@ -826,8 +838,7 @@ class B787_10_FMC extends Boeing_FMC {
                     let speed = this.getCleanTakeOffSpeed();
                     this.setAPManagedSpeed(speed, Aircraft.AS01B);
                 }
-            }
-            else if (this.currentFlightPhase === FlightPhase.FLIGHT_PHASE_CLIMB) {
+            } else if (this.currentFlightPhase === FlightPhase.FLIGHT_PHASE_CLIMB) {
                 if (this.getIsVNAVActive()) {
                     let speed = this.getClbManagedSpeed();
                     this.setAPManagedSpeed(speed, Aircraft.AS01B);
@@ -835,14 +846,12 @@ class B787_10_FMC extends Boeing_FMC {
                     let n1 = 100;
                     if (altitude < this.thrustReductionAltitude) {
                         n1 = this.getThrustTakeOffLimit() / 100;
-                    }
-                    else {
+                    } else {
                         n1 = this.getThrustClimbLimit() / 100;
                     }
                     SimVar.SetSimVarValue("AUTOPILOT THROTTLE MAX THRUST", "number", n1);
                 }
-            }
-            else if (this.currentFlightPhase === FlightPhase.FLIGHT_PHASE_CRUISE) {
+            } else if (this.currentFlightPhase === FlightPhase.FLIGHT_PHASE_CRUISE) {
                 if (this.getIsVNAVActive()) {
                     let speed = this.getCrzManagedSpeed();
                     this.setAPManagedSpeed(speed, Aircraft.AS01B);
@@ -850,20 +859,17 @@ class B787_10_FMC extends Boeing_FMC {
                     let n1 = 100;
                     if (altitude < this.thrustReductionAltitude) {
                         n1 = this.getThrustTakeOffLimit() / 100;
-                    }
-                    else {
+                    } else {
                         n1 = this.getThrustClimbLimit() / 100;
                     }
                     SimVar.SetSimVarValue("AUTOPILOT THROTTLE MAX THRUST", "number", n1);
                 }
-            }
-            else if (this.currentFlightPhase === FlightPhase.FLIGHT_PHASE_DESCENT) {
+            } else if (this.currentFlightPhase === FlightPhase.FLIGHT_PHASE_DESCENT) {
                 if (this.getIsVNAVActive()) {
                     let speed = this.getDesManagedSpeed();
                     this.setAPManagedSpeed(speed, Aircraft.AS01B);
                 }
-            }
-            else if (this.currentFlightPhase === FlightPhase.FLIGHT_PHASE_APPROACH) {
+            } else if (this.currentFlightPhase === FlightPhase.FLIGHT_PHASE_APPROACH) {
                 if (this.getIsVNAVActive()) {
                     let speed = this.getManagedApproachSpeed();
                     this.setAPManagedSpeed(speed, Aircraft.AS01B);
@@ -885,16 +891,14 @@ class B787_10_FMC extends Boeing_FMC {
         for (let i = 0; i < this._leftKeyElements.length; i++) {
             if (this.onLeftInput[i]) {
                 this._leftKeyElements[i].classList.add("active");
-            }
-            else {
+            } else {
                 this._leftKeyElements[i].classList.remove("active");
             }
         }
         for (let i = 0; i < this._rightKeyElements.length; i++) {
             if (this.onRightInput[i]) {
                 this._rightKeyElements[i].classList.add("active");
-            }
-            else {
+            } else {
                 this._rightKeyElements[i].classList.remove("active");
             }
         }
@@ -946,8 +950,8 @@ class B787_10_FMC extends Boeing_FMC {
         let y = parseInt(this.style.top);
         for (let i = 0; i < 6; i++) {
             let lineSelection = this.generateLineSelectionElement(parent);
-            lineSelection.style.top = (y + Math.floor(89 + i * 54)) + "px";
-            lineSelection.style.left = (x + 4) + "px";
+            lineSelection.style.top = y + Math.floor(89 + i * 54) + "px";
+            lineSelection.style.left = x + 4 + "px";
             lineSelection.style.opacity = "0";
             let ii = i;
             lineSelection.addEventListener("mouseenter", () => {
@@ -966,8 +970,8 @@ class B787_10_FMC extends Boeing_FMC {
         }
         for (let i = 0; i < 6; i++) {
             let lineSelection = this.generateLineSelectionElement(parent, true);
-            lineSelection.style.top = (y + Math.floor(89 + i * 54)) + "px";
-            lineSelection.style.left = (x + 340) + "px";
+            lineSelection.style.top = y + Math.floor(89 + i * 54) + "px";
+            lineSelection.style.left = x + 340 + "px";
             lineSelection.style.opacity = "0";
             let ii = i;
             lineSelection.addEventListener("mouseenter", () => {
@@ -987,10 +991,9 @@ class B787_10_FMC extends Boeing_FMC {
         return;
     }
     setPageCurrent(value) {
-        if (typeof (value) === "number") {
+        if (typeof value === "number") {
             this._pageCurrent = value;
-        }
-        else if (typeof (value) === "string") {
+        } else if (typeof value === "string") {
             this._pageCurrent = parseInt(value);
         }
         let content = "";
@@ -1004,10 +1007,9 @@ class B787_10_FMC extends Boeing_FMC {
         this._pageCurrentElement.textContent = content;
     }
     setPageCount(value) {
-        if (typeof (value) === "number") {
+        if (typeof value === "number") {
             this._pageCount = value;
-        }
-        else if (typeof (value) === "string") {
+        } else if (typeof value === "string") {
             this._pageCount = parseInt(value);
         }
         let content = "";
@@ -1034,8 +1036,13 @@ class B787_10_FMC extends Boeing_FMC {
 }
 
 class DescentForecast {
-    constructor(){
-        this.forecast = [[-1,-1,-1], [-1,-1,-1], [-1,-1,-1], [-1,-1,-1]];
+    constructor() {
+        this.forecast = [
+            [-1, -1, -1],
+            [-1, -1, -1],
+            [-1, -1, -1],
+            [-1, -1, -1],
+        ];
         this.transLvl = -1;
         this.taiOnAlt = -1;
     }
