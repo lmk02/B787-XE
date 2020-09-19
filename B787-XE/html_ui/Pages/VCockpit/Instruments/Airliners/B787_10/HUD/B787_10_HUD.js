@@ -44,7 +44,8 @@ class B787_10_HUD_MainPage extends NavSystemPage {
             new B787_10_HUD_Airspeed(),
             new B787_10_HUD_Altimeter(),
             new B787_10_HUD_NavStatus(),
-            this.compass
+            this.compass,
+            new B787_10_PFD_ILS()
         ]);
     }
     init() {
@@ -192,6 +193,32 @@ class B787_10_HUD_Compass extends NavSystemElement {
     onUpdate(_deltaTime) {
         if (this.svg) {
             this.svg.update(_deltaTime);
+        }
+    }
+    onExit() {
+    }
+    onEvent(_event) {
+    }
+}
+class B787_10_PFD_ILS extends NavSystemElement {
+    init(root) {
+        this.ils = this.gps.getChildById("ILS");
+        this.ils.aircraft = Aircraft.AS01B;
+        this.ils.gps = this.gps;
+        this.ils.showNavInfo(true);
+    }
+    onEnter() {
+    }
+    onUpdate(_deltaTime) {
+        if (this.ils) {
+            let showIls = false;
+            let localizer = this.gps.radioNav.getBestILSBeacon(false);
+            if (localizer.id != 0) {
+                showIls = true;
+            }
+            this.ils.showLocalizer(showIls);
+            this.ils.showGlideslope(showIls);
+            this.ils.update(_deltaTime);
         }
     }
     onExit() {
