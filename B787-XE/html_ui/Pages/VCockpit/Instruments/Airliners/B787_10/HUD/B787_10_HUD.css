@@ -103,6 +103,15 @@ b787-10-hud-element {
         width: 25%;
         height: 100%;
         z-index: 0; }
+      b787-10-hud-element #MainFrame #InstrumentsContainer #ILS {
+         transform: rotateX(0);
+         position: absolute;
+         border: none;
+         top: 0%;
+         left: 0%;
+         width: 100%;
+         height: 100%;
+         z-index: 1; }
     b787-10-hud-element #MainFrame #FMAContainer {
       transform: rotateX(0);
       position: absolute;
