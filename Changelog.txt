@@ -1,0 +1,21 @@
+# Check for latest release version at "https://github.com/lmk02/B787-XE/Releases".
+# This is a stable release and thus some new additions may not be present.
+
+v0.04
+MSFS VERSION 1.8.3.0 COMPATIBLE
+HUD - now green (sbutters)
+HUD - ILS markers (Ollie2304)
+FMC - Vspeeds (iFarisKH)
+FMC - Take-Off Flaps (iFarisKH)
+Misc - Placeholder livery added, verification of loading / version number (TheOriginalBabu)
+
+v0.03
+Electrical Synoptic Display added
+
+v0.02
+MFD - added the status page
+
+v0.01
+MFD - door page
+MFD - gear page (tyre pressure and brake temps are static)
+FMC - descent forecast
