@@ -1,4 +1,5 @@
 # Stolen from A32NX team (https://github.com/flybywiresim/a32nx) and modified by TheOriginalBabu 
+import datetime
 import time
 import os
 import json
@@ -37,9 +38,19 @@ manifest_entries["total_package_size"] = str(total_package_size).zfill(20)
 manifest_file = open("manifest.json", "w")
 json.dump(manifest_entries, manifest_file, indent=4)
 
-### Visual feedback
+### Timestamping
+
+now = datetime.datetime.now()
+f = open("z_timelog.txt", "w")
+f.write((now.strftime("%Y-%m-%d %H:%M:%S")))
+f.close()
+
+### Visual Feedback
 
 print()
-print("Beep, boop, boop, JSONS are done.")
+print("-------")
+print()
+print("Script finished executing at ", end = '')
+print (now.strftime("%Y-%m-%d %H:%M:%S"))
 time.sleep(3)
 exit()
