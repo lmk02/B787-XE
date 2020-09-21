@@ -1,6 +1,9 @@
 # Check for latest release version at "https://github.com/lmk02/B787-XE/Releases".
 # This is a stable release and thus some new additions may not be present.
 
+v0.05
+787 - now better
+
 v0.04
 MSFS VERSION 1.8.3.0 COMPATIBLE
 HUD - now green (Ollie2304)
