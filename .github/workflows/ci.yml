@@ -22,8 +22,10 @@ jobs:
       - name: Commit and push
         uses: EndBug/add-and-commit@v4
         with:
-          message: "Updated layout file"
-          add: "layout.json"
+          author_name: GitHub Actions Bot
+          author_email: <>
+          message: "[CI] Updated json files"
+          add: "*.json"
           cwd: "./B787-XE/"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
