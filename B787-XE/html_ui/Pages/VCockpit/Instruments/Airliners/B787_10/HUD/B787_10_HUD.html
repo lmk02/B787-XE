@@ -4,17 +4,15 @@
     <div id="MainFrame">
         <div id="Electricity" state="off">
             <div id="HorizonContainer">
-                <jet-pfd-attitude-indicator id="Horizon" background="false"></jet-pfd-attitude-indicator>
+                <jet-pfd-attitude-indicator id="Horizon" hud="true"></jet-pfd-attitude-indicator>
             </div>
+            <boeing-fma id="FMA" class="AS01B_HUD"></boeing-fma>
             <div id="InstrumentsContainer">
-                <jet-pfd-altimeter-indicator id="Altimeter"></jet-pfd-altimeter-indicator>
-                <jet-pfd-vspeed-indicator id="VSpeed"></jet-pfd-vspeed-indicator>
-                <jet-pfd-airspeed-indicator id="Airspeed"></jet-pfd-airspeed-indicator>
+                <jet-pfd-altimeter-indicator id="Altimeter" hud="true"></jet-pfd-altimeter-indicator>
+                <jet-pfd-airspeed-indicator id="Airspeed" hud="true"></jet-pfd-airspeed-indicator>
+                <jet-pfd-ils-indicator id="ILS"></jet-pfd-ils-indicator>
+                <jet-pfd-nd-compass id="Compass" display-mode="arc" hud="true"></jet-pfd-nd-compass>
             </div>
-            <div id="FMAContainer">
-                <boeing-fma id="FMA" class="AS01B_HUD"></boeing-fma>
-            </div>
-            <jet-pfd-nd-compass id="Compass" display-mode="arc"></jet-pfd-nd-compass>
         </div>
     </div>
 </script>
@@ -25,16 +23,8 @@
 
 <script type="text/html" import-script="/Pages/VCockpit/Instruments/NavSystems/Shared/Templates/Highlight/Highlight.js"></script>
 
-<script type="text/html" import-script="/Pages/VCockpit/Instruments/NavSystems/Shared/LogicElements/FlightPlan.js"></script>
-<script type="text/html" import-script="/Pages/VCockpit/Instruments/NavSystems/Shared/LogicElements/FlightPlanManager.js"></script>
-<script type="text/html" import-script="/Pages/VCockpit/Instruments/NavSystems/Shared/LogicElements/GeoCalc.js"></script>
-<script type="text/html" import-script="/Pages/VCockpit/Instruments/NavSystems/Shared/LogicElements/SearchField.js"></script>
-<script type="text/html" import-script="/Pages/VCockpit/Instruments/NavSystems/Shared/LogicElements/Waypoint.js"></script>
-<script type="text/html" import-script="/Pages/VCockpit/Instruments/NavSystems/Shared/LogicElements/NearestWaypoint.js"></script>
-<script type="text/html" import-script="/Pages/VCockpit/Instruments/NavSystems/Shared/LogicElements/Approach.js"></script>
 <script type="text/html" import-script="/Pages/VCockpit/Instruments/NavSystems/Shared/LogicElements/SelectableElement.js"></script>
-<script type="text/html" import-script="/Pages/VCockpit/Instruments/NavSystems/Shared/LogicElements/ContextualMenu.js"></script>
-<script type="text/html" import-script="/Pages/VCockpit/Instruments/NavSystems/Shared/LogicElements/Runway.js"></script>
+<script type="text/html" import-script="/Pages/VCockpit/Instruments/NavSystems/Shared/LogicElements/SearchField.js"></script>
 
 <script type="text/html" import-template="/Pages/VCockpit/Instruments/Shared/Map/MapInstrument.html"></script>
 <script type="text/html" import-script="/Pages/VCockpit/Instruments/NavSystems/Shared/NavSystem.js"></script>
@@ -44,6 +34,7 @@
 <script type="text/html" import-script="/Pages/VCockpit/Instruments/Airliners/Shared/PFD/HSIndicator.js"></script>
 <script type="text/html" import-script="/Pages/VCockpit/Instruments/Airliners/Shared/PFD/AttitudeIndicator.js"></script>
 <script type="text/html" import-script="/Pages/VCockpit/Instruments/Airliners/Shared/PFD/VerticalSpeedIndicator.js"></script>
+<script type="text/html" import-script="/Pages/VCockpit/Instruments/Airliners/Shared/PFD/ILSIndicator.js"></script>
 
 <script type="text/html" import-template="/Pages/VCockpit/Instruments/Airliners/Shared/Boeing/Boeing_FMA.html"></script>
 
