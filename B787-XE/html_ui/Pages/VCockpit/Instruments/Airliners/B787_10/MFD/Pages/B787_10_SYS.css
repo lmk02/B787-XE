@@ -310,7 +310,10 @@ b787-10-sys-element #Pages #GEAR_Page #pressure text.label {
   text-anchor: left;
   fill: var(--eicasWhite);
 }
-
+b787-10-sys-element #Pages #GEAR_Page #temp text.label {
+  font-size: 30px;
+  text-anchor: left;
+}
 b787-10-sys-element #Pages #FCTL_Page #aircraft path {
   stroke: var(--eicasBlue);
   stroke-width: 4px;
