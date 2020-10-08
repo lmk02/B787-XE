@@ -656,9 +656,6 @@ class B787_10_SYS_Page_DOOR extends B787_10_SYS_Page {
 class B787_10_SYS_Page_GEAR extends B787_10_SYS_Page {
 
     init() {
-		Include.addScript("/JS/debug.js", function () {
-				g_modDebugMgr.AddConsole(null);
-		});
         if (this.pageRoot != null) {
             this.gearDisplay = new Boeing.GearDisplay(this.pageRoot.querySelector("#gearDoor"));
         }
