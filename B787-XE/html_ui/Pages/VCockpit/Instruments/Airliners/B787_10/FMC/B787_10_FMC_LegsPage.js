@@ -116,7 +116,7 @@ class B787_10_FMC_LegsPage {
                             }
                         }
                         if (isEnRouteWaypoint) {
-                            rows[2 * i + 1][1] = fmc.getCrzManagedSpeed(true) + "/ FL" + fmc.cruiseFlightLevel;
+                            rows[2 * i + 1][1] = fmc.getCrzManagedSpeed(true).toFixed(0) + "/ FL" + fmc.cruiseFlightLevel;
                         }
                         else {
                             let speedConstraint = "---";
