@@ -2,7 +2,9 @@
 # This is a stable release and thus some new additions may not be present.
 
 v0.05
-787 - now better
+MSFS VERSION 1.10.7.0 COMPATIBLE
+MFD - Added Flight Control Surfaces Page (mupok)
+FMC - Fixed FMC calculated speed formatting in legs page (Pieloth)
 
 v0.04
 MSFS VERSION 1.8.3.0 COMPATIBLE
