@@ -14,9 +14,11 @@ Just download the latest release [here](https://github.com/lmk02/B787-XE/release
 - Gear Page
 - Status Page
 - Electrical Synoptic Display
+- Flight Control Surfaces Page (mupok)
 ### HUD
 - Colored Green (Ollie2304)
 - ILS markers added (sbutters)
+- Fixed FMC calculated speed formatting in legs page (Pieloth)
 
 We can't offer much more right now because we just started working on it, but we are working on many different things.
 

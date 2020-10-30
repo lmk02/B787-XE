@@ -40,42 +40,15 @@ class B787_10_HUD_MainPage extends NavSystemPage {
         this.compass = new B787_10_HUD_Compass();
         this.element = new NavSystemElementGroup([
             new B787_10_HUD_Attitude(),
-            new B787_10_HUD_VSpeed(),
             new B787_10_HUD_Airspeed(),
             new B787_10_HUD_Altimeter(),
             new B787_10_HUD_NavStatus(),
-            this.compass,
-            new B787_10_PFD_ILS()
+            new B787_10_HUD_ILS(),
+            this.compass
         ]);
     }
     init() {
         super.init();
-        this.compass.svg.setMode(Jet_NDCompass_Display.ROSE, Jet_NDCompass_Navigation.NAV);
-    }
-    onEvent(_event) {
-    }
-}
-class B787_10_HUD_VSpeed extends NavSystemElement {
-    init(root) {
-        this.vsi = this.gps.getChildById("VSpeed");
-        this.vsi.aircraft = Aircraft.AS01B;
-        this.vsi.gps = this.gps;
-    }
-    onEnter() {
-    }
-    onUpdate(_deltaTime) {
-        var vSpeed = Math.round(Simplane.getVerticalSpeed());
-        this.vsi.setAttribute("vspeed", vSpeed.toString());
-        if (Simplane.getAutoPilotVerticalSpeedHoldActive()) {
-            var selVSpeed = Math.round(Simplane.getAutoPilotVerticalSpeedHoldValue());
-            this.vsi.setAttribute("selected_vspeed", selVSpeed.toString());
-            this.vsi.setAttribute("selected_vspeed_active", "true");
-        }
-        else {
-            this.vsi.setAttribute("selected_vspeed_active", "false");
-        }
-    }
-    onExit() {
     }
     onEvent(_event) {
     }
@@ -141,13 +114,9 @@ class B787_10_HUD_Attitude extends NavSystemElement {
     onUpdate(_deltaTime) {
         var xyz = Simplane.getOrientationAxis();
         if (xyz) {
-            let h = Simplane.getAltitudeAboveGround() / 3281;
-            let horizonDist = Math.sqrt(h * (12742 + h));
-            let coef = (7 * Avionics.Utils.DEG2RAD * horizonDist) / 100;
-            let horizon = -(0.75 + coef);
-            horizon += xyz.pitch * (8 + coef);
-            this.svg.setAttribute("horizon", (horizon / Math.PI * 180).toString());
-            this.svg.setAttribute("pitch", (xyz.pitch / Math.PI * 180).toString());
+            let pitch = xyz.pitch;
+            this.svg.setAttribute("horizon", (pitch / Math.PI * 180).toString());
+            this.svg.setAttribute("pitch", (pitch / Math.PI * 180).toString());
             this.svg.setAttribute("bank", (xyz.bank / Math.PI * 180).toString());
         }
         this.svg.setAttribute("slip_skid", Simplane.getInclinometer().toString());
@@ -178,6 +147,32 @@ class B787_10_HUD_NavStatus extends NavSystemElement {
     onEvent(_event) {
     }
 }
+class B787_10_HUD_ILS extends NavSystemElement {
+    init(root) {
+        this.ils = this.gps.getChildById("ILS");
+        this.ils.aircraft = Aircraft.AS01B;
+        this.ils.gps = this.gps;
+        this.ils.showNavInfo(true);
+    }
+    onEnter() {
+    }
+    onUpdate(_deltaTime) {
+        if (this.ils) {
+            let showIls = true;
+            let localizer = this.gps.radioNav.getBestILSBeacon(false);
+            if (localizer.id != 0) {
+                showIls = true;
+            }
+            this.ils.showLocalizer(showIls);
+            this.ils.showGlideslope(showIls);
+            this.ils.update(_deltaTime);
+        }
+    }
+    onExit() {
+    }
+    onEvent(_event) {
+    }
+}
 class B787_10_HUD_Compass extends NavSystemElement {
     init(root) {
         this.svg = this.gps.getChildById("Compass");
@@ -193,32 +188,6 @@ class B787_10_HUD_Compass extends NavSystemElement {
     onUpdate(_deltaTime) {
         if (this.svg) {
             this.svg.update(_deltaTime);
-        }
-    }
-    onExit() {
-    }
-    onEvent(_event) {
-    }
-}
-class B787_10_PFD_ILS extends NavSystemElement {
-    init(root) {
-        this.ils = this.gps.getChildById("ILS");
-        this.ils.aircraft = Aircraft.AS01B;
-        this.ils.gps = this.gps;
-        this.ils.showNavInfo(true);
-    }
-    onEnter() {
-    }
-    onUpdate(_deltaTime) {
-        if (this.ils) {
-            let showIls = false;
-            let localizer = this.gps.radioNav.getBestILSBeacon(false);
-            if (localizer.id != 0) {
-                showIls = true;
-            }
-            this.ils.showLocalizer(showIls);
-            this.ils.showGlideslope(showIls);
-            this.ils.update(_deltaTime);
         }
     }
     onExit() {

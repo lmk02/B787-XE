@@ -83,36 +83,35 @@ b787-10-hud-element {
       b787-10-hud-element #MainFrame #InstrumentsContainer #Altimeter {
         transform: rotateX(0);
         position: absolute;
-        top: 2%;
-        left: 68%;
-        width: 22%;
+        top: 20%;
+        left: 83%;
+        width: 18%;
         height: 100%; }
       b787-10-hud-element #MainFrame #InstrumentsContainer #Airspeed {
         transform: rotateX(0);
         position: absolute;
-        top: 5%;
-        left: 10%;
-        width: 22%;
+        top: 22%;
+        left: -3%;
+        width: 18%;
         height: 100%; }
-      b787-10-hud-element #MainFrame #InstrumentsContainer #VSpeed {
+      b787-10-hud-element #MainFrame #InstrumentsContainer #ILS {
         transform: rotateX(0);
         position: absolute;
         border: none;
-        top: 12%;
-        left: 84%;
-        width: 25%;
+        top: 0%;
+        left: 0%;
+        width: 100%;
         height: 100%;
-        z-index: 0; }
-      b787-10-hud-element #MainFrame #InstrumentsContainer #ILS {
-         transform: rotateX(0);
-         position: absolute;
-         border: none;
-         top: 0%;
-         left: 0%;
-         width: 100%;
-         height: 100%;
-         z-index: 1; }
-    b787-10-hud-element #MainFrame #FMAContainer {
+        z-index: 1; }
+      b787-10-hud-element #MainFrame #InstrumentsContainer #Compass {
+        transform: rotateX(0);
+        position: absolute;
+        top: 42%;
+        left: 29%;
+        width: 42%;
+        height: 100%;
+        z-index: 1; }
+    b787-10-hud-element #MainFrame #FMA {
       transform: rotateX(0);
       position: absolute;
       border: none;
@@ -122,36 +121,3 @@ b787-10-hud-element {
       left: 26%;
       z-index: 0; }
 
-
-      b787-10-hud-element #Altimeter {
-        filter: sepia(100%) hue-rotate(55deg) saturate(2000%);
-      }
-      
-      b787-10-hud-element #VSpeed {
-        filter: sepia(100%) hue-rotate(55deg) saturate(2000%);
-      }
-      
-      b787-10-hud-element #Airspeed {
-        filter: sepia(100%) hue-rotate(55deg) saturate(2000%);
-      }
-      
-      b787-10-hud-element #Horizon {
-        filter: sepia(100%) hue-rotate(55deg) saturate(2000%);
-      }
-      
-      b787-10-hud-element #Column1 {
-        filter: sepia(100%) hue-rotate(55deg) saturate(2000%);
-      }
-      
-      b787-10-hud-element #Column2 {
-        filter: sepia(100%) hue-rotate(55deg) saturate(2000%);
-      }
-      
-      b787-10-hud-element #Column3 {
-        filter: sepia(100%) hue-rotate(55deg) saturate(2000%);
-      }
-      
-      b787-10-hud-element #ILS {
-        filter: sepia(100%) hue-rotate(55deg) saturate(2000%);
-      }
-      

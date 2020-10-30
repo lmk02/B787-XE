@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo content
+        uses: actions/checkout@v2.3.2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: execute python script
+        run: |
+          cd ./B787-XE
+          python3 z_build.py
+      - name: Commit and push
+        uses: EndBug/add-and-commit@v4
+        with:
+          author_name: GitHub Actions Bot
+          author_email: <>
+          message: "[CI] Updated package files"
+          add: "manifest.json layout.json z_timelog.txt"
+          cwd: "./B787-XE/"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

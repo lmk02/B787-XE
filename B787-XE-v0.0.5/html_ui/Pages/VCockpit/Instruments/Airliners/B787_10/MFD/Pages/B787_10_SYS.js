@@ -662,7 +662,6 @@ class B787_10_SYS_Page_GEAR extends B787_10_SYS_Page {
     }
 
     updateChild(_deltaTime) {
-
         if (this.gearDisplay != null) {
             this.gearDisplay.update(_deltaTime);
         }
@@ -671,8 +670,121 @@ class B787_10_SYS_Page_GEAR extends B787_10_SYS_Page {
     getName() { return "GEAR"; }
 }
 class B787_10_SYS_Page_FCTL extends B787_10_SYS_Page {
-    updateChild(_deltaTime) {
+	init() {
+		if (this.pageRoot != null) {
+            this.stabDisplay = new Boeing.StabDisplay(this.pageRoot.querySelector("#stab"));
+			this.rudderDisplay = new Boeing.RudderDisplay(this.pageRoot.querySelector("#rudder_trim"));
+			this.leftElevatorCursor = this.pageRoot.querySelector("#leftElevatorCursor");
+			this.rightElevatorCursor = this.pageRoot.querySelector("#rightElevatorCursor");
+			this.rudderCursor = this.pageRoot.querySelector("#rudderCursor");
+			this.leftAileronCursor = this.pageRoot.querySelector("#leftAileronCursor");
+			this.rightAileronCursor = this.pageRoot.querySelector("#rightAileronCursor");
+			this.leftFlaperonCursor = this.pageRoot.querySelector("#leftFlaperonCursor");
+			this.rightFlaperonCursor = this.pageRoot.querySelector("#rightFlaperonCursor");
+			this.leftSpoilerBg = this.pageRoot.querySelector("#leftSpoilerBg");
+			this.rightSpoilerBg = this.pageRoot.querySelector("#rightSpoilerBg");
+			this.hydLeft = this.pageRoot.querySelectorAll(".hleft");
+			this.hydCenter = this.pageRoot.querySelectorAll(".hcenter");
+			this.hydRight = this.pageRoot.querySelectorAll(".hright");
+			
+			this.engLeftState = false;
+			this.engRightState = false;
+        }
     }
+	
+	update(_deltaTime) {
+		this.elevatorsUpdate(_deltaTime);
+		this.rudderUpdate(_deltaTime);
+		this.aileronUpdate(_deltaTime);
+		this.spoilersUpdate(_deltaTime);
+		this.updateHydraulics(_deltaTime);
+		
+		if (this.stabDisplay != null) {
+			this.stabDisplay.update(_deltaTime);
+		}
+		if (this.rudderDisplay != null) {
+			this.rudderDisplay.update(_deltaTime);
+		}
+	}
+	
+	updateHydraulics(_deltaTime) {
+		const engCombustionFirst = SimVar.GetSimVarValue("ENG COMBUSTION:1", "Bool") === 1;
+		const engCombustionSecond = SimVar.GetSimVarValue("ENG COMBUSTION:2", "Bool") === 1;
+		
+		if (this.engLeftState !== engCombustionFirst || this.engRightState !== engCombustionSecond) {
+			for(const node of this.hydCenter) {
+				node.classList.remove(engCombustionFirst && engCombustionSecond ? "fail" : "success");
+				node.classList.add(engCombustionFirst && engCombustionSecond ? "success" : "fail");
+			}
+		}
+		
+		if (this.engLeftState !== engCombustionFirst) {
+			this.engLeftState = engCombustionFirst;
+			for(const node of this.hydLeft) {
+				node.classList.remove(engCombustionFirst ? "fail" : "success");
+				node.classList.add(engCombustionFirst ? "success" : "fail");
+			}
+		}
+		
+		if (this.engRightState !== engCombustionSecond) {
+			this.engRightState = engCombustionSecond
+			for(const node of this.hydRight) {
+				node.classList.remove(engCombustionSecond ? "fail" : "success");
+				node.classList.add(engCombustionSecond ? "success" : "fail");
+			}
+		}
+	}
+	
+	spoilersUpdate(_deltaTime) {
+		const spoilersLeftPosition = SimVar.GetSimVarValue("SPOILERS LEFT POSITION", "percent over 100");
+		const spoilersLeftPositionNo = spoilersLeftPosition * 80;
+		const spoilersLeftPositionData = "M120,444 l0,-" + spoilersLeftPositionNo + " l35,0 0," + spoilersLeftPositionNo + " M165,444 l0,-" + spoilersLeftPositionNo + " l35,0 0," + spoilersLeftPositionNo + " M210,444 l0,-" + spoilersLeftPositionNo + " l35,0 0," + spoilersLeftPositionNo + " M255,444 l0,-" + spoilersLeftPositionNo + " l35,0 0," + spoilersLeftPositionNo + " M360,444 l0,-" + spoilersLeftPositionNo + " l35,0 0," + spoilersLeftPositionNo + " M405,444 l0,-" + spoilersLeftPositionNo + " l35,0 0," + spoilersLeftPositionNo + " M450,444 l0,-" + spoilersLeftPositionNo + " l35,0 0," + spoilersLeftPositionNo;
+		
+		const spoilersRightPosition = SimVar.GetSimVarValue("SPOILERS RIGHT POSITION", "percent over 100");
+		const spoilersRightPositionNo = spoilersRightPosition * 80;
+		const spoilersRightPositionData = "M725,444 l0,-" + spoilersRightPositionNo + " l35,0 0," + spoilersRightPositionNo + " M770,444 l0,-" + spoilersRightPositionNo + " l35,0 0," + spoilersRightPositionNo + " M815,444 l0,-" + spoilersRightPositionNo + " l35,0 0," + spoilersRightPositionNo + " M915,444 l0,-" + spoilersRightPositionNo + " l35,0 0," + spoilersRightPositionNo + " M960,444 l0,-" + spoilersRightPositionNo + " l35,0 0," + spoilersRightPositionNo + " M1005,444 l0,-" + spoilersRightPositionNo + " l35,0 0," + spoilersRightPositionNo + " M1050,444 l0,-" + spoilersRightPositionNo + " l35,0 0," + spoilersRightPositionNo;
+		
+		this.leftSpoilerBg.setAttribute("d", spoilersLeftPositionData);
+		this.rightSpoilerBg.setAttribute("d", spoilersRightPositionData);
+	}
+
+	aileronUpdate() {
+		const leftAileronDeflectPct = SimVar.GetSimVarValue("AILERON LEFT DEFLECTION PCT", "percent over 100");
+		const leftFlaperonPositionNo = leftAileronDeflectPct * 82;
+		const leftFlaperonPosition = "M340," + (587 + leftFlaperonPositionNo) + " l-25,-10 l0,20";
+		const leftAileronDeflectPctNo = leftAileronDeflectPct * 90 * (leftAileronDeflectPct < 0 ? 1.28 : 0.73);
+		const leftAileronPosition = "M88," + (620 + leftAileronDeflectPctNo) + " l-25,-10 l0,20";
+		this.leftAileronCursor.setAttribute("d", leftAileronPosition);
+		
+		const rightAileronDeflectPct = SimVar.GetSimVarValue("AILERON RIGHT DEFLECTION PCT", "percent over 100");
+		const rightFlaperonPositionNo = rightAileronDeflectPct * 82;
+		const rightFlaperonPosition = "M822," + (587 - rightFlaperonPositionNo) + " l25,-10 l0,20";
+		const rightAileronDeflectPctNo = rightAileronDeflectPct * 90 * (rightAileronDeflectPct > 0 ? 1.28 : 0.73);
+		const rightAileronPosition = "M1078," + (620 - rightAileronDeflectPctNo) + "  l25,-10 l0,20";
+		this.rightAileronCursor.setAttribute("d", rightAileronPosition);
+		
+		// we have no flaperons position params, use ailerons
+		this.leftFlaperonCursor.setAttribute("d", leftFlaperonPosition);
+		this.rightFlaperonCursor.setAttribute("d", rightFlaperonPosition);
+	}
+	
+	rudderUpdate(_deltaTime) {
+		const rudderDeflectionPct = SimVar.GetSimVarValue("RUDDER DEFLECTION PCT", "percent over 100");
+		const rudderDeflectionPctNo = rudderDeflectionPct * 164;
+		const rudderPosition = "M" + (604 + rudderDeflectionPctNo) + ",1240 l10,25 l-20,0";
+		this.rudderCursor.setAttribute("d", rudderPosition);
+	}
+	
+	elevatorsUpdate(_deltaTime) {
+		const elevatorDeflectionPct = SimVar.GetSimVarValue("ELEVATOR DEFLECTION PCT", "percent over 100");
+		const elevatorDeflectionPctNo = elevatorDeflectionPct * 70 * (elevatorDeflectionPct < 0 ? 1.48 : 1);
+		
+		const leftCursorPosition = "M392," + (1150 + elevatorDeflectionPctNo) + " l-25,-10 l0,20";
+		const rightCursorPosition = "M826," + (1150 + elevatorDeflectionPctNo) + " l25,-10 l0,20";
+		this.leftElevatorCursor.setAttribute("d", leftCursorPosition);
+		this.rightElevatorCursor.setAttribute("d", rightCursorPosition);
+	}
+	
     getName() { return "FCTL"; }
 }
 class B787_10_SYS_Page_EFIS_DSP extends B787_10_SYS_Page {

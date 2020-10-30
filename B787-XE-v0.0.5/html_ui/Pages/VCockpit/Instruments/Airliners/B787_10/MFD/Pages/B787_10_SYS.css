@@ -315,7 +315,133 @@ b787-10-sys-element #Pages #GEAR_Page #temp text.label {
   text-anchor: left;
   fill: var(--eicasWhite);
 }
-
+b787-10-sys-element #Pages #FCTL_Page #aircraft path {
+  stroke: var(--eicasBlue);
+  stroke-width: 4px;
+}
+b787-10-sys-element #Pages #FCTL_Page #aircraft path.gray {
+  fill: var(--eicasDarkGrey);
+}
+b787-10-sys-element #Pages #FCTL_Page #hydraulics text.info {
+	font-size: 36px;
+}
+b787-10-sys-element #Pages #FCTL_Page #hydraulics text.fail {
+	fill: var(--eicasOrange);
+}
+b787-10-sys-element #Pages #FCTL_Page #fltCtrlMode text.success {
+	font-size: 42px;
+}
+b787-10-sys-element #Pages #FCTL_Page #fltCtrlMode text.success,
+b787-10-sys-element #Pages #FCTL_Page #hydraulics text.success {
+	fill: var(--eicasGreen);
+}
+b787-10-sys-element #Pages #FCTL_Page #hydraulics rect.fail {
+	stroke: var(--eicasOrange);
+	stroke-width: 4px;
+}
+b787-10-sys-element #Pages #FCTL_Page #fltCtrlMode rect.success,
+b787-10-sys-element #Pages #FCTL_Page #hydraulics rect.success {
+	stroke: var(--eicasGreen);
+	stroke-width: 4px;
+}
+b787-10-sys-element #Pages #FCTL_Page #fltCtrlMode text.label,
+b787-10-sys-element #Pages #FCTL_Page #hydraulics text.label,
+b787-10-sys-element #Pages #FCTL_Page #aircraft text.label,
+b787-10-sys-element #Pages #FCTL_Page #l_ail text.label,
+b787-10-sys-element #Pages #FCTL_Page #r_ail text.label,
+b787-10-sys-element #Pages #FCTL_Page #l_flprn text.label,
+b787-10-sys-element #Pages #FCTL_Page #r_flprn text.label,
+b787-10-sys-element #Pages #FCTL_Page #l_elev text.label,
+b787-10-sys-element #Pages #FCTL_Page #r_elev text.label,
+b787-10-sys-element #Pages #FCTL_Page #rudder text.label,
+b787-10-sys-element #Pages #FCTL_Page #rudder_trim text.label,
+b787-10-sys-element #Pages #FCTL_Page #stab text.label {
+  font-size: 32px;
+  fill: var(--eicasBlue);
+  letter-spacing: -2px;
+}
+b787-10-sys-element #Pages #FCTL_Page #stab text.vlabel {
+  writing-mode: vertical-lr;
+  glyph-orientation-vertical: 0;
+}
+b787-10-sys-element #Pages #FCTL_Page #stab path.rect {
+  stroke: var(--eicasWhite);
+  stroke-width: 4px;
+  fill: var(--eicasBlack);
+}
+b787-10-sys-element #Pages #FCTL_Page #stab line {
+  stroke: var(--eicasWhite);
+  stroke-width: 4px;
+  fill: var(--eicasWhite);
+}
+b787-10-sys-element #Pages #FCTL_Page #stab path.arrow,
+b787-10-sys-element #Pages #FCTL_Page #l_ail path.arrow,
+b787-10-sys-element #Pages #FCTL_Page #r_ail path.arrow,
+b787-10-sys-element #Pages #FCTL_Page #l_elev path.arrow,
+b787-10-sys-element #Pages #FCTL_Page #r_elev path.arrow,
+b787-10-sys-element #Pages #FCTL_Page #l_flprn path.arrow,
+b787-10-sys-element #Pages #FCTL_Page #r_flprn path.arrow,
+b787-10-sys-element #Pages #FCTL_Page #rudder path.arrow,
+b787-10-sys-element #Pages #FCTL_Page #rudder_trim path.arrow {
+    fill: var(--eicasWhite);
+	stroke: var(--eicasWhite);
+}
+b787-10-sys-element #Pages #FCTL_Page #aircraft path.rightSpoilerBg,
+b787-10-sys-element #Pages #FCTL_Page #aircraft path.leftSpoilerBg {
+	fill: var(--eicasWhite);
+	stroke: none;
+}
+b787-10-sys-element #Pages #FCTL_Page #aircraft rect {
+	fill: var(--eicasBlack);
+	stroke: var(--eicasWhite);
+	stroke-width: 2px;
+}
+b787-10-sys-element #Pages #FCTL_Page #rudder_trim rect,
+b787-10-sys-element #Pages #FCTL_Page #l_elev .markers,
+b787-10-sys-element #Pages #FCTL_Page #l_elev .bar,
+b787-10-sys-element #Pages #FCTL_Page #l_ail .markers,
+b787-10-sys-element #Pages #FCTL_Page #l_ail .bar,
+b787-10-sys-element #Pages #FCTL_Page #r_ail .markers,
+b787-10-sys-element #Pages #FCTL_Page #r_ail .bar,
+b787-10-sys-element #Pages #FCTL_Page #r_elev .markers,
+b787-10-sys-element #Pages #FCTL_Page #r_elev .bar,
+b787-10-sys-element #Pages #FCTL_Page #l_flprn .markers,
+b787-10-sys-element #Pages #FCTL_Page #l_flprn .bar,
+b787-10-sys-element #Pages #FCTL_Page #r_flprn .markers,
+b787-10-sys-element #Pages #FCTL_Page #r_flprn .bar,
+b787-10-sys-element #Pages #FCTL_Page #rudder .markers,
+b787-10-sys-element #Pages #FCTL_Page #rudder .bar,
+b787-10-sys-element #Pages #FCTL_Page #rudder_trim .markers,
+b787-10-sys-element #Pages #FCTL_Page #rudder_trim .bar,
+b787-10-sys-element #Pages #FCTL_Page #stab .markers,
+b787-10-sys-element #Pages #FCTL_Page #stab .bar {
+    fill: none;
+    stroke: var(--eicasWhite);
+    stroke-width: 4px;
+}
+b787-10-sys-element #Pages #FCTL_Page #rudder_trim text.left,
+b787-10-sys-element #Pages #FCTL_Page #rudder_trim text.right,
+b787-10-sys-element #Pages #FCTL_Page #rudder_trim text.value,
+b787-10-sys-element #Pages #FCTL_Page #stab text.value {
+    font-size: 35px;
+    letter-spacing: -3px;
+    text-anchor: end;
+	stroke: var(--eicasWhite);
+	fill: var(--eicasWhite);
+}
+b787-10-sys-element #Pages #FCTL_Page #r_elev line {
+  stroke: var(--eicasWhite);
+  stroke-width: 4px;
+  fill: var(--eicasWhite);
+}
+b787-10-sys-element #Pages #FCTL_Page #r_flprn rect,
+b787-10-sys-element #Pages #FCTL_Page #l_flprn rect,
+b787-10-sys-element #Pages #FCTL_Page #r_elev rect,
+b787-10-sys-element #Pages #FCTL_Page #l_elev rect,
+b787-10-sys-element #Pages #FCTL_Page #r_ail rect,
+b787-10-sys-element #Pages #FCTL_Page #l_ail rect {
+  fill: var(--eicasBlack);
+}
 
 b787-10-sys-element #Pages #STAT_Page path {
   stroke: var(--eicasBlue);
