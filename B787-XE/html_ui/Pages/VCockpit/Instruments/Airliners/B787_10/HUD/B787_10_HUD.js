@@ -18,10 +18,13 @@ class B787_10_HUD extends BaseAirliners {
         window.console.log("B787 HUD - destroyed");
         super.disconnectedCallback();
     }
-    Update() {
-        super.Update();
+    onUpdate(_deltaTime) {
+        super.onUpdate(_deltaTime);
     }
 }
+B787_10_HUD.PITCH_BEFORE_COMPASS_SLIDES_DOWN = -9;
+B787_10_HUD.COMPASS_ANGLE_TO_PIXELS_FACTOR = 38;
+B787_10_HUD.ILS_ANGLE_TO_PIXELS_FACTOR = 24;
 class B787_10_HUD_MainElement extends NavSystemElement {
     init(root) {
     }
@@ -38,6 +41,9 @@ class B787_10_HUD_MainPage extends NavSystemPage {
     constructor() {
         super("Main", "MainFrame", new B787_10_HUD_MainElement());
         this.compass = new B787_10_HUD_Compass();
+        this.mainFrameTop = NaN;
+        this.mainFrameHeight = NaN;
+        this.mainFrameTopOffset = 0;						
         this.element = new NavSystemElementGroup([
             new B787_10_HUD_Attitude(),
             new B787_10_HUD_Airspeed(),
@@ -49,6 +55,40 @@ class B787_10_HUD_MainPage extends NavSystemPage {
     }
     init() {
         super.init();
+        this.mainFrame = this.gps.getChildById("MainFrame");
+    }
+    onUpdate(_deltaTime) {
+        super.onUpdate(_deltaTime);
+        if (this.mainFrame) {
+            if (!isFinite(this.mainFrameTop)) {
+                let clientRect = this.mainFrame.getBoundingClientRect();
+                if (clientRect.width > 0) {
+                    this.mainFrameTop = clientRect.top;
+                    this.mainFrameHeight = clientRect.height;	 
+                }					
+    }
+            else {
+                let horizonOffset = 0;
+                {
+                    let planeAltitude = Simplane.getAltitude() / 3281;
+                    let horizonDistance = Math.sqrt(planeAltitude * (12742 + planeAltitude));
+                    let correction = planeAltitude / horizonDistance;
+                    horizonOffset += (5.75 * correction);
+                }
+                {
+                    let cameraHeight = SimVar.GetGameVarValue("CAMERA HEIGHT IN PLANE", "feet");
+                    let deltaFeet = cameraHeight - 5.235;
+                    horizonOffset += (-1.75 * deltaFeet);
+                }
+                {
+                    let xyz = Simplane.getOrientationAxis();
+                    horizonOffset += (-1.50 * xyz.pitch);
+                }
+                horizonOffset *= this.mainFrameHeight;
+                this.mainFrameTopOffset = Utils.SmoothSin(this.mainFrameTopOffset, horizonOffset, 0.0075, _deltaTime);
+                this.mainFrame.style.top = this.mainFrameTop + this.mainFrameTopOffset + "px";
+            }
+        }
     }
     onEvent(_event) {
     }
@@ -172,6 +212,20 @@ class B787_10_HUD_ILS extends NavSystemElement {
     }
     onEvent(_event) {
     }
+    static getYSlide() {
+        let deltaPixels = 0;
+        var xyz = Simplane.getOrientationAxis();
+        if (xyz) {
+            let maxPitch = B787_10_HUD.PITCH_BEFORE_COMPASS_SLIDES_DOWN;
+            let factor = B787_10_HUD.ILS_ANGLE_TO_PIXELS_FACTOR;
+            let pitch = xyz.pitch * Avionics.Utils.RAD2DEG;
+            let deltaPitch = pitch - maxPitch;
+            if (deltaPitch < 0) {
+                deltaPixels = Math.abs(deltaPitch) * factor;
+            }
+        }
+        return deltaPixels;
+    }
 }
 class B787_10_HUD_Compass extends NavSystemElement {
     init(root) {
@@ -193,6 +247,20 @@ class B787_10_HUD_Compass extends NavSystemElement {
     onExit() {
     }
     onEvent(_event) {
+    }
+    static getYSlide() {
+        let deltaPixels = 0;
+        var xyz = Simplane.getOrientationAxis();
+        if (xyz) {
+            let maxPitch = B787_10_HUD.PITCH_BEFORE_COMPASS_SLIDES_DOWN;
+            let factor = B787_10_HUD.COMPASS_ANGLE_TO_PIXELS_FACTOR;
+            let pitch = xyz.pitch * Avionics.Utils.RAD2DEG;
+            let deltaPitch = pitch - maxPitch;
+            if (deltaPitch < 0) {
+                deltaPixels = Math.abs(deltaPitch) * factor;
+            }
+        }
+        return deltaPixels;
     }
 }
 registerInstrument("b787-10-hud-element", B787_10_HUD);
