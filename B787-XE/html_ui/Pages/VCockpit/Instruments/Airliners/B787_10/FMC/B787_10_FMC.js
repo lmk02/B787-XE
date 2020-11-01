@@ -209,8 +209,8 @@ class B787_10_FMC extends Boeing_FMC {
         this.deactivateVNAV();
         Coherent.call("GENERAL_ENG_THROTTLE_MANAGED_MODE_SET", ThrottleMode.HOLD);
     }
-    Update() {
-        super.Update();
+    onUpdate(_deltaTime) {
+        super.onUpdate(_deltaTime);
         if (this.urlConfig.index != 1) {
             return;
         }
