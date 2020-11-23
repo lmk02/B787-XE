@@ -21,7 +21,7 @@
     "title": "B787-XE",
     "manufacturer": "Boeing",
     "creator": "Leon Koth",
-    "package_version": "0.0.4",
+    "package_version": "0.0.5",
     "minimum_game_version": "1.10.5",
     "release_notes": {
         "neutral": {
@@ -29,5 +29,6 @@
             "OlderHistory": ""
         }
     },
-    "total_package_size": "00000000000000657700"
+    "total_package_size": "00000000000000674754"
 }
+

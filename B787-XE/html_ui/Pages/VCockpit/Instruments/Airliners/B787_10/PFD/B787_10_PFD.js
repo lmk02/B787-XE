@@ -19,8 +19,8 @@ class B787_10_PFD extends BaseAirliners {
         window.console.log("B787 PFD - destroyed");
         super.disconnectedCallback();
     }
-    Update() {
-        super.Update();
+    onUpdate(_deltaTime) {
+        super.onUpdate(_deltaTime);
     }
 }
 class B787_10_PFD_MainElement extends NavSystemElement {
