@@ -5,7 +5,7 @@ class B787_10_FMC_IdentPage {
         if (!model) {
             model = "unkn.";
         }
-        let date = fmc.getNavDataDateRange();											 
+        let date = fmc.getNavDataDateRange();
         fmc.setTemplate([
             ["IDENT"],
             ["MODEL", "ENGINES"],

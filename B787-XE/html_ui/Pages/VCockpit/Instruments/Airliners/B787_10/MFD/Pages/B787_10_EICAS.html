@@ -12,7 +12,7 @@
             <line class="warningMarker" x1="70px" x2="96px" transform="translate(124, 60)" />
             <polyline class="greenMarker" points="120,10 100,0 120,-10" transform="translate(124, 60)" />
         </g>
-        
+
         <g id="Mode">
             <!--<rect x="0px" width="550px" y="0px" height="85px" style="fill:red" />-->
 
@@ -52,7 +52,7 @@
                 <text class="label" x="275px" y="36px">FF</text>
 
                 <g id="FF_INFO_1" class="gauge">
-                    <rect  x="70px" y="0px" width="105px" height="50px" />
+                    <rect x="70px" y="0px" width="105px" height="50px" />
                     <text id="FF_1_Value" x="170px" y="41px">0.0</text>
                 </g>
 
@@ -167,13 +167,13 @@
             <text class="value" x="625px" y="948px">0.00</text>
             <text class="info" x="640px" y="880px">ND</text>
             <text class="info" x="640px" y="1010px">NU</text>
-            <rect class="trimBand" x="675px" y="910px" width="16px" height="40px" />
+            <rect class="trimBand" x="695px" y="900px" width="16px" height="40px" />
             <line class="bar" x1="690px" x2="690" y1="870px" y2="1000px" />
             <path class="markers" d="M690,870 l-16,0 M690,1000 l-16,0" />
             <path class="arrow" d="M685,936 l-25,-10 l0,20" />
             <text class="vlabel" x="725px" y="870px">STAB</text>
         </g>
-        
+
         <g id="Rudder">
             <!--<rect x="750px" width="250px" y="865px" height="195px" style="fill:purple" />-->
 
@@ -183,7 +183,7 @@
             <text class="right" x="950px" y="926px">R</text>
             <line class="bar" x1="800px" x2="970" y1="975px" y2="975px" />
             <path class="markers" d="M800,975 l0,-16 M885,975 l0,-16 M970,975 l0,-16" />
-            <path class="arrow" d="M885,970 l10,-25 l-20,0"/>
+            <path class="arrow" d="M885,970 l10,-25 l-20,0" />
             <text class="label" x="885px" y="1020px">RUDDER TRIM</text>
         </g>
 
@@ -196,7 +196,8 @@
             <text class="label" x="500px" y="1140px">RATE</text>
             <text id="RATE_Value" class="value" x="730px" y="1140px">0</text>
 
-            <text class="label" x="500px" y="1180px">&#9651;P</text>
+            <path d="M500 1178 l18 0 l-9 -18 Z" stroke="rgb(0, 150, 150)" stroke-width="3" fill="None"></path>
+            <text class="label" x="521px" y="1180px">P</text>
             <text id="DELTAP_Value" class="value" x="730px" y="1180px">0.0</text>
 
             <text class="label" x="500px" y="1220px">LDG ALT</text>
@@ -235,6 +236,7 @@
             <text id="FUELTEMP_Value" class="value" x="985px" y="1480px">-</text>
         </g>
     </svg>
+    <div id="Borders"></div>
 </script>
 
 <script type="text/html" import-script="/Pages/VCockpit/Instruments/Airliners/B787_10/MFD/Pages/B787_10_EICAS.js"></script>

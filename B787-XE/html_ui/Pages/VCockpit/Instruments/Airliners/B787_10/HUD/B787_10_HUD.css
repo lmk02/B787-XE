@@ -76,39 +76,20 @@ b787-10-hud-element {
     position: relative;
     width: 100%;
     height: 100%; }
-    b787-10-hud-element #MainFrame #HorizonContainer {
+    b787-10-hud-element #MainFrame #MiddleContainer {
       transform: rotateX(0);
       position: absolute;
       width: 100%;
       height: 100%;
       border: none;
       overflow: hidden; }
-      b787-10-hud-element #MainFrame #HorizonContainer #Horizon {
+      b787-10-hud-element #MainFrame #MiddleContainer #Horizon {
         position: absolute;
         top: 26%;
         width: 100%;
         height: 40%;
         border: none; }
-    b787-10-hud-element #MainFrame #InstrumentsContainer {
-      transform: rotateX(0);
-      width: 100%;
-      height: 100%;
-      z-index: 0; }
-      b787-10-hud-element #MainFrame #InstrumentsContainer #Altimeter {
-        transform: rotateX(0);
-        position: absolute;
-        top: 20%;
-        left: 83%;
-        width: 18%;
-        height: 100%; }
-      b787-10-hud-element #MainFrame #InstrumentsContainer #Airspeed {
-        transform: rotateX(0);
-        position: absolute;
-        top: 22%;
-        left: -3%;
-        width: 18%;
-        height: 100%; }
-      b787-10-hud-element #MainFrame #InstrumentsContainer #ILS {
+      b787-10-hud-element #MainFrame #MiddleContainer #ILS {
         transform: rotateX(0);
         position: absolute;
         border: none;
@@ -117,7 +98,7 @@ b787-10-hud-element {
         width: 100%;
         height: 100%;
         z-index: 1; }
-      b787-10-hud-element #MainFrame #InstrumentsContainer #Compass {
+      b787-10-hud-element #MainFrame #MiddleContainer #Compass {
         transform: rotateX(0);
         position: absolute;
         top: 42%;
@@ -125,13 +106,32 @@ b787-10-hud-element {
         width: 42%;
         height: 100%;
         z-index: 1; }
-    b787-10-hud-element #MainFrame #FMA {
+      b787-10-hud-element #MainFrame #MiddleContainer #FMA {
+        transform: rotateX(0);
+        position: absolute;
+        border: none;
+        width: 47%;
+        height: 8%;
+        top: 2%;
+        left: 26%;
+        z-index: 1; }
+    b787-10-hud-element #MainFrame #SideContainer {
       transform: rotateX(0);
-      position: absolute;
-      border: none;
-      width: 47%;
-      height: 8%;
-      top: 2%;
-      left: 26%;
-      z-index: 0; }
+      width: 100%;
+      height: 100%;
+      z-index: 1; }
+      b787-10-hud-element #MainFrame #SideContainer #Altimeter {
+        transform: rotateX(0);
+        position: absolute;
+        top: 20%;
+        left: 83%;
+        width: 18%;
+        height: 100%; }
+      b787-10-hud-element #MainFrame #SideContainer #Airspeed {
+        transform: rotateX(0);
+        position: absolute;
+        top: 22%;
+        left: -3%;
+        width: 18%;
+        height: 100%; }
 

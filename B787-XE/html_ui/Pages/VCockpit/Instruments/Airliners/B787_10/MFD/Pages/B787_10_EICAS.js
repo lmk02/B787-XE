@@ -19,8 +19,8 @@ class B787_10_EICAS extends B787_10_CommonMFD.MFDTemplateElement {
         this.allValueComponents.push(new Airliners.DynamicValueComponent(this.querySelector("#TAT_Value"), Simplane.getTotalAirTemperature, 0, Airliners.DynamicValueComponent.formatValueToPosNegTemperature));
         this.allValueComponents.push(new Airliners.DynamicValueComponent(this.querySelector("#THROTTLE1_Value"), Simplane.getEngineThrottleCommandedN1.bind(this, 0), 1, Airliners.DynamicValueComponent.formatValueToThrottleDisplay));
         this.allValueComponents.push(new Airliners.DynamicValueComponent(this.querySelector("#THROTTLE2_Value"), Simplane.getEngineThrottleCommandedN1.bind(this, 1), 1, Airliners.DynamicValueComponent.formatValueToThrottleDisplay));
-        this.allValueComponents.push(new Airliners.DynamicValueComponent(this.querySelector("#FF_1_Value"), this.getFFValue.bind(this, 1), 1, Airliners.DynamicValueComponent.formatValueToString));
-        this.allValueComponents.push(new Airliners.DynamicValueComponent(this.querySelector("#FF_2_Value"), this.getFFValue.bind(this, 2), 1, Airliners.DynamicValueComponent.formatValueToString));
+        this.allValueComponents.push(new Airliners.DynamicValueComponent(this.querySelector("#FF_1_Value"), this.getFFValue.bind(this, 1), 1, Airliners.DynamicValueComponent.formatValueToString, this.isEngineStopped.bind(this, 1)));
+        this.allValueComponents.push(new Airliners.DynamicValueComponent(this.querySelector("#FF_2_Value"), this.getFFValue.bind(this, 2), 1, Airliners.DynamicValueComponent.formatValueToString, this.isEngineStopped.bind(this, 2)));
         this.allValueComponents.push(new Airliners.DynamicValueComponent(this.querySelector("#OIL_Q_1_Value"), this.getOilQValue.bind(this, 1), 0, Airliners.DynamicValueComponent.formatValueToString));
         this.allValueComponents.push(new Airliners.DynamicValueComponent(this.querySelector("#OIL_Q_2_Value"), this.getOilQValue.bind(this, 2), 0, Airliners.DynamicValueComponent.formatValueToString));
         this.allValueComponents.push(new Airliners.DynamicValueComponent(this.querySelector("#CABALT_Value"), Simplane.getPressurisationCabinAltitude));
@@ -33,26 +33,26 @@ class B787_10_EICAS extends B787_10_CommonMFD.MFDTemplateElement {
         this.allValueComponents.push(new Airliners.DynamicValueComponent(this.querySelector("#TOTALFUEL_Value"), this.getTotalFuelInMegagrams.bind(this), 1, Airliners.DynamicValueComponent.formatValueToString));
         this.allValueComponents.push(new Airliners.DynamicValueComponent(this.querySelector("#SAT_Value"), Simplane.getAmbientTemperature, 0, Airliners.DynamicValueComponent.formatValueToPosNegTemperature));
         this.gearDisplay = new Boeing.GearDisplay(this.querySelector("#GearInfo"));
-        this.flapsDisplay = new Boeing.FlapsDisplay(this.querySelector("#FlapsInfo"), this.querySelector("#FlapsLine"), this.querySelector("#FlapsValue"), this.querySelector("#FlapsBar"), this.querySelector("#FlapsGauge"), new Array(0, 1, 5, 10, 15, 17, 18, 20, 25, 30));
-        this.stabDisplay = new Boeing.StabDisplay(this.querySelector("#Stab"));
+        this.flapsDisplay = new Boeing.FlapsDisplay(this.querySelector("#FlapsInfo"), this.querySelector("#FlapsLine"), this.querySelector("#FlapsValue"), this.querySelector("#FlapsBar"), this.querySelector("#FlapsGauge"));
+        this.stabDisplay = new Boeing.StabDisplay(this.querySelector("#Stab"), 17, 2);
         this.rudderDisplay = new Boeing.RudderDisplay(this.querySelector("#Rudder"));
         var gaugeTemplate = this.querySelector("#GaugeTemplate");
         if (gaugeTemplate != null) {
             if (this.primaryGauges != null) {
-                this.primaryGauges.push(new B787_10_EICAS_Gauge_N1(1, this.querySelector("#N1_1_GAUGE"), gaugeTemplate));
-                this.primaryGauges.push(new B787_10_EICAS_Gauge_N1(2, this.querySelector("#N1_2_GAUGE"), gaugeTemplate));
-                this.primaryGauges.push(new B787_10_EICAS_Gauge_EGT(1, this.querySelector("#EGT_1_GAUGE"), gaugeTemplate));
-                this.primaryGauges.push(new B787_10_EICAS_Gauge_EGT(2, this.querySelector("#EGT_2_GAUGE"), gaugeTemplate));
+                this.primaryGauges.push(new B787_10_EICAS_Gauge_N1(1, this.querySelector("#N1_1_GAUGE"), gaugeTemplate, true));
+                this.primaryGauges.push(new B787_10_EICAS_Gauge_N1(2, this.querySelector("#N1_2_GAUGE"), gaugeTemplate, true));
+                this.primaryGauges.push(new B787_10_EICAS_Gauge_EGT(1, this.querySelector("#EGT_1_GAUGE"), gaugeTemplate, true));
+                this.primaryGauges.push(new B787_10_EICAS_Gauge_EGT(2, this.querySelector("#EGT_2_GAUGE"), gaugeTemplate, true));
             }
             if (this.secondaryGauges != null) {
-                this.secondaryGauges.push(new B787_10_EICAS_Gauge_N2(1, this.querySelector("#N2_1_GAUGE"), gaugeTemplate));
-                this.secondaryGauges.push(new B787_10_EICAS_Gauge_N2(2, this.querySelector("#N2_2_GAUGE"), gaugeTemplate));
-                this.secondaryGauges.push(new B787_10_EICAS_Gauge_OIL_P(this.querySelector("#OIL_P_INFO_1"), 1));
-                this.secondaryGauges.push(new B787_10_EICAS_Gauge_OIL_P(this.querySelector("#OIL_P_INFO_2"), 2));
-                this.secondaryGauges.push(new B787_10_EICAS_Gauge_OIL_T(this.querySelector("#OIL_T_INFO_1"), 1));
-                this.secondaryGauges.push(new B787_10_EICAS_Gauge_OIL_T(this.querySelector("#OIL_T_INFO_2"), 2));
-                this.secondaryGauges.push(new B787_10_EICAS_Gauge_VIB(this.querySelector("#VIB_INFO_1"), 1));
-                this.secondaryGauges.push(new B787_10_EICAS_Gauge_VIB(this.querySelector("#VIB_INFO_2"), 2));
+                this.secondaryGauges.push(new B787_10_EICAS_Gauge_N2(1, this.querySelector("#N2_1_GAUGE"), gaugeTemplate, false));
+                this.secondaryGauges.push(new B787_10_EICAS_Gauge_N2(2, this.querySelector("#N2_2_GAUGE"), gaugeTemplate, false));
+                this.secondaryGauges.push(new B787_10_EICAS_Gauge_OIL_P(this.querySelector("#OIL_P_INFO_1"), 1, true));
+                this.secondaryGauges.push(new B787_10_EICAS_Gauge_OIL_P(this.querySelector("#OIL_P_INFO_2"), 2, true));
+                this.secondaryGauges.push(new B787_10_EICAS_Gauge_OIL_T(this.querySelector("#OIL_T_INFO_1"), 1, true));
+                this.secondaryGauges.push(new B787_10_EICAS_Gauge_OIL_T(this.querySelector("#OIL_T_INFO_2"), 2, true));
+                this.secondaryGauges.push(new B787_10_EICAS_Gauge_VIB(this.querySelector("#VIB_INFO_1"), 1, false));
+                this.secondaryGauges.push(new B787_10_EICAS_Gauge_VIB(this.querySelector("#VIB_INFO_2"), 2, false));
             }
             gaugeTemplate.remove();
         }
@@ -123,6 +123,10 @@ class B787_10_EICAS extends B787_10_CommonMFD.MFDTemplateElement {
     }
     setGPS(_gps) {
     }
+    isEngineStopped(_engine) {
+        let n1 = SimVar.GetSimVarValue("ENG N1 RPM:" + _engine, "percent");
+        return (n1 >= 0.1) ? false : true;
+    }
     getN3Value(_engine) {
         return 0;
     }
@@ -162,7 +166,7 @@ class B787_10_EICAS extends B787_10_CommonMFD.MFDTemplateElement {
 class B787_10_EICAS_Gauge {
 }
 class B787_10_EICAS_CircleGauge extends B787_10_EICAS_Gauge {
-    constructor(_engineIndex, _root, _template) {
+    constructor(_engineIndex, _root, _template, _hideIfN1IsZero) {
         super();
         this.engineIndex = 0;
         this.currentValue = 0;
@@ -176,8 +180,10 @@ class B787_10_EICAS_CircleGauge extends B787_10_EICAS_Gauge {
         this.redMarker = null;
         this.orangeMarker = null;
         this.greenMarker = null;
+        this.hideIfN1IsZero = false;
         this.engineIndex = _engineIndex;
         this.root = _root;
+        this.hideIfN1IsZero = _hideIfN1IsZero;
         if ((this.root != null) && (_template != null)) {
             this.root.appendChild(_template.cloneNode(true));
             this.valueText = this.root.querySelector(".valueText");
@@ -223,8 +229,18 @@ class B787_10_EICAS_CircleGauge extends B787_10_EICAS_Gauge {
     refresh(_value, _force = false) {
         if ((_value != this.currentValue) || _force) {
             this.currentValue = _value;
+            let hide = false;
+            if (this.hideIfN1IsZero && SimVar.GetSimVarValue("ENG N1 RPM:" + this.engineIndex, "percent") < 0.1) {
+                this.currentValue = -1;
+                hide = true;
+            }
             if (this.valueText != null) {
-                this.valueText.textContent = this.currentValue.toFixed(1);
+                if (hide) {
+                    this.valueText.textContent = "";
+                }
+                else {
+                    this.valueText.textContent = this.currentValue.toFixed(1);
+                }
             }
             var angle = Math.max((this.valueToPercentage(this.currentValue) * 0.01) * B787_10_EICAS_CircleGauge.MAX_ANGLE, 0.001);
             if (this.whiteMarker != null) {
@@ -274,7 +290,7 @@ class B787_10_EICAS_Gauge_N2 extends B787_10_EICAS_CircleGauge {
     }
 }
 class B787_10_EICAS_LineGauge extends B787_10_EICAS_Gauge {
-    constructor(_root, _engineIndex) {
+    constructor(_root, _engineIndex, _hideIfN1IsZero) {
         super();
         this.root = null;
         this.engineIndex = 0;
@@ -287,8 +303,10 @@ class B787_10_EICAS_LineGauge extends B787_10_EICAS_Gauge {
         this.warningBar = null;
         this.dangerMinBar = null;
         this.dangerMaxBar = null;
+        this.hideIfN1IsZero = false;
         this.root = _root;
         this.engineIndex = _engineIndex;
+        this.hideIfN1IsZero = _hideIfN1IsZero;
         if (this.root != null) {
             this.box = this.root.querySelector("rect");
             this.valueText = this.root.querySelector("text");
@@ -353,11 +371,21 @@ class B787_10_EICAS_LineGauge extends B787_10_EICAS_Gauge {
     refresh(_value, _force = false) {
         if ((_value != this.currentValue) || _force) {
             this.currentValue = _value;
+            let hide = false;
+            if (this.hideIfN1IsZero && SimVar.GetSimVarValue("ENG N1 RPM:" + this.engineIndex, "percent") < 0.1) {
+                this.currentValue = -1;
+                hide = true;
+            }
             var isInDangerState = (this.needDangerMinDisplay() && (this.currentValue <= 0)) || (this.needDangerMaxDisplay() && (this.currentValue >= this.getMax()));
             var isInWarningState = !isInDangerState && (this.getWarningValue() > 0) && (this.currentValue <= this.getWarningValue());
             var stateStyle = isInDangerState ? " danger" : (isInWarningState ? " warning" : "");
             if (this.valueText != null) {
-                this.valueText.textContent = this.currentValue.toFixed(this.getValuePrecision());
+                if (hide) {
+                    this.valueText.textContent = "";
+                }
+                else {
+                    this.valueText.textContent = this.currentValue.toFixed(this.getValuePrecision());
+                }
                 this.valueText.setAttribute("class", stateStyle);
             }
             if ((this.cursor != null) && (this.barHeight > 0)) {

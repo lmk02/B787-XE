@@ -9,9 +9,10 @@ class B787_10_MFD extends BaseAirliners {
     get isInteractive() { return true; }
     connectedCallback() {
         super.connectedCallback();
+        this.mfdPage = new MFDPage(this.instrumentIdentifier, "Mainframe", this.instrumentIndex);
         this.pageGroups = [
             new NavSystemPageGroup("Main", this, [
-                new MFDPage(this.instrumentIdentifier, "Mainframe", this.instrumentIndex)
+                this.mfdPage
             ]),
         ];
     }
@@ -19,9 +20,11 @@ class B787_10_MFD extends BaseAirliners {
     }
     onUpdate(_deltaTime) {
         super.onUpdate(_deltaTime);
-        this.updateAnnunciations();
     }
-    updateAnnunciations() {
+    reboot() {
+        super.reboot();
+        if (this.mfdPage)
+            this.mfdPage.reset();
     }
 }
 var MFDPageType;
@@ -34,11 +37,17 @@ var MFDPageType;
     MFDPageType[MFDPageType["ND"] = 5] = "ND";
     MFDPageType[MFDPageType["EICAS"] = 6] = "EICAS";
 })(MFDPageType || (MFDPageType = {}));
+var MFDPageSide;
+(function (MFDPageSide) {
+    MFDPageSide[MFDPageSide["LEFT"] = 0] = "LEFT";
+    MFDPageSide[MFDPageSide["RIGHT"] = 1] = "RIGHT";
+})(MFDPageSide || (MFDPageSide = {}));
 class MFDPage extends NavSystemPage {
     constructor(_name, _root, _index) {
         super(_name, _root, null);
         this.index = 0;
         this.allElements = new Array();
+        this.currentPage = new Array();
         this.hasEicas = false;
         this.mfdRight = false;
         this.index = _index;
@@ -72,17 +81,14 @@ class MFDPage extends NavSystemPage {
                 }
             }
             this.hasEicas = (SimVar.GetSimVarValue("L:XMLVAR_EICAS_INDEX", "number") == (this.index - 1)) ? true : false;
-            this.mfdRight = SimVar.GetSimVarValue("L:XMLVAR_MFD_SIDE_" + this.index, "bool");
-            if (this.index == 1) {
-                this.setPage(MFDPageType.ND);
-            }
-            else if (this.index == 2) {
-                this.setPage(MFDPageType.ND);
-            }
-            else if (this.index == 3) {
-                this.setPage(MFDPageType.CDU);
-            }
+            this.InitPages();
         }
+    }
+    reset() {
+        if (this.warnings)
+            this.warnings.reset();
+        if (this.annunciations)
+            this.annunciations.reset();
     }
     onExternalEvent(..._args) {
         if ((_args != null) && (_args.length > 0)) {
@@ -96,30 +102,26 @@ class MFDPage extends NavSystemPage {
         super.onEvent(_event);
         switch (_event) {
             case "SYS":
-                this.setPage(MFDPageType.SYS);
+                this.togglePage(MFDPageType.SYS);
                 break;
             case "CDU":
-                this.setPage(MFDPageType.CDU);
+                this.togglePage(MFDPageType.CDU);
                 break;
             case "INFO":
-                this.setPage(MFDPageType.INFO);
+                this.togglePage(MFDPageType.INFO);
                 break;
             case "CHKL":
-                this.setPage(MFDPageType.CHKL);
+                this.togglePage(MFDPageType.CHKL);
                 break;
             case "COMM":
-                this.setPage(MFDPageType.COMM);
+                this.togglePage(MFDPageType.COMM);
                 break;
             case "ND":
-                this.setPage(MFDPageType.ND);
+                this.togglePage(MFDPageType.ND);
                 break;
             case "EICAS":
                 let index = SimVar.GetSimVarValue("L:XMLVAR_EICAS_INDEX", "number");
                 SimVar.SetSimVarValue("L:XMLVAR_EICAS_INDEX", "number", (1 - index));
-                break;
-            case "MFD":
-                let isLeft = SimVar.GetSimVarValue("L:XMLVAR_MFD_SIDE_" + this.index, "bool");
-                SimVar.SetSimVarValue("L:XMLVAR_MFD_SIDE_" + this.index, "number", !isLeft);
                 break;
         }
         if (this.allElements != null) {
@@ -139,58 +141,148 @@ class MFDPage extends NavSystemPage {
                 }
             }
         }
-        let hasEicas = (SimVar.GetSimVarValue("L:XMLVAR_EICAS_INDEX", "number") == (this.index - 1)) ? true : false;
-        if (hasEicas != this.hasEicas) {
-            this.hasEicas = hasEicas;
-            this.setPage(this.currentPage);
-        }
         let mfdRight = SimVar.GetSimVarValue("L:XMLVAR_MFD_SIDE_" + this.index, "bool");
         if (mfdRight != this.mfdRight) {
             this.mfdRight = mfdRight;
-            this.setPage(this.currentPage);
+            this.checkMFDSide();
+        }
+        let hasEicas = (SimVar.GetSimVarValue("L:XMLVAR_EICAS_INDEX", "number") == (this.index - 1)) ? true : false;
+        if (hasEicas != this.hasEicas) {
+            this.hasEicas = hasEicas;
+            if (this.hasEicas) {
+                this.checkMFDSide();
+                this.refreshPages();
+            }
+            else {
+                let side = (this.index == 1) ? MFDPageSide.RIGHT : MFDPageSide.LEFT;
+                this.setPage(side, this.currentPage[side]);
+            }
         }
         this.updateAnnunciations();
     }
-    setPage(_page) {
+    checkMFDSide() {
+        if (this.hasEicas) {
+            if (this.index == 1 && this.mfdRight) {
+                SimVar.SetSimVarValue("L:XMLVAR_MFD_SIDE_" + this.index, "number", 0);
+            }
+            else if (this.index == 2 && !this.mfdRight) {
+                SimVar.SetSimVarValue("L:XMLVAR_MFD_SIDE_" + this.index, "number", 1);
+            }
+        }
+    }
+    InitPages() {
+        if (this.index == 1) {
+            this.currentPage[MFDPageSide.LEFT] = MFDPageType.ND;
+            this.currentPage[MFDPageSide.RIGHT] = null;
+        }
+        else if (this.index == 2) {
+            this.currentPage[MFDPageSide.LEFT] = null;
+            this.currentPage[MFDPageSide.RIGHT] = MFDPageType.ND;
+        }
+        else if (this.index == 3) {
+            this.currentPage[MFDPageSide.LEFT] = MFDPageType.CDU;
+            this.currentPage[MFDPageSide.RIGHT] = MFDPageType.CDU;
+        }
+        this.refreshPages();
+    }
+    setDefaultPage(_side) {
+        switch (_side) {
+            case MFDPageSide.LEFT:
+                if (this.index == 1) {
+                    if (this.currentPage[MFDPageSide.RIGHT] == MFDPageType.ND) {
+                        this.currentPage[MFDPageSide.RIGHT] = null;
+                    }
+                    this.currentPage[_side] = MFDPageType.ND;
+                }
+                else if (this.index == 2) {
+                    if (this.currentPage[MFDPageSide.RIGHT] == MFDPageType.ND) {
+                        this.currentPage[_side] = null;
+                    }
+                    else {
+                        this.currentPage[_side] = MFDPageType.ND;
+                    }
+                }
+                else if (this.index == 3) {
+                    this.currentPage[_side] = MFDPageType.CDU;
+                }
+                break;
+            case MFDPageSide.RIGHT:
+                if (this.index == 1) {
+                    if (this.currentPage[MFDPageSide.LEFT] == MFDPageType.ND) {
+                        this.currentPage[MFDPageSide.RIGHT] = null;
+                    }
+                    else {
+                        this.currentPage[_side] = MFDPageType.ND;
+                    }
+                }
+                else if (this.index == 2) {
+                    if (this.currentPage[MFDPageSide.LEFT] == MFDPageType.ND) {
+                        this.currentPage[MFDPageSide.LEFT] = null;
+                    }
+                    this.currentPage[_side] = MFDPageType.ND;
+                }
+                else if (this.index == 3) {
+                    this.currentPage[_side] = MFDPageType.CDU;
+                }
+                break;
+        }
+        this.refreshPages();
+    }
+    togglePage(_page) {
+        let side = (this.mfdRight) ? 1 : 0;
+        if (this.currentPage[side] == _page) {
+            this.setDefaultPage(side);
+        }
+        else {
+            this.setPage(side, _page);
+        }
+    }
+    setPage(_side, _page) {
+        if (_page == null) {
+            this.setDefaultPage(_side);
+        }
+        else {
+            let otherSide = 1 - _side;
+            if (this.currentPage[_side] != null && this.currentPage[otherSide] == null) {
+                this.currentPage[otherSide] = this.currentPage[_side];
+                this.currentPage[_side] = _page;
+            }
+            else if (this.currentPage[otherSide] == _page) {
+                this.currentPage[otherSide] = this.currentPage[_side];
+                this.currentPage[_side] = _page;
+                if (this.currentPage[otherSide] == null) {
+                    this.setDefaultPage(otherSide);
+                }
+            }
+            else {
+                this.currentPage[_side] = _page;
+            }
+            this.refreshPages();
+        }
+    }
+    refreshPages() {
         for (var i = 0; i < this.allElements.length; ++i) {
             if (this.allElements[i] != null) {
                 this.allElements[i].hide();
             }
         }
-        this.currentPage = _page;
         if (this.hasEicas) {
-            if (!this.mfdRight) {
-                if (this.index == 1) {
-                    this.showPage(_page, 0, 50);
-                    this.showPage(MFDPageType.EICAS, 50, 50);
-                }
-                else {
-                    this.showPage(MFDPageType.EICAS, 0, 50);
-                    this.showPage(_page, 50, 50);
-                }
+            if (this.index == 1) {
+                this.showPage(this.currentPage[0], 0, 50);
+                this.showPage(MFDPageType.EICAS, 50, 50);
             }
             else {
-                if (this.index == 1) {
-                    this.showPage(MFDPageType.EICAS, 0, 50);
-                    this.showPage(_page, 50, 50);
-                }
-                else {
-                    this.showPage(_page, 0, 50);
-                    this.showPage(MFDPageType.EICAS, 50, 50);
-                }
+                this.showPage(MFDPageType.EICAS, 0, 50);
+                this.showPage(this.currentPage[1], 50, 50);
             }
         }
         else {
-            if (this.currentPage == MFDPageType.ND) {
-                this.showPage(_page, 0, 100);
-            }
-            else if (!this.mfdRight) {
-                this.showPage(_page, 0, 50);
-                this.showPage(MFDPageType.ND, 50, 50);
+            if ((this.currentPage[0] == MFDPageType.ND && this.currentPage[1] == null) || (this.currentPage[1] == MFDPageType.ND && this.currentPage[0] == null)) {
+                this.showPage(MFDPageType.ND, 0, 100);
             }
             else {
-                this.showPage(MFDPageType.ND, 0, 50);
-                this.showPage(_page, 50, 50);
+                this.showPage(this.currentPage[0], 0, 50);
+                this.showPage(this.currentPage[1], 50, 50);
             }
         }
     }
@@ -211,13 +303,13 @@ class MFDPage extends NavSystemPage {
                     if (text && text != "") {
                         let level = this.warnings.getCurrentWarningLevel();
                         switch (level) {
-                            case 0:
+                            case 1:
                                 infoPanelManager.addMessage(Airliners.EICAS_INFO_PANEL_ID.PRIMARY, text, Airliners.EICAS_INFO_PANEL_MESSAGE_STYLE.INDICATION);
                                 break;
-                            case 1:
+                            case 2:
                                 infoPanelManager.addMessage(Airliners.EICAS_INFO_PANEL_ID.PRIMARY, text, Airliners.EICAS_INFO_PANEL_MESSAGE_STYLE.CAUTION);
                                 break;
-                            case 2:
+                            case 3:
                                 infoPanelManager.addMessage(Airliners.EICAS_INFO_PANEL_ID.PRIMARY, text, Airliners.EICAS_INFO_PANEL_MESSAGE_STYLE.WARNING);
                                 break;
                         }

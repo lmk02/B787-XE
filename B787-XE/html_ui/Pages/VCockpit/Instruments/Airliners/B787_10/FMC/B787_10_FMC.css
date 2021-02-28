@@ -229,11 +229,11 @@
 .fms-button-container {
   margin-left: 2%; }
 
-  .fms-prev-page {
-    white-space: normal;
-    vertical-align: bottom; }
-  
-  .fms-next-page {
-    white-space: normal;
-    vertical-align: bottom; }
-    
+.fms-prev-page {
+  white-space: normal;
+  vertical-align: bottom; }
+
+.fms-next-page {
+  white-space: normal;
+  vertical-align: bottom; }
+

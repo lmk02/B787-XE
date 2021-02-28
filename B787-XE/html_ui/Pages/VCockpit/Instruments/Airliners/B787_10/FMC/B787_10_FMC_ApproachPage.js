@@ -47,14 +47,18 @@ class B787_10_FMC_ApproachPage {
             }
         }
         let selectedFlapSpeedCell = "";
-        if (isFinite(fmc.selectedApproachSpeed) && isFinite(fmc.selectedApproachFlap)) {
-            selectedFlapSpeedCell = fmc.selectedApproachFlap.toFixed(0) + "°/" + fmc.selectedApproachSpeed.toFixed(0) + "KT";
-        }else if (isFinite(fmc.selectedApproachSpeed)){
-            selectedFlapSpeedCell = fmc.selectedApproachSpeed.toFixed(0) + "KT/---";
-        }else if (isFinite(fmc.selectedApproachFlap)){
-            selectedFlapSpeedCell =  "---/" + fmc.selectedApproachFlap.toFixed(0) + "°";            
-        }else{
-            selectedFlapSpeedCell = "---/---";
+        if (isFinite(fmc.selectedApproachFlap)) {
+            selectedFlapSpeedCell = fmc.selectedApproachFlap.toFixed(0) + "°";
+        }
+        else {
+            selectedFlapSpeedCell = "---";
+        }
+        selectedFlapSpeedCell += "/ ";
+        if (isFinite(fmc.selectedApproachSpeed)) {
+            selectedFlapSpeedCell += fmc.selectedApproachSpeed.toFixed(0) + "KT";
+        }
+        else {
+            selectedFlapSpeedCell += "---";
         }
         fmc.onRightInput[3] = () => {
             let value = fmc.inOut;
