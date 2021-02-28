@@ -123,7 +123,7 @@ class B787_10_FMC_TakeOffRefPage {
             ["RW COND", "SHIFT", "POS"],
             ["DRY", "", runwayCell],
             ["__FMCSEPARATOR"],
-            ["<INDEX", "<THRUST LIM"]
+            ["\<INDEX", "<THRUST LIM"]
         ]);
         fmc.onLeftInput[5] = () => { B787_10_FMC_InitRefIndexPage.ShowPage1(fmc); };
         fmc.onRightInput[5] = () => { B787_10_FMC_ThrustLimPage.ShowPage1(fmc); };

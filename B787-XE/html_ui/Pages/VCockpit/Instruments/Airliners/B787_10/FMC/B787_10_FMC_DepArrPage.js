@@ -4,7 +4,7 @@ class B787_10_FMC_DepArrPage {
         let rowOrigin = [""];
         let origin = fmc.flightPlanManager.getOrigin();
         if (origin) {
-            rowOrigin = ["<DEP", "", origin.ident];
+            rowOrigin = ["\<DEP", "", origin.ident];
             fmc.onLeftInput[0] = () => {
                 B787_10_FMC_DepArrPage.ShowDeparturePage(fmc);
             };
@@ -176,7 +176,7 @@ class B787_10_FMC_DepArrPage {
             ["SIDS", "RUNWAYS", "RTE 1"],
             ...rows,
             ["--------------------------------------"],
-            ["<INDEX", "<ROUTE"]
+            ["\<INDEX", "<ROUTE"]
         ]);
         fmc.onLeftInput[5] = () => { B787_10_FMC_DepArrPage.ShowPage1(fmc); };
         fmc.onRightInput[5] = () => { B787_10_FMC_RoutePage.ShowPage1(fmc); };
@@ -357,7 +357,7 @@ class B787_10_FMC_DepArrPage {
             ["STAR", "APPROACH", "RTE 1"],
             ...rows,
             ["--------------------------------------"],
-            ["<INDEX", "<ROUTE"]
+            ["\<INDEX", "<ROUTE"]
         ]);
         fmc.onLeftInput[5] = () => { B787_10_FMC_DepArrPage.ShowPage1(fmc); };
         fmc.onRightInput[5] = () => { B787_10_FMC_RoutePage.ShowPage1(fmc); };

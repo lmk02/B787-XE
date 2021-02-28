@@ -46,15 +46,15 @@ class B787_10_FMC_ThrustLimPage {
             ["SEL", "TO N1", "OAT"],
             [selectedTempCell, toN1Cell, oatCell],
             [""],
-            ["<TO" + (thrustTOMode === 0 ? " <SEL>" : ""), (thrustClimbMode === 0 ? "<SEL> " : "") + "<CLB"],
+            ["\<TO" + (thrustTOMode === 0 ? " <SEL>" : ""), (thrustClimbMode === 0 ? "<SEL> " : "") + "<CLB"],
             ["TO 1"],
-            ["<-10%" + (thrustTOMode === 1 ? " <SEL>" : ""), (thrustClimbMode === 1 ? "<SEL> " : "") + "<CLB 1"],
+            ["\<-10%" + (thrustTOMode === 1 ? " <SEL>" : ""), (thrustClimbMode === 1 ? "<SEL> " : "") + "<CLB 1"],
             ["TO 2"],
-            ["<-20%" + (thrustTOMode === 2 ? " <SEL>" : ""), (thrustClimbMode === 2 ? "<SEL> " : "") + "<CLB 2"],
+            ["\<-20%" + (thrustTOMode === 2 ? " <SEL>" : ""), (thrustClimbMode === 2 ? "<SEL> " : "") + "<CLB 2"],
             [""],
-            ["<TO-B"],
+            ["\<TO-B"],
             ["__FMCSEPARATOR"],
-            ["<INDEX", "<TAKEOFF"]
+            ["\<INDEX", "<TAKEOFF"]
         ]);
         fmc.onLeftInput[5] = () => { B787_10_FMC_InitRefIndexPage.ShowPage1(fmc); };
         fmc.onRightInput[5] = () => { B787_10_FMC_TakeOffRefPage.ShowPage1(fmc); };

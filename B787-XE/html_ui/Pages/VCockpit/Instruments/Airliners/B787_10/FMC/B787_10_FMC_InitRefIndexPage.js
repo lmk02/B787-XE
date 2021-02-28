@@ -4,17 +4,17 @@ class B787_10_FMC_InitRefIndexPage {
         fmc.setTemplate([
             ["INIT/REF INDEX"],
             [""],
-            ["<IDENT[color]blue", "<NAV DATA[color]red"],
+            ["\<IDENT[color]blue", "<NAV DATA[color]red"],
             [""],
-            ["<POS"],
+            ["\<POS"],
             [""],
-            ["<PERF[color]yellow"],
+            ["\<PERF[color]yellow"],
             [""],
-            ["<THRUST LIM"],
+            ["\<THRUST LIM"],
             [""],
-            ["<TAKEOFF[color]green"],
+            ["\<TAKEOFF[color]green"],
             [""],
-            ["<APPROACH", "<MAINT"]
+            ["\<APPROACH", "<MAINT"]
         ]);
         fmc.onLeftInput[0] = () => { B787_10_FMC_IdentPage.ShowPage1(fmc); };
         fmc.onLeftInput[1] = () => { B787_10_FMC_PosInitPage.ShowPage1(fmc); };
