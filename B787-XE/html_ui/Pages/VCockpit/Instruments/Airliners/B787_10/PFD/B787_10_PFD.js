@@ -8,9 +8,10 @@ class B787_10_PFD extends BaseAirliners {
     get IsGlassCockpit() { return true; }
     connectedCallback() {
         super.connectedCallback();
+        this.mainPage = new B787_10_PFD_MainPage();
         this.pageGroups = [
             new NavSystemPageGroup("Main", this, [
-                new B787_10_PFD_MainPage()
+                this.mainPage
             ]),
         ];
         this.maxUpdateBudget = 12;
@@ -19,8 +20,12 @@ class B787_10_PFD extends BaseAirliners {
         window.console.log("B787 PFD - destroyed");
         super.disconnectedCallback();
     }
-    Update() {
-        super.Update();
+    onPowerOn() {
+        super.onPowerOn();
+        this.mainPage.onPowerOn();
+    }
+    onUpdate(_deltaTime) {
+        super.onUpdate(_deltaTime);
     }
 }
 class B787_10_PFD_MainElement extends NavSystemElement {
@@ -44,6 +49,8 @@ class B787_10_PFD_MainPage extends NavSystemPage {
         this._debugShowConstraints = false;
         this.map = new B787_10_PFD_Map();
         this.compass = new B787_10_PFD_Compass();
+        this.plane = new B787_10_PFD_PlaneInfo();
+        this.day = new B787_10_PFD_DayInfo();
         this.element = new NavSystemElementGroup([
             new B787_10_PFD_Attitude(),
             new B787_10_PFD_VSpeed(),
@@ -52,7 +59,9 @@ class B787_10_PFD_MainPage extends NavSystemPage {
             new B787_10_PFD_NavStatus(),
             new B787_10_PFD_ILS(),
             this.map,
-            this.compass
+            this.compass,
+            this.plane,
+            this.day
         ]);
     }
     init() {
@@ -70,14 +79,14 @@ class B787_10_PFD_MainPage extends NavSystemPage {
         this.map.instrument.smallAirportMaxRange = Infinity;
         this.map.instrument.medAirportMaxRange = Infinity;
         this.map.instrument.largeAirportMaxRange = Infinity;
+        this.compass.svg.mapRange = 20;
         this.map.instrument.setZoom(0);
         this.setMapMode(this.map_IsCentered, this.map_NavigationMode);
-        this.plane = new B787_10_PFD_PlaneInfo();
-        this.plane.setGPS(this.gps);
-        this.plane.init(null);
-        this.day = new B787_10_PFD_DayInfo();
-        this.day.setGPS(this.gps);
-        this.day.init(null);
+    }
+    onPowerOn() {
+        if (this.plane) {
+            this.plane.onPowerOn();
+        }
     }
     _updateNDFiltersStatuses() {
         SimVar.SetSimVarValue("L:BTN_CSTR_FILTER_ACTIVE", "number", this._debugShowConstraints ? 1 : 0);
@@ -88,96 +97,11 @@ class B787_10_PFD_MainPage extends NavSystemPage {
     }
     onUpdate(_deltaTime) {
         super.onUpdate(_deltaTime);
-        if (this.plane)
-            this.plane.onUpdate(_deltaTime);
-        if (this.day)
-            this.day.onUpdate(_deltaTime);
     }
     onEvent(_event) {
         super.onEvent(_event);
         switch (_event) {
-            case "KNOB_AUTOPILOT_APPROACH":
-                this.setMapMode(this.map_IsCentered, Jet_NDCompass_Navigation.ILS);
-                break;
-            case "KNOB_AUTOPILOT_VOR":
-                this.setMapMode(this.map_IsCentered, Jet_NDCompass_Navigation.VOR);
-                break;
-            case "KNOB_AUTOPILOT_MAP":
-                this.setMapMode(this.map_IsCentered, Jet_NDCompass_Navigation.NAV);
-                break;
-            case "KNOB_AUTOPILOT_PLAN":
-                this.setPlanMode();
-                break;
-            case "KNOB_AUTOPILOT_CTR":
-                if (this.map_DisplayMode != Jet_NDCompass_Display.PLAN)
-                    this.setMapMode(!this.map_IsCentered, Jet_NDCompass_Navigation.NAV);
-                break;
-            case "KNOB_RANGE_10":
-                this.compass.svg.mapRange = 10;
-                this.map.instrument.setZoom(0);
-                break;
-            case "KNOB_RANGE_20":
-                this.compass.svg.mapRange = 20;
-                this.map.instrument.setZoom(1);
-                break;
-            case "KNOB_RANGE_40":
-                this.compass.svg.mapRange = 40;
-                this.map.instrument.setZoom(2);
-                break;
-            case "KNOB_RANGE_80":
-                this.compass.svg.mapRange = 80;
-                this.map.instrument.setZoom(3);
-                break;
-            case "KNOB_RANGE_160":
-                this.compass.svg.mapRange = 160;
-                this.map.instrument.setZoom(4);
-                break;
-            case "KNOB_RANGE_320":
-                this.compass.svg.mapRange = 320;
-                this.map.instrument.setZoom(5);
-                break;
-            case "KNOB_RANGE_640":
-                this.compass.svg.mapRange = 640;
-                this.map.instrument.setZoom(6);
-                break;
-            case "BTN_WXR":
-                break;
-            case "BTN_DATA":
-                break;
-            case "BTN_STA":
-                this._debugShowConstraints = false;
-                this.map.instrument.showVORs = false;
-                this.map.instrument.showIntersections = false;
-                this.map.instrument.showAirports = false;
-                this.map.instrument.showNDBs = !this.map.instrument.showNDBs;
-                this._updateNDFiltersStatuses();
-                break;
-            case "BTN_WPT":
-                this._debugShowConstraints = false;
-                this.map.instrument.showVORs = false;
-                this.map.instrument.showNDBs = false;
-                this.map.instrument.showAirports = false;
-                this.map.instrument.showIntersections = !this.map.instrument.showIntersections;
-                this._updateNDFiltersStatuses();
-                break;
-            case "BTN_ARPT":
-                this._debugShowConstraints = false;
-                this.map.instrument.showVORs = false;
-                this.map.instrument.showIntersections = false;
-                this.map.instrument.showNDBs = false;
-                this.map.instrument.showAirports = !this.map.instrument.showAirports;
-                this._updateNDFiltersStatuses();
-                break;
-            case "BTN_POS":
-                this._debugShowConstraints = false;
-                this.map.instrument.showIntersections = false;
-                this.map.instrument.showNDBs = false;
-                this.map.instrument.showAirports = false;
-                this.map.instrument.showVORs = !this.map.instrument.showVORs;
-                this._updateNDFiltersStatuses();
-                break;
-            case "BTN_TERR":
-                this.map.instrument.mapConfigId = (this.map.instrument.mapConfigId == 0) ? 1 : 0;
+            default:
                 break;
         }
     }
@@ -185,10 +109,6 @@ class B787_10_PFD_MainPage extends NavSystemPage {
         this.map_IsCentered = _centered;
         this.map_NavigationMode = _navMode;
         this.map_DisplayMode = (this.map_IsCentered) ? Jet_NDCompass_Display.ROSE : Jet_NDCompass_Display.ARC;
-        this.applyMapMode();
-    }
-    setPlanMode() {
-        this.map_DisplayMode = Jet_NDCompass_Display.PLAN;
         this.applyMapMode();
     }
     applyMapMode() {
@@ -210,7 +130,7 @@ class B787_10_PFD_Map extends MapInstrumentElement {
         super.onTemplateLoaded();
     }
     getZoomRanges(_factor) {
-        let zoomRanges = [10, 20, 40, 60, 160, 320, 640];
+        let zoomRanges = [20];
         for (let i = 0; i < zoomRanges.length; i++)
             zoomRanges[i] *= _factor;
         return zoomRanges;
@@ -305,6 +225,7 @@ class B787_10_PFD_Altimeter extends NavSystemElement {
     constructor() {
         super();
         this.isMTRSActive = false;
+        this.minimumReference = 200;
     }
     init(root) {
         this.altimeter = this.gps.getChildById("Altimeter");
@@ -330,6 +251,18 @@ class B787_10_PFD_Altimeter extends NavSystemElement {
                 this.isMTRSActive = !this.isMTRSActive;
                 this.altimeter.showMTRS(this.isMTRSActive);
                 break;
+            case "Mins_INC":
+                this.minimumReference += 50;
+                this.altimeter.minimumReferenceValue = this.minimumReference;
+                break;
+            case "Mins_DEC":
+                this.minimumReference -= 50;
+                this.altimeter.minimumReferenceValue = this.minimumReference;
+                break;
+            case "Mins_Press":
+                this.minimumReference = 200;
+                this.altimeter.minimumReferenceValue = this.minimumReference;
+                break;
         }
     }
 }
@@ -350,7 +283,6 @@ class B787_10_PFD_Attitude extends NavSystemElement {
             this.hsi.update(_deltaTime);
             var xyz = Simplane.getOrientationAxis();
             if (xyz) {
-                this.hsi.setAttribute("horizon", (xyz.pitch / Math.PI * 180).toString());
                 this.hsi.setAttribute("pitch", (xyz.pitch / Math.PI * 180).toString());
                 this.hsi.setAttribute("bank", (xyz.bank / Math.PI * 180).toString());
             }
@@ -384,6 +316,10 @@ class B787_10_PFD_NavStatus extends NavSystemElement {
     }
 }
 class B787_10_PFD_ILS extends NavSystemElement {
+    constructor() {
+        super(...arguments);
+        this.altWentAbove500 = false;
+    }
     init(root) {
         this.ils = this.gps.getChildById("ILS");
         this.ils.aircraft = Aircraft.AS01B;
@@ -393,10 +329,15 @@ class B787_10_PFD_ILS extends NavSystemElement {
     onEnter() {
     }
     onUpdate(_deltaTime) {
+        if (!this.altWentAbove500) {
+            let altitude = Simplane.getAltitudeAboveGround();
+            if (altitude >= 500)
+                this.altWentAbove500 = true;
+        }
         if (this.ils) {
             let showIls = false;
             let localizer = this.gps.radioNav.getBestILSBeacon(false);
-            if (localizer.id != 0) {
+            if ((localizer.id != 0 && this.altWentAbove500) || (this.gps.currFlightPlanManager.isActiveApproach() && Simplane.getAutoPilotApproachType() == 10)) {
                 showIls = true;
             }
             this.ils.showLocalizer(showIls);
@@ -427,10 +368,12 @@ class B787_10_PFD_Compass extends NavSystemElement {
             this.svg.update(_deltaTime);
         }
         if (this.infos) {
-            this.infos.simGS = SimVar.GetSimVarValue("GPS GROUND SPEED", "knots");
-            this.infos.simTAS = SimVar.GetSimVarValue("AIRSPEED TRUE", "knots");
-            this.infos.simWindDir = SimVar.GetSimVarValue("AMBIENT WIND DIRECTION", "Degrees");
-            this.infos.simWindSpeed = SimVar.GetSimVarValue("AMBIENT WIND SPEED", "Knots");
+            this.infos.deltaTime = _deltaTime;
+            this.infos.simGS = Simplane.getGroundSpeed();
+            this.infos.simTAS = Simplane.getTrueSpeed();
+            this.infos.simWindDir = Simplane.getWindDirection();
+            this.infos.simWindSpeed = Simplane.getWindStrength();
+            this.infos.simPlaneAngle = Simplane.getHeadingMagnetic();
             this.infos.simWaypointName = SimVar.GetSimVarValue("GPS WP NEXT ID", "string");
             this.infos.simWaypointETA = (SimVar.GetSimVarValue("E:ZULU TIME", "seconds") + SimVar.GetSimVarValue("GPS WP ETE", "seconds")) % (24 * 3600);
             this.infos.simWaypointDistance = SimVar.GetSimVarValue("GPS WP DISTANCE", "nautical miles");
@@ -444,6 +387,9 @@ class B787_10_PFD_Compass extends NavSystemElement {
 class B787_10_PFD_CompassInfos extends HTMLElement {
     constructor() {
         super(...arguments);
+        this.deltaTime = 0;
+        this.smoothedWindAngle = 0;
+        this.windStrongEnough = false;
         this.viewboxWidth = 900;
         this.viewboxHeight = 352;
         this.padding = 10;
@@ -494,10 +440,10 @@ class B787_10_PFD_CompassInfos extends HTMLElement {
                 this.windPlaneSpeedInfoGroup.appendChild(this.windDirectionValueText);
                 var windInfoSeparator = textTemplate.cloneNode();
                 windInfoSeparator.setAttribute('font-size', lineHeight.toString());
-                windInfoSeparator.setAttribute("x", `${this.left + 40}`);
+                windInfoSeparator.setAttribute("x", `${this.left + 44}`);
                 windInfoSeparator.setAttribute("y", `${this.top + lineHeight * 2 + 5}`);
                 windInfoSeparator.setAttribute("letter-spacing", "-10");
-                windInfoSeparator.innerHTML = "°/";
+                windInfoSeparator.innerHTML = "/";
                 this.windPlaneSpeedInfoGroup.appendChild(windInfoSeparator);
                 this.windSpeedValueText = textTemplate.cloneNode();
                 this.windSpeedValueText.setAttribute('font-size', lineHeight.toString());
@@ -505,6 +451,11 @@ class B787_10_PFD_CompassInfos extends HTMLElement {
                 this.windSpeedValueText.setAttribute("y", `${this.top + lineHeight * 2 + 5}`);
                 this.windSpeedValueText.innerHTML = Math.round(this.simWindSpeed).toString();
                 this.windPlaneSpeedInfoGroup.appendChild(this.windSpeedValueText);
+                this.windArrow = document.createElementNS(Avionics.SVG.NS, "path");
+                this.windArrow.setAttribute("d", "M-3 20, 3 20, 3 -20, 15 -20, 0 -40, -15 -20, -3 -20");
+                this.windArrow.setAttribute("fill", "white");
+                this.windArrow.setAttribute("transform", "translate(30, 100) scale(0.55) rotate(0)");
+                this.windPlaneSpeedInfoGroup.appendChild(this.windArrow);
             }
             this.svg.appendChild(this.windPlaneSpeedInfoGroup);
             this.activeWaypointInfoGroup = document.createElementNS(Avionics.SVG.NS, "g");
@@ -605,6 +556,8 @@ class B787_10_PFD_CompassInfos extends HTMLElement {
     set simWindDir(value) { this.setAttribute('sim-wind-dir', `${value}`); }
     get simWindSpeed() { return Number(this.getAttribute('sim-wind-speed')); }
     set simWindSpeed(value) { this.setAttribute('sim-wind-speed', `${value}`); }
+    get simPlaneAngle() { return Number(this.getAttribute('sim-plane-angle')); }
+    set simPlaneAngle(value) { this.setAttribute('sim-plane-angle', `${value}`); }
     get simWaypointName() { return this.getAttribute('sim-waypoint-name'); }
     set simWaypointName(value) { this.setAttribute('sim-waypoint-name', `${value}`); }
     get simWaypointETA() { return Number(this.getAttribute('sim-waypoint-eta')); }
@@ -627,22 +580,27 @@ class B787_10_PFD_CompassInfos extends HTMLElement {
             case "sim-gs":
                 if (newValue == oldValue)
                     break;
-                this.groundSpeedValueText.innerHTML = Math.ceil(this.simGS).toString().padStart(3, '0');
+                this.groundSpeedValueText.innerHTML = Math.round(this.simGS).toString().padStart(3, '0');
                 break;
             case "sim-tas":
                 if (newValue == oldValue)
                     break;
-                this.trueAirSpeedValueText.innerHTML = Math.ceil(this.simTAS).toString().padStart(3, '0');
+                this.trueAirSpeedValueText.innerHTML = Math.round(this.simTAS).toString().padStart(3, '0');
                 break;
             case "sim-wind-dir":
                 if (newValue == oldValue)
                     break;
-                this.windDirectionValueText.innerHTML = Math.round(this.simWindDir).toString().padStart(3, '0');
+                this.updateWindDir();
                 break;
             case "sim-wind-speed":
                 if (newValue == oldValue)
                     break;
-                this.windSpeedValueText.innerHTML = Math.round(this.simWindSpeed).toString();
+                this.updateWindSpeed();
+                break;
+            case "sim-plane-angle":
+                if (newValue == oldValue)
+                    break;
+                this.updateWindArrow();
                 break;
             case "sim-waypoint-name":
                 if (newValue == oldValue)
@@ -677,9 +635,80 @@ class B787_10_PFD_CompassInfos extends HTMLElement {
                 break;
         }
     }
+    updateWindSpeed() {
+        if (Simplane.getIsGrounded()) {
+            this.windSpeedValueText.innerHTML = "--";
+            if (this.windStrongEnough) {
+                this.windStrongEnough = false;
+                this.updateWindArrow();
+            }
+        }
+        else {
+            let speed = Math.round(this.simWindSpeed);
+            this.windSpeedValueText.innerHTML = speed.toString().padStart(2, "0");
+            if (this.windStrongEnough && speed < B787_10_PFD_CompassInfos.MIN_WIND_STRENGTH_FOR_ARROW_DISPLAY) {
+                this.windStrongEnough = false;
+                this.updateWindArrow();
+            }
+            else if (!this.windStrongEnough && speed >= (B787_10_PFD_CompassInfos.MIN_WIND_STRENGTH_FOR_ARROW_DISPLAY + 2)) {
+                this.windStrongEnough = true;
+                this.updateWindArrow();
+            }
+        }
+    }
+    updateWindDir() {
+        let startAngle = this.smoothedWindAngle;
+        let endAngle = Math.round(this.simWindDir);
+        let delta = endAngle - startAngle;
+        if (delta > 180) {
+            startAngle += 360;
+        }
+        else if (delta < -180) {
+            endAngle += 360;
+        }
+        let smoothedAngle = Utils.SmoothSin(startAngle, endAngle, 0.25, this.deltaTime / 1000);
+        this.smoothedWindAngle = smoothedAngle % 360;
+        if (this.windStrongEnough)
+            this.windDirectionValueText.innerHTML = this.smoothedWindAngle.toFixed(0).padStart(3, "0");
+        else
+            this.windDirectionValueText.innerHTML = "---";
+        this.updateWindArrow();
+    }
+    updateWindArrow() {
+        if (this.windStrongEnough) {
+            let angle = Math.round(this.simPlaneAngle);
+            var arrowAngle = this.smoothedWindAngle - angle;
+            arrowAngle += 180;
+            var transformStr = this.windArrow.getAttribute("transform");
+            if (transformStr) {
+                var split = transformStr.split("rotate");
+                if (split) {
+                    transformStr = split[0];
+                }
+                else {
+                    transformStr = "";
+                }
+            }
+            if (transformStr)
+                this.windArrow.setAttribute("transform", transformStr + " rotate(" + arrowAngle + ")");
+            else
+                this.windArrow.setAttribute("transform", "rotate(" + arrowAngle + ")");
+            this.windArrow.style.display = "block";
+        }
+        else {
+            this.windArrow.style.display = "none";
+        }
+    }
 }
+B787_10_PFD_CompassInfos.MIN_WIND_STRENGTH_FOR_ARROW_DISPLAY = 2;
 customElements.define('b787-10-pfd-compass-infos', B787_10_PFD_CompassInfos);
 class B787_10_PFD_PlaneInfo extends NavSystemElement {
+    constructor() {
+        super(...arguments);
+        this.chronoTime = 0;
+        this.chronoStarted = false;
+        this.chronoVisible = false;
+    }
     init(root) {
         this.flight = this.gps.getChildById("Value_Flight");
         this.freq = this.gps.getChildById("Value_Frequency");
@@ -689,30 +718,37 @@ class B787_10_PFD_PlaneInfo extends NavSystemElement {
         this.freq.textContent = "---";
         this.selcal.textContent = "AS-BO";
         this.tail.textContent = SimVar.GetSimVarValue("ATC ID", "string");
+        this.analog = this.gps.getChildById("Analog");
         this.analogHour = this.gps.getChildById("Analog_Hour");
         this.analogMin = this.gps.getChildById("Analog_Minutes");
         this.analogSec = this.gps.getChildById("Analog_Seconds");
+        this.analogSec.classList.toggle('hide', true);
         this.digital = this.gps.getChildById("Digital");
+    }
+    onPowerOn() {
+        this.chronoTime = 0;
+        this.chronoStarted = true;
+        this.chronoVisible = true;
     }
     onEnter() {
     }
     onUpdate(_deltaTime) {
-        var value = SimVar.GetGlobalVarValue("LOCAL TIME", "seconds");
-        if (value) {
-            var totalSeconds = Number.parseInt(value);
-            let hours = Math.floor(totalSeconds / 3600);
-            let minutes = Math.floor((totalSeconds - (hours * 3600)) / 60);
-            let seconds = Math.floor(totalSeconds - (minutes * 60) - (hours * 3600));
+        {
+            if (this.chronoStarted) {
+                this.chronoTime += _deltaTime / 1000;
+            }
+            let minutes = Math.floor(this.chronoTime / 60);
+            let seconds = Math.floor(this.chronoTime - (minutes * 60));
             if (this.analogHour) {
-                let secDeg = 6 * seconds;
-                let minDeg = 6 * minutes;
-                let hourDeg = 30 * (hours % 12) + minutes / 2;
-                this.analogHour.setAttribute('transform', 'rotate(' + hourDeg + ' 250 250)');
-                this.analogMin.setAttribute('transform', 'rotate(' + minDeg + ' 250 250)');
-                this.analogSec.setAttribute('transform', 'rotate(' + secDeg + ' 250 250)');
+                let secDeg = (6 * seconds) % 360;
+                let minDeg = (6 * minutes) % 360;
+                this.analogHour.setAttribute('transform', 'rotate(' + minDeg + ' 250 250)');
+                this.analogMin.setAttribute('transform', 'rotate(' + secDeg + ' 250 250)');
+                this.analog.setAttribute('visibility', (this.chronoVisible) ? 'visible' : 'hidden');
             }
             if (this.digital) {
-                this.digital.textContent = Utils.timeToString(hours, minutes, -1);
+                this.digital.textContent = Utils.timeToString(-1, minutes, seconds);
+                this.digital.classList.toggle('hide', !this.chronoVisible);
             }
         }
         if (this.xpdr) {
@@ -723,16 +759,36 @@ class B787_10_PFD_PlaneInfo extends NavSystemElement {
             let flightNumber = SimVar.GetSimVarValue("ATC FLIGHT NUMBER", "string");
             this.flight.textContent = (flightNumber != "") ? flightNumber : "787-10 Dreamliner";
         }
+        if (this.freq) {
+            let activeFreq = SimVar.GetSimVarValue("L:VHF_ACTIVE_INDEX:1", "number") + 1;
+            this.freq.textContent = this.gps.radioNav.getVHFActiveFrequency(1, activeFreq).toFixed(3);
+        }
     }
     onExit() {
     }
     onEvent(_event) {
+        switch (_event) {
+            case "BTN_Clock":
+                if (this.chronoVisible) {
+                    if (this.chronoStarted) {
+                        this.chronoStarted = false;
+                    }
+                    else {
+                        this.chronoVisible = false;
+                    }
+                }
+                else {
+                    this.chronoVisible = true;
+                    this.chronoStarted = true;
+                }
+                break;
+        }
     }
 }
 class B787_10_PFD_DayInfo extends NavSystemElement {
     constructor() {
         super(...arguments);
-        this.flightCurTime = 0;
+        this.flightDuration = 0;
         this.flightStartTime = -1;
     }
     init(root) {
@@ -745,7 +801,7 @@ class B787_10_PFD_DayInfo extends NavSystemElement {
     onUpdate(_deltaTime) {
         if (this.flightStartTime <= 0) {
             this.flightStartTime = SimVar.GetSimVarValue("E:ABSOLUTE TIME", "seconds");
-            this.flightCurTime = this.flightStartTime;
+            this.flightDuration = 0;
         }
         if (this.utc) {
             var value = SimVar.GetGlobalVarValue("ZULU TIME", "seconds");
@@ -781,9 +837,9 @@ class B787_10_PFD_DayInfo extends NavSystemElement {
         if (this.elapsed) {
             var value = SimVar.GetSimVarValue("E:ABSOLUTE TIME", "seconds");
             if (value >= this.flightStartTime) {
-                this.flightCurTime = value - this.flightStartTime;
+                this.flightDuration = value - this.flightStartTime;
             }
-            this.elapsed.textContent = Utils.SecondsToDisplayTime(this.flightCurTime, true, false, false);
+            this.elapsed.textContent = Utils.SecondsToDisplayTime(this.flightDuration, true, false, false);
         }
     }
     onExit() {

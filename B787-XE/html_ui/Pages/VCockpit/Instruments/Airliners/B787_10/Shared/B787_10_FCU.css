@@ -9,6 +9,20 @@
   0%, 100% {
     visibility: hidden; } }
 
+html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden; }
+  html body {
+    -webkit-user-select: none;
+    font-family: Roboto-Regular;
+    font-size: calc(var(--viewportHeightRatio) * (36px / 21.6) * var(--currentPageHeight) / 100);
+    color: white;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0; }
+
 #highlight {
   position: absolute;
   height: 100%;
@@ -48,19 +62,33 @@
 div {
   position: absolute;
   left: 0%;
-  top: 0%;
-  width: 100%;
+  top: -2%;
+  width: 101%;
   height: 100%;
   fill: white;
   letter-spacing: 8px; }
 
 #value {
   font-family: Digital;
-  font-size: 100px;
-  text-align: right; }
+  font-size: 130px;
+  text-align: right;
+  letter-spacing: 20px; }
 
 #mode {
-  font-family: Roboto-Light;
-  font-size: 50px;
-  text-align: left; }
+  font-family: Roboto;
+  font-size: 70px;
+  text-align: left;
+  letter-spacing: 15px; }
+
+b787-10-vspeed-element #value {
+  font-family: Digital;
+  font-size: 120px;
+  text-align: right;
+  letter-spacing: 13px; }
+
+b787-10-vspeed-element #mode {
+  font-family: Roboto;
+  font-size: 65px;
+  text-align: left;
+  letter-spacing: 3px; }
 

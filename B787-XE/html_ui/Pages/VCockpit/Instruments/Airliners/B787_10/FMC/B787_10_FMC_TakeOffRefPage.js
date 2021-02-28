@@ -1,7 +1,6 @@
 class B787_10_FMC_TakeOffRefPage {
     static ShowPage1(fmc) {
         fmc.clearDisplay();
-        fmc.updateVSpeeds();
         B787_10_FMC_TakeOffRefPage._timer = 0;
         fmc.pageUpdate = () => {
             B787_10_FMC_TakeOffRefPage._timer++;
@@ -17,8 +16,7 @@ class B787_10_FMC_TakeOffRefPage {
             let value = fmc.inOut;
             fmc.clearUserInput();
             if (value === FMCMainDisplay.clrValue) {
-                fmc.v1Speed = undefined;
-                SimVar.SetSimVarValue("L:AIRLINER_V1_SPEED", "Knots", -1);
+                fmc.trySetV1Speed(undefined);
                 B787_10_FMC_TakeOffRefPage.ShowPage1(fmc);
             }
             else if (value === "") {
@@ -39,8 +37,7 @@ class B787_10_FMC_TakeOffRefPage {
             let value = fmc.inOut;
             fmc.clearUserInput();
             if (value === FMCMainDisplay.clrValue) {
-                fmc.vRSpeed = undefined;
-                SimVar.SetSimVarValue("L:AIRLINER_VR_SPEED", "Knots", -1);
+                fmc.trySetVRSpeed(undefined);
                 B787_10_FMC_TakeOffRefPage.ShowPage1(fmc);
             }
             else if (value === "") {
@@ -61,8 +58,7 @@ class B787_10_FMC_TakeOffRefPage {
             let value = fmc.inOut;
             fmc.clearUserInput();
             if (value === FMCMainDisplay.clrValue) {
-                fmc.v2Speed = undefined;
-                SimVar.SetSimVarValue("L:AIRLINER_V2_SPEED", "Knots", -1);
+                fmc.trySetV2Speed(undefined);
                 B787_10_FMC_TakeOffRefPage.ShowPage1(fmc);
             }
             else if (value === "") {
@@ -123,7 +119,7 @@ class B787_10_FMC_TakeOffRefPage {
             ["RW COND", "SHIFT", "POS"],
             ["DRY", "", runwayCell],
             ["__FMCSEPARATOR"],
-            ["<INDEX", "<THRUST LIM"]
+            ["\<INDEX", "<THRUST LIM"]
         ]);
         fmc.onLeftInput[5] = () => { B787_10_FMC_InitRefIndexPage.ShowPage1(fmc); };
         fmc.onRightInput[5] = () => { B787_10_FMC_ThrustLimPage.ShowPage1(fmc); };

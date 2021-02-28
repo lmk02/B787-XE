@@ -108,13 +108,13 @@ class B787_10_FMC_RoutePage {
             ["RUNWAY", "FLT NO"],
             [runwayCell, flightNoCell],
             ["REQUEST", "CO ROUTE"],
-            ["<SEND", coRouteCell],
+            ["\<SEND", coRouteCell],
             ["--------------------------------------"],
             [""],
             [""],
             [""],
             [""],
-            ["<RTE 2", activateCell]
+            ["\<RTE 2", activateCell]
         ]);
         fmc.onNextPage = () => {
             B787_10_FMC_RoutePage.ShowPage2(fmc);
@@ -257,7 +257,7 @@ class B787_10_FMC_RoutePage {
             [""],
             rows[4],
             [""],
-            ["<RTE 2", activateCell]
+            ["\<RTE 2", activateCell]
         ]);
         fmc.onPrevPage = () => {
             if (offset === 0) {

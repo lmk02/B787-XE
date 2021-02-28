@@ -14,7 +14,7 @@ class B787_10_FMC_MaintPage {
             [""],
             [""],
             [""],
-            ["<INDEX"]
+            ["\<INDEX"]
         ]);
         fmc.onLeftInput[5] = () => { B787_10_FMC_InitRefIndexPage.ShowPage1(fmc); };
     }

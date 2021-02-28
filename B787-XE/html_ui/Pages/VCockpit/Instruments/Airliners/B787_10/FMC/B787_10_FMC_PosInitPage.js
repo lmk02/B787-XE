@@ -42,7 +42,7 @@ class B787_10_FMC_PosInitPage {
             ["SET HDG", "SET IRS POS"],
             [heading, irsPos],
             ["__FMCSEPARATOR"],
-            ["<INDEX", "<ROUTE"]
+            ["\<INDEX", "<ROUTE"]
         ]);
         fmc.onRightInput[0] = () => {
             fmc.inOut = fmc.lastPos;
@@ -100,9 +100,9 @@ class B787_10_FMC_PosInitPage {
             [""],
             [""],
             ["-----------------", "GPS NAV"],
-            ["<PURGE", "<INHIBIT"],
+            ["\<PURGE", "<INHIBIT"],
             [""],
-            ["<INDEX", "<BRG/DIST"]
+            ["\<INDEX", "<BRG/DIST"]
         ]);
         fmc.onLeftInput[5] = () => { B787_10_FMC_InitRefIndexPage.ShowPage1(fmc); };
         fmc.onRightInput[5] = () => { };
@@ -125,7 +125,7 @@ class B787_10_FMC_PosInitPage {
             ["GPS R", "GS"],
             ["000°/0.0NM", "290KT"],
             ["__FMCSEPARATOR"],
-            ["<INDEX", "<LAT/LON"]
+            ["\<INDEX", "<LAT/LON"]
         ]);
         fmc.onLeftInput[5] = () => { B787_10_FMC_InitRefIndexPage.ShowPage1(fmc); };
         fmc.onRightInput[5] = () => { };

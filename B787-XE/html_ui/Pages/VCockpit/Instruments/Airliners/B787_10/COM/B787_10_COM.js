@@ -22,8 +22,8 @@ class B787_10_Com extends BaseAirliners {
     disconnectedCallback() {
         super.disconnectedCallback();
     }
-    Update() {
-        super.Update();
+    onUpdate(_deltaTime) {
+        super.onUpdate(_deltaTime);
         for (let i = 0; i < this.allPages.length; i++) {
             if (this.allPages[i].visible)
                 this.allPages[i].onUpdate(this.deltaTime);
@@ -178,6 +178,7 @@ class B787_10_Com_VHF extends B787_10_Com_Page {
     set activeLine(_id) {
         if (this._activeLine != _id) {
             this._activeLine = _id;
+            SimVar.SetSimVarValue("L:VHF_ACTIVE_INDEX:" + this.com.instrumentIndex, "number", _id);
             switch (this._activeLine) {
                 case 0:
                     this.l1Title.textContent = "ACTIVE";

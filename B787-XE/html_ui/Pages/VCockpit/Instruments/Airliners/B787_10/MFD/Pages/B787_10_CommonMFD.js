@@ -18,6 +18,12 @@ var B787_10_CommonMFD;
             this.style.left = _xPercent + "%";
             this.style.width = _widthPercent + "%";
             this.style.display = "block";
+            if (_widthPercent < 55 && _xPercent < 5) {
+                this.setAttribute("border", "right");
+            }
+            else {
+                this.setAttribute("border", "");
+            }
             this.visible = true;
         }
         hide() {

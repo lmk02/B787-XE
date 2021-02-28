@@ -1,4 +1,41 @@
 ﻿:root {
+  --bodyHeightScale: 1; }
+
+@keyframes TemporaryShow {
+  0%, 100% {
+    visibility: visible; } }
+
+@keyframes TemporaryHide {
+  0%, 100% {
+    visibility: hidden; } }
+
+html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden; }
+  html body {
+    -webkit-user-select: none;
+    font-family: Roboto-Regular;
+    font-size: calc(var(--viewportHeightRatio) * (36px / 21.6) * var(--currentPageHeight) / 100);
+    color: white;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0; }
+
+#highlight {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 10; }
+
+#Electricity {
+  width: 100%;
+  height: 100%; }
+  #Electricity[state=off] {
+    display: none; }
+
+:root {
   --eicasWhite: white;
   --eicasBlack: black;
   --eicasDarkGrey: #323232;
@@ -90,7 +127,7 @@ b787-10-nd-element {
       top: 0%;
       right: 0%;
       width: 10%;
-      height: get-scaledvh(3);
+      height: calc( 3 * 1vh * var(--bodyHeightScale));
       background-color: #1a1d21;
       color: white; }
     b787-10-nd-element #Map #WindData {
@@ -103,7 +140,7 @@ b787-10-nd-element {
       bottom: 0%;
       right: 0%;
       width: 7%;
-      height: get-scaledvh(3);
+      height: calc( 3 * 1vh * var(--bodyHeightScale));
       background-color: #1a1d21;
       color: #36c8d2; }
     b787-10-nd-element #Map #MapSVG, b787-10-nd-element #Map #road-network-canvas {
@@ -134,7 +171,7 @@ b787-10-nd-element {
       left: 0%;
       width: 40%;
       position: absolute; }
-      b787-10-nd-element #NDInfo #TopBox #Speed #Wind_Arrow {
+      b787-10-nd-element #NDInfo #TopBox #Speed #WindArrowContainer {
         transform: translate(40px, 150px); }
     b787-10-nd-element #NDInfo #TopBox #Approach {
       top: 50%;
@@ -251,7 +288,7 @@ b787-10-nd-element {
     top: 15%;
     width: 39%;
     height: 60%; }
-    b787-10-nd-element[halfsize=true] #NDInfo #TopBox #Speed #Wind_Arrow {
+    b787-10-nd-element[halfsize=true] #NDInfo #TopBox #Speed #WindArrowContainer {
       transform: translate(18px, 90px) scale(0.5); }
   b787-10-nd-element[halfsize=true] #NDInfo #TopBox #Approach,
   b787-10-nd-element[halfsize=true] #NDInfo #TopBox #Waypoint {
@@ -265,4 +302,20 @@ b787-10-nd-element {
   b787-10-nd-element[halfsize=true] #NDInfo #TopBox text.Small,
   b787-10-nd-element[halfsize=true] #NDInfo #TopBox text.Units {
     font-size: 15px; }
+  b787-10-nd-element[border=left] #Borders {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-left: 2px inset white;
+    pointer-events: none; }
+  b787-10-nd-element[border=right] #Borders {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-right: 2px inset white;
+    pointer-events: none; }
 

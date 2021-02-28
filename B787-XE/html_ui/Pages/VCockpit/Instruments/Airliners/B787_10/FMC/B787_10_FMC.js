@@ -102,6 +102,9 @@ class B787_10_FMC extends Boeing_FMC {
                 this._pointer.style.left = x + "px";
                 this._pointer.style.top = y + "px";
             });
+            document.body.style.overflow = "hidden";
+            document.body.style.clip = "auto";
+            document.body.style.position = "absolute";
             this.getChildById(".fms-init-ref").addEventListener("mouseup", () => {
                 B787_10_FMC_InitRefIndexPage.ShowPage1(this);
             });
@@ -192,8 +195,8 @@ class B787_10_FMC extends Boeing_FMC {
         this.deactivateVNAV();
         Coherent.call("GENERAL_ENG_THROTTLE_MANAGED_MODE_SET", ThrottleMode.HOLD);
     }
-    Update() {
-        super.Update();
+    onUpdate(_deltaTime) {
+        super.onUpdate(_deltaTime);
         if (this.urlConfig.index != 1) {
             return;
         }
@@ -208,14 +211,14 @@ class B787_10_FMC extends Boeing_FMC {
             this._dateDivs = document.body.querySelectorAll(".fms-date");
         }
         if (this._timeDivs && this._dateDivs) {
-            let t = SimVar.GetGlobalVarValue("LOCAL TIME", "seconds");
+            let t = SimVar.GetGlobalVarValue("ZULU TIME", "seconds");
             let hours = Math.floor(t / 3600);
             let minutes = Math.floor((t - hours * 3600) / 60);
             let seconds = t - hours * 3600 - minutes * 60;
             let timeText = hours.toFixed(0).padStart(2, "0") + ":" + minutes.toFixed(0).padStart(2, "0") + ":" + seconds.toFixed(0).padStart(2, "0");
-            let y = SimVar.GetGlobalVarValue("LOCAL YEAR", "number");
-            let m = SimVar.GetGlobalVarValue("LOCAL MONTH OF YEAR", "number");
-            let d = SimVar.GetGlobalVarValue("LOCAL DAY OF MONTH", "number");
+            let y = SimVar.GetGlobalVarValue("ZULU YEAR", "number");
+            let m = SimVar.GetGlobalVarValue("ZULU MONTH OF YEAR", "number");
+            let d = SimVar.GetGlobalVarValue("ZULU DAY OF MONTH", "number");
             let dateText = d.toFixed(0) + " " + B787_10_FMC._MonthOfYear[m - 1] + " " + y.toFixed(0);
             this._timeDivs.forEach(d => {
                 d.innerText = timeText;
@@ -289,91 +292,112 @@ class B787_10_FMC extends Boeing_FMC {
         return 19;
     }
     _computeV1Speed() {
+        console.log("Computing V1...");
         let runwayCoef = 1.0;
         {
             let runway = this.flightPlanManager.getDepartureRunway();
             if (!runway) {
                 runway = this.flightPlanManager.getDetectedCurrentRunway();
             }
-            console.log(runway);
             if (runway) {
-                let f = (runway.length - 1500) / (2500 - 1500);
+                console.log("Runway length = " + runway.length);
+                let f = (runway.length - 2250) / (3250 - 2250);
                 runwayCoef = Utils.Clamp(f, 0, 1);
             }
+            else {
+                console.log("No Runway");
+            }
         }
-        let dWeightCoeff = (this.getWeight(true) - 350) / (560 - 350);
+        let w = this.getWeight(true);
+        console.log("Weight = " + w);
+        let dWeightCoeff = (w - 350) / (560 - 350);
         dWeightCoeff = Utils.Clamp(dWeightCoeff, 0, 1);
-        dWeightCoeff = 0.82 + (1.06 - 0.82) * dWeightCoeff;
+        dWeightCoeff = 0.90 + (1.16 - 0.9) * dWeightCoeff;
         let flapsHandleIndex = Simplane.getFlapsHandleIndex();
         let temp = SimVar.GetSimVarValue("AMBIENT TEMPERATURE", "celsius");
         let index = this._getIndexFromTemp(temp);
-        console.log("Index From Temp = " + index);
+        console.log("Temperature = " + temp + " (index " + index + ")");
         let min = B787_10_FMC._v1s[index][0];
         let max = B787_10_FMC._v1s[index][1];
         this.v1Speed = min * (1 - runwayCoef) + max * runwayCoef;
         this.v1Speed *= dWeightCoeff;
-        this.v1Speed -= (flapsHandleIndex - 4) * 9;
+        this.v1Speed -= flapsHandleIndex * 5;
         this.v1Speed = Math.round(this.v1Speed);
+        this.customV1Speed = false;
         SimVar.SetSimVarValue("L:AIRLINER_V1_SPEED", "Knots", this.v1Speed);
-        console.log("Computed V1Speed = " + this.v1Speed);
+        console.log("V1 = " + this.v1Speed);
     }
     _computeVRSpeed() {
+        console.log("Computing VR...");
         let runwayCoef = 1.0;
         {
             let runway = this.flightPlanManager.getDepartureRunway();
             if (!runway) {
                 runway = this.flightPlanManager.getDetectedCurrentRunway();
             }
-            console.log(runway);
             if (runway) {
-                let f = (runway.length - 1500) / (2500 - 1500);
+                console.log("Runway length = " + runway.length);
+                let f = (runway.length - 2250) / (3250 - 2250);
                 runwayCoef = Utils.Clamp(f, 0, 1);
             }
+            else {
+                console.log("No Runway");
+            }
         }
-        let dWeightCoeff = (this.getWeight(true) - 350) / (560 - 350);
+        let w = this.getWeight(true);
+        console.log("Weight = " + w);
+        let dWeightCoeff = (w - 350) / (560 - 350);
         dWeightCoeff = Utils.Clamp(dWeightCoeff, 0, 1);
-        dWeightCoeff = 0.85 + (1.075 - 0.85) * dWeightCoeff;
+        dWeightCoeff = 0.99 + (1.215 - 0.99) * dWeightCoeff;
         let flapsHandleIndex = Simplane.getFlapsHandleIndex();
         let temp = SimVar.GetSimVarValue("AMBIENT TEMPERATURE", "celsius");
         let index = this._getIndexFromTemp(temp);
-        console.log("Index From Temp = " + index);
+        console.log("Temperature = " + temp + " (index " + index + ")");
         let min = B787_10_FMC._vRs[index][0];
         let max = B787_10_FMC._vRs[index][1];
         this.vRSpeed = min * (1 - runwayCoef) + max * runwayCoef;
         this.vRSpeed *= dWeightCoeff;
-        this.vRSpeed -= (flapsHandleIndex - 4) * 9;
+        this.vRSpeed -= flapsHandleIndex * 5;
         this.vRSpeed = Math.round(this.vRSpeed);
+        this.customVRSpeed = false;
         SimVar.SetSimVarValue("L:AIRLINER_VR_SPEED", "Knots", this.vRSpeed);
-        console.log("Computed VRSpeed = " + this.vRSpeed);
+        console.log("VR = " + this.vRSpeed);
     }
     _computeV2Speed() {
+        console.log("Computing V2...");
         let runwayCoef = 1.0;
         {
             let runway = this.flightPlanManager.getDepartureRunway();
             if (!runway) {
                 runway = this.flightPlanManager.getDetectedCurrentRunway();
             }
-            console.log(runway);
             if (runway) {
-                let f = (runway.length - 1500) / (2500 - 1500);
+                console.log("Runway length = " + runway.length);
+                let f = (runway.length - 2250) / (3250 - 2250);
                 runwayCoef = Utils.Clamp(f, 0.0, 1.0);
             }
+            else {
+                console.log("No Runway");
+            }
         }
-        let dWeightCoeff = (this.getWeight(true) - 350) / (560 - 350);
+        let weight = this.getWeight(true);
+        console.log("Weight = " + weight);
+        let dWeightCoeff = (weight - 350) / (560 - 350);
         dWeightCoeff = Utils.Clamp(dWeightCoeff, 0, 1);
-        dWeightCoeff = 0.88 + (1.08 - 0.88) * dWeightCoeff;
+        dWeightCoeff = 1.03 + (1.23 - 1.03) * dWeightCoeff;
         let flapsHandleIndex = Simplane.getFlapsHandleIndex();
         let temp = SimVar.GetSimVarValue("AMBIENT TEMPERATURE", "celsius");
         let index = this._getIndexFromTemp(temp);
-        console.log("Index From Temp = " + index);
+        console.log("Temperature = " + temp + " (index " + index + ")");
         let min = B787_10_FMC._v2s[index][0];
         let max = B787_10_FMC._v2s[index][1];
         this.v2Speed = min * (1 - runwayCoef) + max * runwayCoef;
         this.v2Speed *= dWeightCoeff;
-        this.v2Speed -= (flapsHandleIndex - 4) * 9;
+        this.v2Speed -= flapsHandleIndex * 5;
         this.v2Speed = Math.round(this.v2Speed);
+        this.customV2Speed = false;
         SimVar.SetSimVarValue("L:AIRLINER_V2_SPEED", "Knots", this.v2Speed);
-        console.log("Computed VRSpeed = " + this.v2Speed);
+        console.log("VR = " + this.v2Speed);
     }
     getFlapTakeOffSpeed() {
         let dWeight = (this.getWeight(true) - 500) / (900 - 500);
@@ -388,27 +412,62 @@ class B787_10_FMC extends Boeing_FMC {
         return 204 + 40 * dWeight;
     }
     getClbManagedSpeed() {
-        let dCI = this.costIndex / 999;
+        let dCI = this.getCostIndexFactor();
         let speed = 310 * (1 - dCI) + 330 * dCI;
-        if (SimVar.GetSimVarValue("PLANE ALTITUDE", "feets") < 10000) {
-            speed = Math.min(speed, 250);
+        if (this.overSpeedLimitThreshold) {
+            if (Simplane.getAltitude() < 9800) {
+                speed = Math.min(speed, 250);
+                this.overSpeedLimitThreshold = false;
+            }
+        }
+        else if (!this.overSpeedLimitThreshold) {
+            if (Simplane.getAltitude() < 10000) {
+                speed = Math.min(speed, 250);
+            }
+            else {
+                this.overSpeedLimitThreshold = true;
+            }
         }
         return speed;
     }
     getCrzManagedSpeed(highAltitude = false) {
-        let dCI = this.costIndex / 999;
+        let dCI = this.getCostIndexFactor();
         dCI = dCI * dCI;
         let speed = 310 * (1 - dCI) + 330 * dCI;
-        if (!highAltitude && SimVar.GetSimVarValue("PLANE ALTITUDE", "feets") < 10000) {
-            speed = Math.min(speed, 250);
+        if (!highAltitude) {
+            if (this.overSpeedLimitThreshold) {
+                if (Simplane.getAltitude() < 9800) {
+                    speed = Math.min(speed, 250);
+                    this.overSpeedLimitThreshold = false;
+                }
+            }
+            else if (!this.overSpeedLimitThreshold) {
+                if (Simplane.getAltitude() < 10000) {
+                    speed = Math.min(speed, 250);
+                }
+                else {
+                    this.overSpeedLimitThreshold = true;
+                }
+            }
         }
         return speed;
     }
     getDesManagedSpeed() {
-        let dCI = this.costIndex / 999;
-        let speed = 240 * (1 - dCI) + 260 * dCI;
-        if (SimVar.GetSimVarValue("PLANE ALTITUDE", "feets") < 10000) {
-            speed = Math.min(speed, 250);
+        let dCI = this.getCostIndexFactor();
+        let speed = 280 * (1 - dCI) + 300 * dCI;
+        if (this.overSpeedLimitThreshold) {
+            if (Simplane.getAltitude() < 9800) {
+                speed = Math.min(speed, 250);
+                this.overSpeedLimitThreshold = false;
+            }
+        }
+        else if (!this.overSpeedLimitThreshold) {
+            if (Simplane.getAltitude() < 10000) {
+                speed = Math.min(speed, 250);
+            }
+            else {
+                this.overSpeedLimitThreshold = true;
+            }
         }
         return speed;
     }
@@ -606,14 +665,14 @@ class B787_10_FMC extends Boeing_FMC {
                 SimVar.SetSimVarValue("AUTOPILOT THROTTLE MAX THRUST", "number", n1);
             }
             if (this._apHasActivated) {
-                if (!this._isVNAVArmed && !this._isVNAVActive) {
+                if (!this.getIsVNAVArmed() && !this.getIsVNAVActive()) {
                     this.activateSPD();
                     this.activateVSpeed();
                 }
                 else {
                     this.activateVNAV();
                 }
-                if (!this._isLNAVArmed && !this._isLNAVActive) {
+                if (!this.getIsLNAVArmed() && !this.getIsLNAVActive()) {
                     this.activateHeadingHold();
                 }
                 else {
@@ -661,16 +720,16 @@ class B787_10_FMC extends Boeing_FMC {
                 let targetAltitude = Simplane.getAutoPilotAltitudeLockValue();
                 let altitude = Simplane.getAltitude();
                 let deltaAltitude = Math.abs(targetAltitude - altitude);
-                if (deltaAltitude < 40) {
-                    this.activateAltitudeHold();
+                if (deltaAltitude < 150) {
+                    this.activateAltitudeHold(true);
                 }
             }
             if (this.getIsVSpeedActive()) {
                 let targetAltitude = Simplane.getAutoPilotAltitudeLockValue();
                 let altitude = Simplane.getAltitude();
                 let deltaAltitude = Math.abs(targetAltitude - altitude);
-                if (deltaAltitude < 40) {
-                    this.activateAltitudeHold();
+                if (deltaAltitude < 150) {
+                    this.activateAltitudeHold(true);
                 }
             }
             if (this._pendingHeadingSelActivation) {
@@ -744,7 +803,8 @@ class B787_10_FMC extends Boeing_FMC {
                     if (!this.flightPlanManager.getIsDirectTo() &&
                         isFinite(nextWaypoint.legAltitude1) &&
                         nextWaypoint.legAltitude1 < 20000 &&
-                        nextWaypoint.legAltitude1 > selectedAltitude) {
+                        nextWaypoint.legAltitude1 > selectedAltitude &&
+                        Simplane.getAltitude() > nextWaypoint.legAltitude1 - 200) {
                         Coherent.call("AP_ALT_VAR_SET_ENGLISH", 2, nextWaypoint.legAltitude1, this._forceNextAltitudeUpdate);
                         this._forceNextAltitudeUpdate = false;
                         SimVar.SetSimVarValue("L:AP_CURRENT_TARGET_ALTITUDE_IS_CONSTRAINT", "number", 1);
@@ -767,7 +827,10 @@ class B787_10_FMC extends Boeing_FMC {
                     }
                 }
             }
-            if (this._isVNAVArmed && !this._isVNAVActive) {
+            else if (!this.getIsFLCHActive() && this.getIsSPDActive()) {
+                this.setAPSpeedHoldMode();
+            }
+            if (this.getIsVNAVArmed() && !this.getIsVNAVActive()) {
                 if (Simplane.getAutoPilotThrottleArmed()) {
                     if (!this._hasSwitchedToHoldOnTakeOff) {
                         let speed = Simplane.getIndicatedSpeed();
@@ -781,7 +844,7 @@ class B787_10_FMC extends Boeing_FMC {
             if (this._isHeadingHoldActive) {
                 Coherent.call("HEADING_BUG_SET", 2, this._headingHoldValue);
             }
-            if (!this.flightPlanManager.isActiveApproach()) {
+            if (!this.flightPlanManager.isActiveApproach() && this.currentFlightPhase != FlightPhase.FLIGHT_PHASE_APPROACH) {
                 let activeWaypoint = this.flightPlanManager.getActiveWaypoint();
                 let nextActiveWaypoint = this.flightPlanManager.getNextActiveWaypoint();
                 if (activeWaypoint && nextActiveWaypoint) {
@@ -808,7 +871,7 @@ class B787_10_FMC extends Boeing_FMC {
             SimVar.SetSimVarValue("SIMVAR_AUTOPILOT_AIRSPEED_MAX_CALCULATED", "knots", Simplane.getMaxSpeed(Aircraft.AS01B));
             if (this.getIsVNAVActive()) {
                 let altitude = Simplane.getAltitude();
-                let targetAltitude = Simplane.getAutoPilotAltitudeLockValue("feets");
+                let targetAltitude = Simplane.getAutoPilotAltitudeLockValue("feet");
                 let delta = Math.abs(targetAltitude - altitude);
                 if (delta > 400) {
                     this.activateAltitudeSel();
@@ -822,7 +885,7 @@ class B787_10_FMC extends Boeing_FMC {
             }
             if (this.currentFlightPhase === FlightPhase.FLIGHT_PHASE_TAKEOFF) {
                 if (this.getIsVNAVActive()) {
-                    let speed = this.getCleanTakeOffSpeed();
+                    let speed = this.getTakeOffManagedSpeed();
                     this.setAPManagedSpeed(speed, Aircraft.AS01B);
                 }
             }
@@ -983,6 +1046,20 @@ class B787_10_FMC extends Boeing_FMC {
                 }
             });
         }
+        let fmsPrevPageElement = this.getChildById(".fms-prev-page");
+        fmsPrevPageElement.addEventListener("mouseenter", () => {
+            fmsPrevPageElement.style.border = "2px solid magenta";
+        });
+        fmsPrevPageElement.addEventListener("mouseleave", () => {
+            fmsPrevPageElement.style.border = "";
+        });
+        let fmsNextPageElement = this.getChildById(".fms-next-page");
+        fmsNextPageElement.addEventListener("mouseenter", () => {
+            fmsNextPageElement.style.border = "2px solid magenta";
+        });
+        fmsNextPageElement.addEventListener("mouseleave", () => {
+            fmsNextPageElement.style.border = "";
+        });
         return;
     }
     setPageCurrent(value) {

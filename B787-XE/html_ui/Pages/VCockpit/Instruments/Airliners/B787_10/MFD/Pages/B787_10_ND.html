@@ -17,7 +17,9 @@
                     <text id="Wind_Direction" class="Value" x="0%" y="45%" alignment-baseline="baseline">--</text>
                     <text id="Wind_Separator" class="Large" x="14%" y="45%" alignment-baseline="baseline">/</text>
                     <text id="Wind_Strength" class="Value" x="22%" y="45%" alignment-baseline="baseline">--</text>
-                    <polygon id="Wind_Arrow" points="-3 20, 3 20, 3 -20, 15 -20, 0 -40, -15 -20, -3 -20" transform="rotate(0)" fill="lime" display="none" />
+                    <g id="WindArrowContainer">
+                        <polygon id="Wind_Arrow" points="-3 20, 3 20, 3 -20, 15 -20, 0 -40, -15 -20, -3 -20" fill="white" display="none" />
+                    </g>
                 </svg>
             </div>
 
@@ -107,6 +109,7 @@
             <g id="Map_Menu"></g>
         </svg>
     </div>
+    <div id="Borders"></div>
 </script>
 
 <script type="text/html" import-script="/Pages/VCockpit/Instruments/Airliners/B787_10/MFD/Pages/B787_10_ND.js"></script>

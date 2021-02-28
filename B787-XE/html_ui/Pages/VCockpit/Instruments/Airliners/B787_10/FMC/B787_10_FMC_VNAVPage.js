@@ -100,7 +100,7 @@ class B787_10_FMC_VNAVPage {
             ["PAUSE @ DIST FROM DEST"],
             ["OFF", "<FORECAST"],
             [],
-            ["<OFFPATH DES"]
+            ["\<OFFPATH DES"]
         ]);
         fmc.onPrevPage = () => { B787_10_FMC_VNAVPage.ShowPage2(fmc); };
         fmc.updateSideButtonActiveStatus();

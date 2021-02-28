@@ -40,7 +40,7 @@ class B787_10_ND extends B787_10_CommonMFD.MFDTemplateElement {
                 this.navButtons[i].addEventListener("mouseup", this.onMousePress.bind(this, i));
             }
             this.navMenu = new B787_10_ND_NavigationMenu(this, _gps.getChildById("#Map_Menu"));
-            this.onNavButton(0);
+            this.onNavButton(B787_10_NavButtons.MAP);
             this.forceMapUpdate = true;
         }
     }
@@ -79,7 +79,7 @@ class B787_10_ND extends B787_10_CommonMFD.MFDTemplateElement {
                 if (this.map.mode != Jet_NDCompass_Display.PLAN) {
                     this.mapIsCentered = !this.mapIsCentered;
                     this.forceMapUpdate = true;
-                    this.onNavButton(0);
+                    this.onNavButton(B787_10_NavButtons.MAP);
                     this.navMenu.refresh();
                 }
                 break;
@@ -116,8 +116,14 @@ class B787_10_ND extends B787_10_CommonMFD.MFDTemplateElement {
                     this.wantedMapRange++;
                 break;
             case "Cursor_DEC":
-                if (this.navMenu.visible) {
-                    this.navMenu.onEvent(_event);
+                if (this.navMenu.visible && this.navMenu.highlight >= 0) {
+                    if (this.navMenu.highlight == 0) {
+                        this.setNavHighlight(B787_10_NavButtons.MENU);
+                        this.navMenu.highlight = -1;
+                    }
+                    else {
+                        this.navMenu.onEvent(_event);
+                    }
                 }
                 else {
                     if (this.navHighlight > 0)
@@ -127,18 +133,24 @@ class B787_10_ND extends B787_10_CommonMFD.MFDTemplateElement {
                 }
                 break;
             case "Cursor_INC":
-                if (this.navMenu.visible) {
-                    this.navMenu.onEvent(_event);
+                if (!this.navMenu.visible || this.navMenu.highlight < 0) {
+                    if (this.navHighlight >= 0 && this.navHighlight < this.navButtons.length - 1) {
+                        this.setNavHighlight(this.navHighlight + 1);
+                    }
+                    else if (this.navMenu.visible) {
+                        this.navMenu.highlight = 0;
+                        this.setNavHighlight(-1);
+                    }
+                    else if (this.navHighlight == -1) {
+                        this.setNavHighlight(this.navHighlightLastIndex);
+                    }
                 }
                 else {
-                    if (this.navHighlight >= 0 && this.navHighlight < this.navButtons.length - 1)
-                        this.setNavHighlight(this.navHighlight + 1);
-                    else if (this.navHighlight == -1)
-                        this.setNavHighlight(this.navHighlightLastIndex);
+                    this.navMenu.onEvent(_event);
                 }
                 break;
             case "Cursor_Press":
-                if (this.navMenu.visible) {
+                if (this.navMenu.visible && this.navMenu.highlight >= 0) {
                     this.navMenu.onEvent(_event);
                 }
                 else {
@@ -230,15 +242,15 @@ class B787_10_ND extends B787_10_CommonMFD.MFDTemplateElement {
     }
     onNavButton(_button) {
         switch (_button) {
-            case 0:
+            case B787_10_NavButtons.MAP:
                 this.wantedMapMode = 0;
                 this.navMenu.visible = false;
                 break;
-            case 1:
+            case B787_10_NavButtons.PLAN:
                 this.wantedMapMode = 1;
                 this.navMenu.visible = false;
                 break;
-            case 2:
+            case B787_10_NavButtons.MENU:
                 if (this.navMenu.visible) {
                     this.navMenu.visible = false;
                     this.setNavHighlight(2);
@@ -310,6 +322,12 @@ class B787_10_ND extends B787_10_CommonMFD.MFDTemplateElement {
         return this.map;
     }
 }
+var B787_10_NavButtons;
+(function (B787_10_NavButtons) {
+    B787_10_NavButtons[B787_10_NavButtons["MAP"] = 0] = "MAP";
+    B787_10_NavButtons[B787_10_NavButtons["PLAN"] = 1] = "PLAN";
+    B787_10_NavButtons[B787_10_NavButtons["MENU"] = 2] = "MENU";
+})(B787_10_NavButtons || (B787_10_NavButtons = {}));
 var B787_10_ND_PopupMenu_Key;
 (function (B787_10_ND_PopupMenu_Key) {
     B787_10_ND_PopupMenu_Key[B787_10_ND_PopupMenu_Key["VSD"] = 0] = "VSD";
@@ -398,7 +416,7 @@ class B787_10_ND_NavigationMenu extends Airliners.PopupMenu_Handler {
         {
             this.beginSection();
             {
-                this.addCheckbox("VSD", this.textSize, [B787_10_ND_PopupMenu_Key.VSD]);
+                this.addCheckbox("VSD", this.textSize, null);
             }
             this.endSection();
             this.buildTopShape(sectionRoot);
@@ -578,7 +596,7 @@ class B787_10_ND_Compass extends NavSystemElement {
 class B787_10_ND_Map extends MapInstrumentElement {
     constructor(_parent) {
         super();
-        this.zoomRanges = [0.25, 0.5, 1, 2, 5, 10, 20, 40, 80, 160, 320, 640];
+        this.zoomRanges = [0.5, 1, 2, 5, 10, 20, 40, 80, 160, 320, 640];
         this._fullscreen = false;
         this._parent = _parent;
         this.setGPS(this._parent.gps);
@@ -586,7 +604,7 @@ class B787_10_ND_Map extends MapInstrumentElement {
     get mode() { return this._mode; }
     init(_root) {
         super.init(_root);
-        this.instrument.zoomRanges = [10, 20, 40, 60, 160, 320, 640];
+        this.instrument.zoomRanges = [0.5, 1, 2, 5, 10, 20, 40, 80, 160, 320, 640];
         this.instrument.setZoom(0);
         this.instrument.showRoads = false;
         this.instrument.showObstacles = false;
@@ -645,7 +663,7 @@ class B787_10_ND_Map extends MapInstrumentElement {
                     this.instrument.centerOnActiveWaypoint(true);
                     this.instrument.setPlaneScale(2.0);
                     this.instrument.setPlaneIcon(3);
-                    this.instrument.zoomRanges = this.getAdaptiveRanges(2.3);
+                    this.instrument.zoomRanges = this.getAdaptiveRanges(4.6);
                     this._parent.setAttribute("mapstyle", "plan");
                     break;
                 }
@@ -655,7 +673,7 @@ class B787_10_ND_Map extends MapInstrumentElement {
         this._fullscreen = _val;
         switch (this.mode) {
             case Jet_NDCompass_Display.ARC:
-                this.instrument.zoomRanges = (this._fullscreen) ? this.getAdaptiveRanges(2.4) : this.getAdaptiveRanges(1.42);
+                this.instrument.zoomRanges = (this._fullscreen) ? this.getAdaptiveRanges(1.95) : this.getAdaptiveRanges(1.42);
                 break;
         }
     }
