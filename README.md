@@ -1,6 +1,6 @@
-continued at https://github.com/Heavy-Division/B78XH
+#continued at https://github.com/Heavy-Division/B78XH
 
-# Boeing 787-XE - A Microsoft Flight Simulator 2020 Mod
+## Boeing 787-XE - A Microsoft Flight Simulator 2020 Mod
 We have just started working on a mod for the Boeing 787-10. There is a lot of effort going into this mod. We are currently working on implementing all MFS Pages and improving the FMC. There is a lot more to come. We can't wait to improve the 787-10.
 
 ## Installation
